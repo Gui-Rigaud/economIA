@@ -65,7 +65,6 @@ model User {
   senha String @db.VarChar(255)
   telefone String @db.VarChar(255)
   data_nasc DateTime @db.Date
-  status Int @db.TinyInt
   created_at DateTime @default(now())
   finProfiles FinProfile[] 
   finTransactions FinTransactions[]
