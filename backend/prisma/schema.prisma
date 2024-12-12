@@ -33,7 +33,6 @@ model FinTransactions {
   id String @id @default(uuid())
   user_id String 
   data_transacao DateTime
-  categoria_transacao String? @db.VarChar(50)
   descricao String? @db.VarChar(255)
   valor Decimal @db.Decimal(15, 2)
   forma_pagamento String? @db.VarChar(40)
