@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 // -- Importando o arquivo pra cadastrar informações bancárias -- 
 
@@ -12,7 +13,7 @@ const router = Router();
 
 // -- Rota de cadastro das informações bancárias --
 
-router.post("/sendBankInfo", new RegisterBankInformationController().handle)
+router.post("/sendBankInfo", isAuthenticated, new RegisterBankInformationController().handle)
 
 // -- Rota de Categorias -- 
 
