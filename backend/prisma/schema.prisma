@@ -15,7 +15,7 @@ datasource db {
 
 model FinProfile {
   id Int @id @default(autoincrement())
-  user_id Int @unique
+  user_id String @unique
   renda_mensal Decimal? @db.Decimal(15, 2)
   despesas_fixas Decimal? @db.Decimal(15, 2)
   despesas_variaveis Decimal? @db.Decimal(15, 2)
@@ -30,8 +30,8 @@ model FinProfile {
 }
 
 model FinTransactions {
-  id Int @id @default(autoincrement())
-  user_id Int 
+  id String @id @default(uuid())
+  user_id String 
   data_transacao DateTime
   categoria_transacao String? @db.VarChar(50)
   descricao String? @db.VarChar(255)
@@ -44,7 +44,7 @@ model FinTransactions {
 
 model ConfigUser {
   id Int @id @default(autoincrement())
-  user_id Int @unique
+  user_id String @unique
   notificacoes_ativas Boolean @default(true)
   frequencia_relatorios FrequenciaRelatorios @default(SEMANAL)
   moeda_preferencial String @default("BRL")
@@ -58,15 +58,16 @@ model ConfigUser {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   name String @db.VarChar(255)
+  email String @db.VarChar (255)
   cpf String @db.VarChar(255)
   senha String @db.VarChar(255)
   telefone String @db.VarChar(255)
-  data_nasc DateTime
+  data_nasc DateTime @db.Date
   status Int @db.TinyInt
   created_at DateTime @default(now())
-  finProfiles FinProfile[]
+  finProfiles FinProfile[] 
   finTransactions FinTransactions[]
   configUsers ConfigUser[]
 }
