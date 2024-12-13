@@ -1,15 +1,30 @@
 import { Router } from "express";
+import multer from "multer";
+import uploadConfig from "./config/multer";
+
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 
-// -- Importando o arquivo pra cadastrar informações bancárias -- 
+// -- Cadastro e login de usuário -- 
+
+import { CreateUserController } from "./controllers/CreateUserController";
+import { AuthUserController } from "./controllers/AuthUserController";
+
+// -- Cadastro de informações bancárias -- 
 
 import { RegisterBankInformationController } from "./controllers/RegisterBankInformationController";
 
-// -- Importando os arquivos para cadastro e listagem de categorias -- 
+// -- Cadastro e listagem de categorias -- 
 
 import { ListCategoryController } from "./controllers/ListCategoryController";
 
 const router = Router();
+
+const upload = multer(uploadConfig.upload("./tmp"));
+
+// -- Rota de cadastro e login de usuário -- 
+
+router.post("/cadastro", new CreateUserController().handle)
+router.post("/login", new AuthUserController().handle)
 
 // -- Rota de cadastro das informações bancárias --
 

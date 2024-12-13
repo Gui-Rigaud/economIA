@@ -9,7 +9,7 @@ class RegisterBankInformationController{
         const registerBankInformationService = new RegisterBankInformationService();
 
         if (!req.file){
-            throw new Error("Error upload file");
+            throw new Error("Error uploading file");
         }else{
             const { originalname, filename: csv_file } = req.file;
 
