@@ -1,33 +1,17 @@
-'use client'
+import styles from './upload.module.scss'
+import UploadButton from "@/components/UploadButton";
+import logoImg from '/public/logo.svg'
+import Image from 'next/image';
 
-import React from "react"
-import Papa from 'papaparse';
-import styles from './upload.module.css'
+// A logo ta bugada mas deixei ai pra ter uma ideia ja 
 
-const accetableCSVFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv';
-
-export default function Upload(){
-  
-  function onFileChangeHandler(event: React.ChangeEvent<HTMLInputElement>){
-    if (event.target.files && event.target.files[0]){
-      const csvFile = event.target.files[0]
-      Papa.parse(csvFile, {
-        skipEmptyLines: true,
-        complete: function(results) {
-          console.log("Finished:", results.data);
-        }
-      });}else{
-        console.log('Nenhum arquivo encontrado')
-      }
-    
-}
-
-  return(
-    <header className={styles.Header}>
-      <label htmlFor="csvFileSelector" className={styles.InputLabel}>
-        Selecione o arquivo (*csv, xls, etc.)
-      </label>
-      <input type="file" id="csvFileSelector" accept={accetableCSVFileTypes} onChange={onFileChangeHandler} className={styles.Input}/>
-    </header>
+export default function Upload() {
+  return (
+    <div className={styles.Container}>
+      <Image src={logoImg} alt="Logo" width={150} height={150} /> 
+      <h1 className={styles.HighlightText}>Falta pouco!</h1>
+      <p>Precisamos de um documento com seus gastos para a análise da IA</p>
+      <UploadButton />
+    </div>
   )
 }

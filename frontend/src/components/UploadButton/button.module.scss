@@ -1,9 +1,11 @@
-.Header {
+.Container {
   height: 60px;
-  width: 100%;
+  width: 30%;
   border: 1px solid #fff;
   margin: 10px;
   transition: 0.3s;
+  border-radius: 8px;
+
 }
 
 .InputLabel {
@@ -19,13 +21,14 @@
   opacity: 0;
   z-index: -1;
   position: absolute;
+  
 }
 
-.Header:hover {
+.Container:hover {
   background-color: #49a078;
 }
 
-.Header:hover .InputLabel {
+.Container:hover .InputLabel {
   color: white;
   cursor: pointer;
 }
