@@ -37,9 +37,9 @@ export default function loginScreen()
                     <Image src = {logo} alt = "logo" width={400} height={400}/>
                 </div>
                 <form onSubmit = {handleSubmit(printData)}>
-                <div id = "forms-inputs" className = "grid grid-cols-1 gap-y-6 mt-[0px]">
-                    <input id = "email" type = "email" placeholder = "E-mail" {...register("email")} className = {`${roboto400.className} w-[436px] h-[56px] ml-[32px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
-                    <input type = "password" placeholder = "Senha" {...register("password")} className = {`${roboto400.className} w-[436px] h-[56px] ml-[32px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
+                <div id = "forms-inputs" className = "grid grid-cols-1 gap-y-6 mt-[0px] w-[436px]">
+                    <input id = "email" type = "email" placeholder = "E-mail" {...register("email")} className = {`${roboto400.className} h-[56px] ml-[32px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
+                    <input type = "password" placeholder = "Senha" {...register("password")} className = {`${roboto400.className} h-[56px] ml-[32px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
                 </div>
 
                     <div className = {`${roboto700.className} mt-[96px] flex flex-col items-center`}>
