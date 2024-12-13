@@ -19,8 +19,6 @@ import { ListCategoryController } from "./controllers/ListCategoryController";
 
 const router = Router();
 
-const upload = multer(uploadConfig.upload("./tmp"));
-
 // -- Rota de cadastro e login de usuário -- 
 
 router.post("/cadastro", new CreateUserController().handle)

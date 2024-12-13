@@ -1,24 +1,23 @@
 import { Request, Response } from "express";
 import { RegisterBankInformationService } from "../services/RegisterBankInformationService";
-import { CsvParser } from "csv-parser";
 
 class RegisterBankInformationController{
     async handle(req: Request, res: Response){
-        const { user_id } = req.body; 
+        const { user_id, renda_mensal, despesas_fixas, despesas_variaveis, objetivo_financeiro, perfil_risco, patrimonio_atual  } = req.body; 
         
         const registerBankInformationService = new RegisterBankInformationService();
 
-        if (!req.file){
-            throw new Error("Error uploading file");
-        }else{
-            const { originalname, filename: csv_file } = req.file;
+        const finProfile = registerBankInformationService.execute({
+            user_id,
+            renda_mensal,
+            despesas_fixas,
+            despesas_variaveis,
+            objetivo_financeiro,
+            perfil_risco,
+            patrimonio_atual
+        });
 
-            const product = await registerBankInformationService.execute({
-                user_id,
-                csv_file
-            });
-            return res.json("Informações bancárias registradas");
-        }
+        return res.json(finProfile);    
     }
 }
 
