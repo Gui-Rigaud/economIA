@@ -1,25 +1,28 @@
 import { Router } from "express";
 import multer from "multer";
-
-
-//import uploadConfig from './config/multer'
+//import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 const multerConfig = multer();
 
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
-import { RegisterBankTransactionController } from "./controllers/user/RegisterBankTransactionController";
+
+import { RegisterBankInformationController } from "./controllers/user/RegisterBankInformationController";
+import { RegisterBankTransactionController } from "./controllers/transactions/RegisterBankTransactionController";
 
 const router = Router();
 
 // --ROTAS USER--
 
-router.post('/csvreader', multerConfig.single('file'), new RegisterBankTransactionController().handle)
+router.post('/register/user', new CreateUserController().handle)
 
-router.post('/users', new CreateUserController().handle)
+router.post('/login', new AuthUserController().handle)
 
-router.post('/session', new AuthUserController().handle)
+router.post("/register/user/profile", new RegisterBankInformationController().handle)
 
+// --ROTAS TRANSACTION--
+
+router.post('/register/transaction', multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
 
 
