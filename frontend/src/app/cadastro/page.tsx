@@ -4,7 +4,7 @@ import React from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
-import logo from "../assets/logo.png"
+import logoblack from "../assets/logoblack.png"
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -41,7 +41,7 @@ export default function cadastroScreen()
             <form onSubmit={handleSubmit(printData)}>
                 <div id = "forms-container" className ={`bg-backgroundLightGray rounded-lg h-[700px] w-[1000px] ${roboto400.className}`}>
                 <div id = "logo-container" className = "flex justify-center items-center">
-                    <Image src = {logo} alt = "logo" width={200} height={200}/>
+                    <Image src = {logoblack} alt = "logo" width={200} height={200}/>
                 </div>
 
                     <div id = "forms-inputs" className = "grid grid-cols-2 mx-[32px] gap-x-[64px] gap-y-[32px]">

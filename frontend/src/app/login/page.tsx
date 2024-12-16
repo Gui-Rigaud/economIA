@@ -4,7 +4,7 @@ import React from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
-import logo from "../assets/logo.png"
+import logoblack from "../assets/logoblack.png"
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -34,7 +34,7 @@ export default function loginScreen()
         <div id = "screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
             <div id = "forms-container" className ={`bg-backgroundLightGray rounded-lg h-[700px] w-[500px] ${roboto400.className}`}>
                 <div id = "logo-container" className = "flex justify-center items-center">
-                    <Image src = {logo} alt = "logo" width={400} height={400}/>
+                    <Image src = {logoblack} alt = "logo" width={400} height={400}/>
                 </div>
                 <form onSubmit = {handleSubmit(printData)}>
                 <div id = "forms-inputs" className = "grid grid-cols-1 gap-y-6 mt-[0px] w-[436px]">
