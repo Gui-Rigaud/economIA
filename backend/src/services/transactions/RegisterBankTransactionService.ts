@@ -39,7 +39,7 @@ class RegisterTransactionService {
                 data_transacao: convertToDate(transactionLineSplit[0]),
                 descricao: transactionLineSplit[1],
                 valor: convertToInt(transactionLineSplit[3]),
-                forma_pagamento: "Cartão de Credito",
+                forma_pagamento: "Cartão de Crédito",
             });
         }
 
