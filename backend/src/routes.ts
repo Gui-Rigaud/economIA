@@ -10,6 +10,8 @@ import { AuthUserController } from "./controllers/user/AuthUserController";
 import { RegisterBankInformationController } from "./controllers/user/RegisterBankInformationController";
 import { RegisterBankTransactionController } from "./controllers/transactions/RegisterBankTransactionController";
 
+import { isAuthenticated } from "./middlewares/isAuthenticated";
+
 const router = Router();
 
 // --ROTAS USER--
@@ -18,7 +20,7 @@ router.post('/register/user', new CreateUserController().handle)
 
 router.post('/login', new AuthUserController().handle)
 
-router.post("/register/user/profile", new RegisterBankInformationController().handle)
+router.post("/register/user/profile", isAuthenticated, new RegisterBankInformationController().handle)
 
 // --ROTAS TRANSACTION--
 
