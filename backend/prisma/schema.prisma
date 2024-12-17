@@ -37,6 +37,8 @@ model FinTransactions {
   valor Decimal @db.Decimal(15, 2)
   forma_pagamento String? @db.VarChar(40)
   user User @relation(fields: [user_id], references: [id])
+  category_id Int @default(1)
+  category Categories @relation(fields: [category_id], references: [id])
   
   @@map("fin_transactions")
 }
@@ -59,7 +61,7 @@ model ConfigUser {
 model User {
   id String @id @default(uuid())
   name String @db.VarChar(255)
-  email String @db.VarChar (255)
+  email String @db.VarChar(255)
   cpf String @db.VarChar(255)
   senha String @db.VarChar(255)
   telefone String @db.VarChar(255)
@@ -79,4 +81,10 @@ enum FrequenciaRelatorios {
 enum TemaApp {
   CLARO
   ESCURO
+}
+
+model Categories {
+  id Int @id @default(autoincrement())
+  nome String @db.VarChar(255)
+  finTransactions FinTransactions[]
 }
