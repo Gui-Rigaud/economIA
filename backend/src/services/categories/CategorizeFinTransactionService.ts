@@ -4,10 +4,10 @@ interface CategoryRequest{
     user_id: string;
 }
 
-class CreateCategoryService{
+class CategorizeFinTransactionService{
     async execute({ user_id }: CategoryRequest){
-
+        const category = await prismaClient.finTransactions.update
     }
 }
 
-export { CreateCategoryService }
+export { CategorizeFinTransactionService }
