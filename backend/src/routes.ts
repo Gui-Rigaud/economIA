@@ -12,9 +12,11 @@ import { RegisterBankTransactionController } from "./controllers/transactions/Re
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 
+import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
+
 const router = Router();
 
-// --ROTAS USER--
+// -- ROTAS USER --
 
 router.post('/register/user', new CreateUserController().handle)
 
@@ -22,11 +24,13 @@ router.post('/login', new AuthUserController().handle)
 
 router.post("/register/user/profile", isAuthenticated, new RegisterBankInformationController().handle)
 
-// --ROTAS TRANSACTION--
+// -- ROTAS TRANSACTION --
 
 router.post('/register/transaction', multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
+// -- ROTAS CATEGORIES -- 
 
+router.post("", new CreateCategoryController().handle)
 
 
 export { router };

@@ -7,12 +7,6 @@ interface CategoryRequest{
 class CreateCategoryService{
     async execute({ user_id }: CategoryRequest){
 
-        const category = await prismaClient.finTransactions.update({
-            data:{
-                
-            }
-        })
-
     }
 }
 
