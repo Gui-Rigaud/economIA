@@ -7,7 +7,7 @@ const multerConfig = multer();
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 
-import { RegisterBankInformationController } from "./controllers/RegisterBankInformationController";
+import { RegisterBankInformationController } from "./controllers/user/RegisterBankInformationController";
 import { RegisterBankTransactionController } from "./controllers/transactions/RegisterBankTransactionController";
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
