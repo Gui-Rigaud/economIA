@@ -5,6 +5,7 @@ import {useForm, SubmitHandler} from "react-hook-form";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import logoblack from "../assets/logoblack.png"
+import Link from "next/link";
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -52,7 +53,7 @@ export default function loginScreen()
                 </div>
 
                     <div className = {`${roboto700.className} mt-[96px] flex flex-col items-center`}>
-                        <a href = "https://youtube.com" className="underline">Ainda não tem uma conta? Cadastre-se clicando aqui!</a>
+                        <Link href = "/cadastro" className="underline">Ainda não tem uma conta? Cadastre-se clicando aqui!</Link>
                         <button type = "submit" className = "w-[320px] h-[48px] bg-econGreen rounded-lg drop-shadow-xl text-white">Login</button>
                     </div>
                     
