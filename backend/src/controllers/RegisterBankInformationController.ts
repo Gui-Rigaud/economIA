@@ -7,7 +7,7 @@ class RegisterBankInformationController{
         
         const registerBankInformationService = new RegisterBankInformationService();
 
-        const finProfile = registerBankInformationService.execute({
+        const finProfile = await registerBankInformationService.execute({
             user_id,
             renda_mensal,
             despesas_fixas,
