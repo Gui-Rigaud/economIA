@@ -7,8 +7,10 @@ const multerConfig = multer();
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 
-import { RegisterBankInformationController } from "./controllers/user/RegisterBankInformationController";
+import { RegisterBankInformationController } from "./controllers/RegisterBankInformationController";
 import { RegisterBankTransactionController } from "./controllers/transactions/RegisterBankTransactionController";
+
+import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 const router = Router();
 
@@ -18,7 +20,7 @@ router.post('/register/user', new CreateUserController().handle)
 
 router.post('/login', new AuthUserController().handle)
 
-router.post("/register/user/profile", new RegisterBankInformationController().handle)
+router.post("/register/user/profile", isAuthenticated, new RegisterBankInformationController().handle)
 
 // --ROTAS TRANSACTION--
 
