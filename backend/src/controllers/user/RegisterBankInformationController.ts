@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RegisterBankInformationService } from "../services/RegisterBankInformationService";
+import { RegisterBankInformationService } from "../../services/user/RegisterBankInformationService";
 
 class RegisterBankInformationController{
     async handle(req: Request, res: Response){
