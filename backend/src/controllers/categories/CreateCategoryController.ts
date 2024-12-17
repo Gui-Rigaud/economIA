@@ -14,4 +14,4 @@ class CreateCategoryController{
     }
 }
 
-export { CreateCategoryService }
+export { CreateCategoryController }
