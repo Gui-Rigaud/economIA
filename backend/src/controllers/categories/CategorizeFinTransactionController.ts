@@ -4,11 +4,11 @@ import { CategorizeFinTransactionService } from "../../services/categories/Categ
 class CategorizeFinTransactionController{
     async handle(req: Request, res: Response){
 
-        const { user_id } = req.body;
+        const { user_id, category_id } = req.body;
 
         const categorizeFinTransactionService = new CategorizeFinTransactionService;
 
-        const category = await categorizeFinTransactionService.execute(user_id);
+        const category = await categorizeFinTransactionService.execute({user_id, category_id});
 
         return res.json(category);
     }

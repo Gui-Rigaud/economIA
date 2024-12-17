@@ -1,18 +1,29 @@
 import prismaClient from "../../prisma";
 
-interface CategoryRequest{
-    user_id: string;
+interface CreateCategory{
+    category_name: string;
 }
 
 class CreateCategoryService{
-    async execute({ user_id }: CategoryRequest){
+    async execute({ category_name }: CreateCategory){
 
-        const category = await prismaClient.finTransactions.update({
-            data:{
-                
+        const categoryExists = await prismaClient.categories.findFirst({
+            where:{
+                nome: category_name
             }
         })
 
+        if (categoryExists){
+            throw new Error("Category already exists")
+        }
+
+        const category = await prismaClient.categories.create({
+            data:{
+                nome: category_name
+            }
+        })
+
+        return category;
     }
 }
 
