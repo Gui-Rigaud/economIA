@@ -1,38 +1,45 @@
 import prismaClient from "../../prisma";
 
 interface CategoryRequest{
+    user_id: string;
     transactions_list: Transaction[];
 }
 
 interface Transaction{
-    transaction_id: string;
-    category_name: string;
+    id: string;
+    categoria: string;
 }
 
 class CategorizeFinTransactionService{
     async execute({ transactions_list }: CategoryRequest){
-
-        // const transactions = await prismaClient.finTransactions.findMany({
-        //     where:{
-        //         user_id: user_id
-        //     }
-        // })
  
-        transactions_list.map(async ({transaction_id, category_name})=> {
-            const category = await prismaClient.categories.findFirst({
-                where:{
-                    nome: category_name
+        transactions_list.map(async ({id, categoria})=> {
+            const category = await prismaClient.categories.findMany()
+
+            let category_id = 0;
+
+            category.map((category) => {
+                if (category.nome === categoria){
+                    category_id = category.id;
                 }
             })
 
-            const update_category = await prismaClient.finTransactions.update({
-                where:{
-                    id: transaction_id
-                },
-                data:{
-                    category_id: category.id
-                }
-            })
+            if (category_id != 0) {
+                await prismaClient.finTransactions.update({
+                    where: {
+                        id: `${id}`
+                    },
+                    data: {
+                        category:{
+                            connect:{
+                                id: category_id
+                            }
+                        }
+                    }
+                })
+            } else {
+                console.error(`Category not found for name: ${categoria}`);
+            }
         })
         return("Tudo certo família");
     }
