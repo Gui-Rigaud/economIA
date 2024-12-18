@@ -9,6 +9,7 @@ interface Transaction {
     data_transacao: Date;
     descricao: string;
     valor: number;
+    category_id: number;
     forma_pagamento: string;
 }
 
@@ -39,6 +40,7 @@ class RegisterTransactionService {
                 data_transacao: convertToDate(transactionLineSplit[0]),
                 descricao: transactionLineSplit[1],
                 valor: convertToInt(transactionLineSplit[3]),
+                category_id: 1,
                 forma_pagamento: "Cartão de Crédito",
             });
         }
@@ -53,7 +55,7 @@ class RegisterTransactionService {
     }
 
     private async saveTransaction(transaction: Transaction) {
-        const { user_id, data_transacao, descricao, valor, forma_pagamento } = transaction;
+        const { user_id, data_transacao, descricao, valor, category_id, forma_pagamento } = transaction;
 
         return await prismaClient.finTransactions.create({
             data: {
@@ -61,6 +63,7 @@ class RegisterTransactionService {
                 data_transacao,
                 descricao,
                 valor,
+                category_id,
                 forma_pagamento,
             },
         });
