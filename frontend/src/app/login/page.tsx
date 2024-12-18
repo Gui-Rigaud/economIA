@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
-import {useForm, SubmitHandler} from "react-hook-form";
+import { useContext, FormEvent, useState } from 'react'
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import logoblack from "../assets/logoblack.png"
 import Link from "next/link";
+import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
+import { toast } from 'react-toastify';
+import { canSSRGuest } from '@/utils/canSSRGuest';
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -17,36 +20,51 @@ const roboto700 = Roboto({
     weight: "700"
 })
 
-
-type FormData = {
-    email: string
-    password: string
-}
-
 export default function loginScreen()
 {
+    
 
-    const {register,handleSubmit,formState:{errors}} = useForm<FormData>()
-    const printData: SubmitHandler<FormData> = (data) => {
-        console.log(data)
-    }
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
 
+    async function handleLogin(event: FormEvent) {
+
+        const { signIn } = useContext(AuthContext);
+      
+        event.preventDefault();
+    
+        if(email === '' || password === ''){
+          toast.error("Preencha todos os campos!", { theme: "dark" });
+          return;
+        }
+      
+        let data = {
+          email,
+          password
+        }
+      
+        await signIn(data);
+     
+      }
+
+    
+    
     return (
+        <>
+        <AuthProvider>
         <div id = "screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
             <div id = "forms-container" className ={`bg-backgroundLightGray rounded-lg h-[700px] w-[500px] ${roboto400.className}`}>
                 <div id = "logo-container" className = "flex justify-center items-center">
                     <Image src = {logoblack} alt = "logo" width={400} height={400}/>
                 </div>
-                <form onSubmit = {handleSubmit(printData)}>
+                <form onSubmit = {handleLogin}>
                 <div id = "forms-inputs" className = "grid grid-cols-1 gap-y-6 mt-[0px] w-[436px]">
                     <div className = "ml-[32px]">
-                        <input id = "email" type = "email" placeholder = "E-mail" {...register("email", {required: true})} className = {`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
-                    {   errors.email && <span className = {`${roboto700.className} text-[#ff0f0f]`}>Este campo é obrigatório</span>}
+                        <input id = "email" type = "email"  onChange={ (e) => setEmail(e.target.value)} value = {email} placeholder = "E-mail" className = {`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
                     </div>
 
                     <div className = "ml-[32px] ">
-                        <input type = "password" placeholder = "Senha" {...register("password", {required: true})} className = {`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
-                        {errors.password && <span className = {`${roboto700.className} text-[#ff0f0f]`}>Este campo é obrigatório</span>}
+                        <input type = "password" onChange={ (e) => setPassword(e.target.value)} placeholder = "Senha" value = {password} className = {`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `}/>
                     </div>
                     
                     
@@ -61,5 +79,7 @@ export default function loginScreen()
                 </form>
             </div>
         </div>
+        </AuthProvider>
+        </>
     )
 }

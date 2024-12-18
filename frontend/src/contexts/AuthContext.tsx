@@ -17,18 +17,17 @@ type AuthContextData = {
 }
 
 type UserProps = {
-    id: String;
-    name: String;
-    email: String;
-    cpf: String;
-    telefone: String;
-    data_nasc: String;
-    created_at: Date;
+    id: string;
+    name: string;
+    email: string;
+    cpf: string;
+    telefone: string;
+    data_nasc: string;
 }
 
 type SignInProps = {
-    email: String;
-    password: String;
+    email: string;
+    password: string;
 }
 
 type AuthProviderProps = {
@@ -36,12 +35,12 @@ type AuthProviderProps = {
 }
 
 type SignUpProps = {
-    name: String;
-    email: String;
-    password: String;
-    cpf: String;
-    telefone: String;
-    data_nasc: String; 
+    name: string;
+    email: string;
+    password: string;
+    cpf: string;
+    telefone: string;
+    data_nasc: string; 
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -75,7 +74,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
                     cpf,
                     telefone,
                     data_nasc,
-                    created_at
                 })
             })
                 .catch(() => {
@@ -94,7 +92,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 password
             })
 
-            const { id, name, token, cpf, telefone, data_nasc, created_at } = response.data;
+            const { id, name, token, cpf, telefone, data_nasc} = response.data;
 
             setCookie(undefined, '@nextauth.token', token, {
                 maxAge: 60 * 60 * 24 * 30, // Expirar em um mês
@@ -108,7 +106,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 cpf,
                 telefone,
                 data_nasc,
-                created_at
             });
 
             //Passar para próximas requisições o nosso token
