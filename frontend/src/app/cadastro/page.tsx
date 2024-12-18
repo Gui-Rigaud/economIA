@@ -22,8 +22,8 @@ type FormData = {
     name: string
     email: string
     password: string
-    cpf: number
-    cellphone: number
+    cpf: string
+    cellphone: string
     birthdate: string
 }
 
