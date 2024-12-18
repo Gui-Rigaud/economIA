@@ -15,9 +15,12 @@ import { GenCategoriesController } from "./controllers/gen-categories/GenCategor
 import { ListTransactionsController } from "./controllers/transactions/ListTransactionsController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
 
+import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
+import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
+
 const router = Router();
 
-// --ROTAS USER--
+// -- ROTAS USER --
 
 router.post('/register/user', new CreateUserController().handle)
 
@@ -34,6 +37,10 @@ router.post('/register/transaction', multerConfig.single('file'), isAuthenticate
 router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
 router.get('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
+// -- ROTAS CATEGORIES -- 
 
+router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
+
+router.put("/transactions/update", isAuthenticated, new CategorizeFinTransactionController().handle)
 
 export { router };
