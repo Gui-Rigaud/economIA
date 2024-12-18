@@ -14,13 +14,13 @@ class CategorizeFinTransactionService{
     async execute({ transactions_list }: CategoryRequest){
  
         transactions_list.map(async ({id, categoria})=> {
-            const category = await prismaClient.categories.findMany()
+            const category = await prismaClient.categories.findMany();
 
             let category_id = 0;
 
-            category.map((category) => {
-                if (category.nome === categoria){
-                    category_id = category.id;
+            category.map(({id, nome}) => {
+                if (nome === categoria){
+                    category_id = id;
                 }
             })
 
