@@ -15,24 +15,42 @@ class GenCategoriesService {
         const transactionsList = transactions;
 
         try {
-            await fs.writeFile('/home/guilherme-rigaud/economIA/backend/src/services/gen-categories/fatura_cartao.txt', JSON.stringify(transactionsList, null, 2));
-            const copiador = new FileCopier('/home/guilherme-rigaud/economIA/backend/src/services/gen-categories/fatura_cartao.txt');
+            const filePath = `${__dirname}/fatura_cartao.txt`;
+            await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2));
+            const copiador = new FileCopier(filePath);
             await copiador.execute();
             const ia_result = await generate(prompt);
 
             const createCategory = new CreateCategoryService();
 
-            ia_result.map(({id, categoria}) => {
-                createCategory.execute({ category_name: categoria });
+            let categories_gen = [];
+
+            ia_result.map(({ id, categoria }) => {
+                if (!(categories_gen.includes(categoria))) {
+                    categories_gen.push(categoria);
+                }
             });
 
-            const categorizeService = new CategorizeFinTransactionService();
+            try {
+                await createCategory.execute({ categories_name: categories_gen });
+            } catch (error) {
+                console.log(error);
+                throw new Error("Error while creating categories");
+            }
 
-            await categorizeService.execute({ transactions_list: ia_result, user_id: user_id });
+            try {
+                const categorizeService = new CategorizeFinTransactionService();
 
-            return { status: 'ok' };
+                await categorizeService.execute({ transactions_list: ia_result, user_id: user_id });
+            } catch (error) {
+                console.log(error);
+                throw new Error("Error while categorizing transactions");
+            }
+
+            return ia_result;
         } catch (error) {
             console.log(error);
+            throw new Error("Error while generating categories");
         }
     }
 
