@@ -15,6 +15,7 @@ export default function UploadButton(){
         skipEmptyLines: true,
         complete: function(results) {
           console.log("Finished:", results.data);
+          
         }
       });}else{
         console.log('Nenhum arquivo encontrado')

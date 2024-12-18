@@ -22,11 +22,11 @@ export default function Upload() {
           <Image src = {logoblack} alt = "logo" width={200} height={200}/>
         </div>
 
-        <div id = "text-container" className = {`flex flex-col justify-center items-center ${roboto400.className} text-[24px]`}>
-          <h1>Falta pouco!</h1>
+        <div id = "text-container" className = {`flex flex-col justify-center items-center ${roboto400.className} text-[18px] mt-[100px]`}>
+          <h1 className="text-[36px]">Falta pouco!</h1>
           <p>Precisamos de um documento com seus gastos para a análise da IA</p>
         </div>
-        <div id = "buttons-container" className = "flex flex-col justify-center items-center mt-[64px]">
+        <div id = "buttons-container" className = "flex flex-col justify-center items-center mt-[20px]">
           <UploadButton />
         </div>
       </div>
