@@ -1,0 +1,142 @@
+[
+  {
+    "id": "04ea4071-502a-40ee-ab5b-cca9265707f3",
+    "data_transacao": "2024-08-23T00:00:00.000Z",
+    "descricao": "Pagamentos Validos Normais",
+    "valor": -100,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "4ce73ed7-f05f-450b-b164-780bd925cfbf",
+    "data_transacao": "2024-09-11T00:00:00.000Z",
+    "descricao": "ZONA SUL FL 07",
+    "valor": 133.75,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "503441e7-b09f-42a7-82ec-839d7687ce35",
+    "data_transacao": "2024-09-13T00:00:00.000Z",
+    "descricao": "PRODUTOS OFICIAIS",
+    "valor": 60,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "53dabe70-87a7-409c-bf1e-5f9e5b12a925",
+    "data_transacao": "2024-09-12T00:00:00.000Z",
+    "descricao": "MILKY MOO - IPANEMA RJ",
+    "valor": 24,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "68cec228-60ae-4bf8-ba68-dd47b89213bf",
+    "data_transacao": "2024-09-15T00:00:00.000Z",
+    "descricao": "ASSADOR RIOS",
+    "valor": 283.29,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "6a37d4f2-8648-48c3-8378-f8186a7a77da",
+    "data_transacao": "2024-09-12T00:00:00.000Z",
+    "descricao": "ZIG*BOSQUE BAR",
+    "valor": 162.8,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "7929c84c-cfc5-48e7-9100-e0ad877418b5",
+    "data_transacao": "2024-09-22T00:00:00.000Z",
+    "descricao": "CASA DO PARA IMBIRIBEI",
+    "valor": 30,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "7c38d376-6724-47f9-b1a9-eaf56da1d6aa",
+    "data_transacao": "2024-09-14T00:00:00.000Z",
+    "descricao": "BISTRO BAR",
+    "valor": 67.81,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "7c8adeb3-e670-431e-b641-1ac0c609dfbb",
+    "data_transacao": "2024-09-21T00:00:00.000Z",
+    "descricao": "EMPORIO MURO ALTO",
+    "valor": 61.96,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "8efd3aa6-b75c-4f79-aaab-e70790eff03f",
+    "data_transacao": "2024-09-14T00:00:00.000Z",
+    "descricao": "ZIG THE GLOB*ZIG*PATOPR",
+    "valor": 170,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "94e7f954-de52-47d7-ac21-a653385c5ead",
+    "data_transacao": "2024-09-15T00:00:00.000Z",
+    "descricao": "ZIG*ALDEIA",
+    "valor": 95.33,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "a33f6da1-f3c6-4df6-9e70-ecb5bc396dda",
+    "data_transacao": "2024-09-11T00:00:00.000Z",
+    "descricao": "SUSHI LEBLON",
+    "valor": 104,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "a5d66ff9-87e0-4561-ab08-d0d556116a42",
+    "data_transacao": "2024-09-15T00:00:00.000Z",
+    "descricao": "ZIG*ALDEIA",
+    "valor": 22,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "ae0bf8a7-1028-4d53-8422-e8cbdc2f6427",
+    "data_transacao": "2024-09-19T00:00:00.000Z",
+    "descricao": "ADF DOMINGOS FERREIRA",
+    "valor": 60.8,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "b3e17806-e05a-4ee4-b6d1-42326f5fe04b",
+    "data_transacao": "2024-09-18T00:00:00.000Z",
+    "descricao": "ZHOU MERCADO INTELIGEN",
+    "valor": 18.9,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "b5fc79b5-2e08-4683-a057-245cb13e7c94",
+    "data_transacao": "2024-09-15T00:00:00.000Z",
+    "descricao": "ZIG*ALDEIA",
+    "valor": 143,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "db0300dd-fa24-4a27-81c1-07a633974b96",
+    "data_transacao": "2024-09-12T00:00:00.000Z",
+    "descricao": "ZIG*BOSQUE BAR",
+    "valor": 162.8,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "dc6629c0-914e-4f3e-b1e5-c795b0d0f4ab",
+    "data_transacao": "2024-09-14T00:00:00.000Z",
+    "descricao": "DP2 RESTAURANTE LTDA",
+    "valor": 45,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "f0853fd9-8b86-4f63-be66-0d4835d82b68",
+    "data_transacao": "2024-09-18T00:00:00.000Z",
+    "descricao": "BV RESTAURANTE E EVENT",
+    "valor": 78.1,
+    "forma_pagamento": "Cartão de Crédito"
+  },
+  {
+    "id": "f4937d42-c8ec-43e5-afcf-516f178fa596",
+    "data_transacao": "2024-09-13T00:00:00.000Z",
+    "descricao": "RASCAL",
+    "valor": 138.33,
+    "forma_pagamento": "Cartão de Crédito"
+  }
+]
