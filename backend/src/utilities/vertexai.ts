@@ -1,7 +1,7 @@
 import { extractJsonFromString } from "./extractJsonFromString";
 const { VertexAI } = require('@google-cloud/vertexai');
 
-export async function generate() {
+export async function generate(prompt: string) {
   const apiKey = process.env.API_KEY;
 
   if (!apiKey) {
@@ -29,7 +29,7 @@ export async function generate() {
   };
 
   const parts = [
-    { text: "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito. Além disso, faça a lista de objetos do arquivo JSON conter somente o id da transação e a categoria em cada objeto." },
+    { text: prompt },
     { fileData: document1 },
   ];
 
