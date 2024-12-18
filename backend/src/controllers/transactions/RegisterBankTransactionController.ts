@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { RegisterTransactionService } from "../../services/transactions/RegisterBankTransactionService";
 
-
 class RegisterBankTransactionController {
     async handle(req: Request, res: Response) {
         const { user_id } = req.body;
