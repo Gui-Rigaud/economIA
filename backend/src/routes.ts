@@ -13,8 +13,7 @@ import { RegisterBankTransactionController } from "./controllers/transactions/Re
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
-import { CategorizeFinTransactionController } from "./controllers/categories/CategorizeFinTransactionController";
-import { ListCategoriesController } from "./controllers/categories/ListCategoriesController";
+import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
 
 const router = Router();
 
@@ -34,9 +33,6 @@ router.post('/register/transaction', multerConfig.single('file'), new RegisterBa
 
 router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
 
-router.put("categories/categorize", isAuthenticated, new CategorizeFinTransactionController().handle)
-
-router.get("/categories/list", isAuthenticated, new ListCategoriesController().handle)
-
+router.put("/transactions/update", isAuthenticated, new CategorizeFinTransactionController().handle)
 
 export { router };
