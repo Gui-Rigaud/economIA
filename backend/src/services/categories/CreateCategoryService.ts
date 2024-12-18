@@ -7,23 +7,27 @@ interface CreateCategory{
 class CreateCategoryService{
     async execute({ category_name }: CreateCategory){
 
-        const categoryExists = await prismaClient.categories.findFirst({
-            where:{
-                nome: category_name
-            }
-        })
+        const categories = await prismaClient.categories.findMany()
 
-        if (categoryExists){
-            throw new Error("Category already exists")
+        let categoryExists = false;
+
+        categories.map((category) => {
+            if (category.nome === category_name){
+                categoryExists = true;
+            }
+        })  
+
+        if (!categoryExists){
+            const category = await prismaClient.categories.create({
+                data:{
+                    nome: category_name
+                }
+            })   
+
+            return category;
         }
 
-        const category = await prismaClient.categories.create({
-            data:{
-                nome: category_name
-            }
-        })
-
-        return category;
+        return {status: 'Category already exists'};
     }
 }
 
