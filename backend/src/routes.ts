@@ -14,6 +14,7 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { GenCategoriesController } from "./controllers/gen-categories/GenCategoriesController";
 import { ListTransactionsController } from "./controllers/transactions/ListTransactionsController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
+import { PercentCategoriesController } from "./controllers/gen-categories/PercentCategoriesController";
 
 import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
 import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
@@ -42,5 +43,8 @@ router.get('/gen-categories', isAuthenticated, new GenCategoriesController().han
 router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
 
 router.put("/transactions/update", isAuthenticated, new CategorizeFinTransactionController().handle)
+
+router.get('/percent-categories', isAuthenticated, new PercentCategoriesController().handle);
+
 
 export { router };
