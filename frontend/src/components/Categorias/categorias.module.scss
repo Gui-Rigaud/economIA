@@ -56,3 +56,44 @@
   margin-bottom: 36px;
   
 }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes dot-blink {
+  0%, 20% { color: rgba(255, 255, 255, 0); }
+  40% { color: rgba(255, 255, 255, 1); }
+  60% { color: rgba(255, 255, 255, 0); }
+  80%, 100% { color: rgba(255, 255, 255, 1); }
+}
+
+.dots::after {
+  content: '.';
+  animation: dot-blink 1.5s steps(5, end) infinite;
+}
+
+.dots::before {
+  content: '..';
+  animation: dot-blink 1.5s steps(5, end) infinite;
+  animation-delay: 0.5s;
+}
+
+.dots {
+  animation: dot-blink 1.5s steps(5, end) infinite;
+  animation-delay: 1s;
+}

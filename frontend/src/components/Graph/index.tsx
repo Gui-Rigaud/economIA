@@ -1,6 +1,7 @@
-import { color } from "chart.js/helpers";
 import React, { Component } from "react";
-import Chart from "react-apexcharts";
+import dynamic from "next/dynamic";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 interface DonutProps {
   categories: string[];
@@ -31,7 +32,7 @@ interface DonutState {
   series: number[];
 }
 
-class Donut extends Component<DonutProps, DonutState> {
+class DonutChart extends Component<DonutProps, DonutState> {
   constructor(props: DonutProps) {
     super(props);
 
@@ -41,7 +42,7 @@ class Donut extends Component<DonutProps, DonutState> {
           type: "donut"
         },
         labels: props.categories,
-        dataLabels: {enabled: false},
+        dataLabels: { enabled: false },
         plotOptions: {
           pie: {
             donut: {
@@ -84,4 +85,4 @@ class Donut extends Component<DonutProps, DonutState> {
   }
 }
 
-export default Donut;
+export default DonutChart;
