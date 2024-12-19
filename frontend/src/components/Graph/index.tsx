@@ -10,6 +10,7 @@ interface DonutProps {
 interface DonutState {
   options: {
     chart: {
+      foreColor: '#ffffff',
       type: "donut";
     };
     labels: string[];
@@ -38,6 +39,7 @@ class Donut extends Component<DonutProps, DonutState> {
     this.state = {
       options: {
         chart: {
+          foreColor: '#ffffff',
           type: "donut"
         },
         labels: props.categories,
