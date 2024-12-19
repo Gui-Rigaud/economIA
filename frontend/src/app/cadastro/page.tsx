@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Roboto } from "next/font/google";
 import Image from 'next/image';
 import logoBlackf from "../assets/logoblack.png";
 import Router from "next/router";
 import { toast } from 'react-toastify';
 import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
-import { useContext, FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
 
 
 const roboto400 = Roboto({
@@ -22,7 +22,11 @@ const roboto700 = Roboto({
 
 
 export default function cadastroScreen() {
-    const { signUp } = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
+    if (!authContext) {
+        throw new Error("AuthContext is null");
+    }
+    const { signUp } = authContext;
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
