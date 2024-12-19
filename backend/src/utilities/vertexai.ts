@@ -1,7 +1,7 @@
 import { extractJsonFromString } from "./extractJsonFromString";
 const { VertexAI } = require('@google-cloud/vertexai');
 
-export async function generate(prompt: string) {
+export async function generate(prompt: string, destinationUri: string) {
   const apiKey = process.env.API_KEY;
 
   if (!apiKey) {
@@ -20,7 +20,7 @@ export async function generate(prompt: string) {
 
   const textInstruction = "Classificar transações de uma fatura de cartão de crédito em categorias predefinidas com base no tipo de estabelecimento, descrição da compra, ou outras informações relevantes.";
 
-  const fileUri = "gs://fatura_cartao_1/json/fatura_cartao.txt"; // Use a URI correta do seu bucket
+  const fileUri = "gs://fatura_cartao_1/json/" + destinationUri; // Use a URI correta do seu bucket
   const mimeType = "text/plain";
 
   const document1 = {

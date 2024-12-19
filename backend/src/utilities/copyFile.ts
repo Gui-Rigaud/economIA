@@ -43,9 +43,9 @@ export class FileCopier {
         this.src = src;
     }
 
-    async execute() {
+    async execute(filename: string) {
         const srcPath = path.resolve(this.src);
-        const dstPath = 'gs://fatura_cartao_1/json/fatura_cartao.txt';
+        const dstPath = 'gs://fatura_cartao_1/json/' + filename;
         copyFile(srcPath, dstPath);
     }
 }

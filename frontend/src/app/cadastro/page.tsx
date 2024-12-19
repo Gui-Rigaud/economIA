@@ -1,13 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Roboto } from "next/font/google";
 import Image from 'next/image';
 import logoBlackf from "../assets/logoblack.png";
 import Router from "next/router";
 import { toast } from 'react-toastify';
 import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
-import { useContext, FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
+import Link from "next/link";
 
 
 const roboto400 = Roboto({
@@ -22,7 +23,11 @@ const roboto700 = Roboto({
 
 
 export default function cadastroScreen() {
-    const { signUp } = useContext(AuthContext);
+    const authContext = useContext(AuthContext);
+    if (!authContext) {
+        throw new Error("AuthContext is null");
+    }
+    const { signUp } = authContext;
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -98,6 +103,11 @@ export default function cadastroScreen() {
                                     <label htmlFor="birthdate" className="block text-sm/6 font-medium text-gray-900">Data de nascimento</label>
                                     <input id="birthdate" placeholder="Data de nascimento" value={data_nasc} onChange={(e) => setData_nasc(e.target.value)} type="date" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `} />
                                 </div>
+                            </div>
+
+                            <div className={`${roboto700.className} mt-[96px] flex flex-col items-center`}>
+                                <Link href="/login" className="underline text-black">Já tem um cadastro? Faça o login clicando aqui!</Link>
+                                <button type="submit" className="w-[320px] h-[48px] bg-econGreen rounded-lg drop-shadow-xl text-black">Login</button>
                             </div>
 
                             <div className={`${roboto700.className} mt-[96px] flex flex-col items-center`}>

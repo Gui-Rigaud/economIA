@@ -3,7 +3,7 @@ import { generate } from "../../utilities/vertexai";
 
 const fs = require('fs').promises;
 
-const prompt2 = "Faça a lista de objetos do arquivo JSON com somente a quantidade em porcentagem de cada categoria nas transações e o nome da categoria."
+const prompt2 = "Devolva um JSON com somente a frequência em porcentagem de cada categoria e o nome da categoria."
 
 class PercentCategoriesService {
 
@@ -13,10 +13,11 @@ class PercentCategoriesService {
 
         try {
             const filePath = `${__dirname}/list_transactions.txt`;
+            await fs.writeFile(filePath, '');
             await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2));
             const copiador = new FileCopier(filePath);
-            await copiador.execute();
-            return generate(prompt2);
+            await copiador.execute('list_transactions.txt');
+            return generate(prompt2, 'list_transactions.txt');
         } catch (error) {
             console.log(error);
         }

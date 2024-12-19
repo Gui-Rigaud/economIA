@@ -1,9 +1,15 @@
-import { Categorias } from "@/components/Categorias"
+'use client';
 
-export default function Dashboard(){
-  return(
+import { Categorias } from "@/components/Categorias"
+import { AuthProvider } from "@/contexts/AuthContext";
+
+export default function Dashboard() {
+
+  return (
     <>
-      <Categorias/>
+      <AuthProvider>
+        <Categorias />
+      </AuthProvider>
     </>
   )
 }
