@@ -107,10 +107,6 @@ export default function cadastroScreen() {
 
                             <div className={`${roboto700.className} mt-[96px] flex flex-col items-center`}>
                                 <Link href="/login" className="underline text-black">Já tem um cadastro? Faça o login clicando aqui!</Link>
-                                <button type="submit" className="w-[320px] h-[48px] bg-econGreen rounded-lg drop-shadow-xl text-black">Login</button>
-                            </div>
-
-                            <div className={`${roboto700.className} mt-[96px] flex flex-col items-center`}>
                                 <button type="submit" className="w-[320px] h-[48px] bg-econGreen rounded-lg drop-shadow-xl text-white">Cadastrar</button>
                             </div>
 
