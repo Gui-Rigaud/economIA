@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^4.2.0",
+    "chart.js": "^4.4.7",
     "lucide-react": "^0.468.0",
     "next": "15.0.3",
     "papaparse": "^5.4.1",
     "react": "^19.0.0",
+    "react-apexcharts": "^1.7.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-hook-form": "^7.54.0",
     "sass": "^1.83.0"
