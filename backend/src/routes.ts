@@ -37,14 +37,14 @@ router.post('/register/transaction', multerConfig.single('file'), isAuthenticate
 
 router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
-router.get('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
+router.post('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
 // -- ROTAS CATEGORIES -- 
 
 router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
 
 router.put("/transactions/update", isAuthenticated, new CategorizeFinTransactionController().handle)
 
-router.get('/percent-categories', isAuthenticated, new PercentCategoriesController().handle);
+router.post("/percent-categories", isAuthenticated, new PercentCategoriesController().handle);
 
 
 export { router };
