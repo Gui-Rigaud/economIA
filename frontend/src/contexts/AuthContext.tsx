@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 import { api } from '../services/apiClient';
@@ -27,7 +29,7 @@ type UserProps = {
 
 type SignInProps = {
     email: string;
-    password: string;
+    senha: string;
 }
 
 type AuthProviderProps = {
@@ -37,7 +39,7 @@ type AuthProviderProps = {
 type SignUpProps = {
     name: string;
     email: string;
-    password: string;
+    senha: string;
     cpf: string;
     telefone: string;
     data_nasc: string; 
@@ -85,11 +87,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     }, [])
 
-    async function signIn({ email, password }: SignInProps) {
+    async function signIn({ email, senha }: SignInProps) {
         try {
             const response = await api.post('/login', {
                 email,
-                password
+                senha
             })
 
             const { id, name, token, cpf, telefone, data_nasc} = response.data;
@@ -121,12 +123,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    async function signUp({ name, email, password, cpf, telefone, data_nasc }: SignUpProps) {
+    async function signUp({ name, email, senha, cpf, telefone, data_nasc }: SignUpProps) {
         try {
             const response = await api.post('/register/user', {
                 name,
                 email,
-                password,
+                senha,
                 cpf,
                 telefone,
                 data_nasc
