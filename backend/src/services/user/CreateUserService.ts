@@ -31,10 +31,11 @@ class CreateUserService{
         }
 
         var datastring = data_nasc;
-        var partes = datastring.split('/');
-        const dia = parseInt(partes[0], 10); 
+        var partes = datastring.split('-');
+        const ano = parseInt(partes[0], 10);
         const mes = parseInt(partes[1], 10) - 1;
-        const ano = parseInt(partes[2], 10);
+        const dia = parseInt(partes[2], 10);
+        
 
         const data_formatada = new Date(ano, mes, dia);
 
