@@ -74,6 +74,15 @@ Abra seu navegador e acesse o frontend do economIA no endereço [http://localhos
 
 ---
 
+#### Imagens do funcionamento do economIA:
+![Tela inicial](images/Tela_login_MVP.jpeg)
+![Tela cadastro](images/Tela_cadastro_MVP.jpeg)
+![Tela login](images/Tela_login_com_senha_MVP.jpeg)
+![Tela update de CSV](images/Tela_carregamento_do_CSV_MVP.jpeg)
+![Tela categorização](images/Tela_categorizacao_MVP.jpeg)
+
+---
+
 ## Licença
 Este projeto está licenciado sob a [MIT License](LICENSE).  
 
