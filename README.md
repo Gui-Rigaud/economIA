@@ -1,3 +1,4 @@
+
 # economIA
 **Planejador Financeiro Automático com Inteligência Artificial**
 
@@ -17,7 +18,40 @@ O **economIA** é um inovador planejador financeiro que utiliza Inteligência Ar
 Certifique-se de ter instalado em sua máquina:  
 - Node.js e npm ou Yarn.  
 - Google Cloud CLI.  
-- Banco de dados compatível com o backend do projeto (ex.: PostgreSQL).  
+- MySQL.  
+
+---
+
+## Como Instalar e Configurar o MySQL
+
+1. **Baixar o MySQL**  
+   - Acesse o site oficial do MySQL: [MySQL Downloads](https://dev.mysql.com/downloads/).
+   - Baixe a versão apropriada para o seu sistema operacional.
+
+2. **Instalar o MySQL**  
+   - Siga as instruções do instalador para completar a instalação.  
+   - Durante a instalação, defina uma senha para o usuário `root`. Lembre-se desta senha, pois será necessária para configurar o projeto.
+
+3. **Iniciar o Servidor MySQL**  
+   - Após a instalação, inicie o serviço do MySQL. Em sistemas Windows, você pode usar o aplicativo "MySQL Workbench". Em sistemas Linux/macOS, utilize o seguinte comando no terminal:  
+     ```bash
+     sudo systemctl start mysql
+     ```
+
+4. **Criar o Banco de Dados**  
+   - Acesse o console do MySQL:  
+     ```bash
+     mysql -u root -p
+     ```
+   - Insira a senha do usuário `root`.  
+   - Execute os comandos abaixo para criar o banco de dados para o projeto:  
+     ```sql
+     CREATE DATABASE economIA;
+     USE economIA;
+     ```
+
+5. **Configurar o Acesso**  
+   - Certifique-se de que o usuário `root` ou outro usuário que você pretende usar tenha permissões adequadas para o banco de dados criado.
 
 ---
 
@@ -52,24 +86,31 @@ npm install
 ### 4. Configurar variáveis de ambiente
 Crie um arquivo `.env` no diretório do **backend** e adicione as seguintes variáveis:  
 ```plaintext
-DATABASE_URL=URL_do_seu_banco_de_dados
+DATABASE_URL=mysql://root:<sua_senha>@localhost:3306/economIA
 API_KEY=sua_chave_da_API
 JWT_SECRET=uma_chave_secreta_para_o_JWT
 ```
+Substitua `<sua_senha>` pela senha definida para o usuário `root` do MySQL.
 
-### 5. Iniciar o servidor backend
+### 5. Executar migrações do banco de dados
+No diretório do **backend**, execute o comando:  
+```bash
+npx prisma migrate dev
+```
+
+### 6. Iniciar o servidor backend
 Navegue para a pasta do backend e inicie o servidor:  
 ```bash
 yarn dev
 ```
 
-### 6. Iniciar o frontend
+### 7. Iniciar o frontend
 Em outra janela do terminal, vá para a pasta do frontend e execute:  
 ```bash
 yarn dev
 ```
 
-### 7. Acessar o economIA
+### 8. Acessar o economIA
 Abra seu navegador e acesse o frontend do economIA no endereço [http://localhost:3000](http://localhost:3000).
 
 ---
@@ -109,7 +150,6 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 - João Guilherme Ohashi
 - Luiz Eduardo de Andrade
 - Marcos Didier  
-
 
 ---
 
