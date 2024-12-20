@@ -74,11 +74,26 @@ Abra seu navegador e acesse o frontend do economIA no endereço [http://localhos
 
 ---
 
-#### Imagens do funcionamento do economIA:
+## Imagens do funcionamento do economIA:
+
+### Tela Inicial:
+
 ![Tela inicial](images/Tela_login_MVP.jpeg)
+
+### Tela de Cadastro:
+
 ![Tela cadastro](images/Tela_cadastro_MVP.jpeg)
+
+### Tela de Login:
+
 ![Tela login](images/Tela_login_com_senha_MVP.jpeg)
+
+### Tela de update de CSV:
+
 ![Tela update de CSV](images/Tela_carregamento_do_CSV_MVP.jpeg)
+
+### Tela de categorização feita pela IA:
+
 ![Tela categorização](images/Tela_categorizacao_MVP.jpeg)
 
 ---
