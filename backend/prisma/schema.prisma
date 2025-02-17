@@ -65,6 +65,7 @@ model User {
   cpf String @db.VarChar(255)
   senha String @db.VarChar(255)
   telefone String @db.VarChar(255)
+  orcamento Decimal @db.Decimal(15, 2)
   data_nasc DateTime @db.Date
   created_at DateTime @default(now())
   finProfiles FinProfile[] 
