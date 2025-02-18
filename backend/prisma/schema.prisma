@@ -65,12 +65,17 @@ model User {
   cpf String @db.VarChar(255)
   senha String @db.VarChar(255)
   telefone String @db.VarChar(255)
+  receita Decimal @db.Decimal(15, 2) @default("0.00")
+  despesa Decimal @db.Decimal(15, 2) @default("0.00")
+  saldo Decimal @db.Decimal(15, 2) @default("0.00")
   data_nasc DateTime @db.Date
   created_at DateTime @default(now())
   finProfiles FinProfile[] 
   finTransactions FinTransactions[]
   configUsers ConfigUser[]
 }
+
+
 
 enum FrequenciaRelatorios {
   DIARIA
