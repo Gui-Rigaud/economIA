@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { setupAPIClient } from "@/services/api";
+import { useState, useContext, useRef } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
 
 const roboto400 = Roboto({
@@ -6,31 +9,86 @@ const roboto400 = Roboto({
     weight: "400"
 })
 
+interface Summary {
+    receita: number;
+    despesas: number
+    saldo: number;
+}
+
 export function Summary() 
 {
-    const [dados, setDados] = useState<any | null>(null);
+    const authContext = useContext(AuthContext);
+    if (!authContext) {
+        throw new Error("AuthContext is null");
+    }
+    const { user } = authContext;
+    const apiClient = setupAPIClient();
+    const [loading, setLoading] = useState(false);
+    const [dados, setDados] = useState<Summary>();
+    const primeiraRenderizacao = useRef(true);
 
-    useEffect(() => {
-        fetch("/Users/joaoguilhermeohashiramos/Desktop/periodo_3/DS_Project/ProjetoDS/economIA/backend") // Substitua pela URL do seu backend
-        .then((res) => res.json())
-        .then((data) => setDados(data)) // Armazena o objeto no estado
-        .catch((error) => console.error("Erro ao buscar dados:", error));
-    }, []);
+    // setDados({
+    //     receita: 
+    //     despesas:
+    //     saldo:
+    // }) 
+
+    // useEffect(() => {
+    //     fetch("/Users/joaoguilhermeohashiramos/Desktop/periodo_3/DS_Project/ProjetoDS/economIA/backend") // Substitua pela URL do seu backend
+    //     .then((res) => res.json())
+    //     .then((data) => setDados(data)) // Armazena o objeto no estado
+    //     .catch((error) => console.error("Erro ao buscar dados:", error));
+    // }, []);
+
+    const fetchSummary = async () => {
+        setLoading(true);
+        
+        try {
+            const response = await apiClient.get(" ", { 
+                params: { user_id: user?.id }
+            });
+
+            if (response.data) {
+                setDados(response.data);
+            } else {
+                toast.error("Não foi possível encontrar os dados necessários para o resumo de gastos", { theme: "dark" });
+            }
+        } catch (error) {
+            console.error("Erro ao buscar resumo:", error);
+            toast.error("Erro ao buscar resumo de gastos", { theme: "dark" });
+        } finally {
+            setLoading(false);
+            primeiraRenderizacao.current = false;
+        }
+    };
 
     return (
-        <div id = "spendings-summary" className = "bg-backgroundLightGray flex justify-center items-center text-black">
-            { dados ? (
-                <div id = "text-container" className = {`bg-gray-200 border-4 border-black rounded-3xl w-3/4 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px]`}>
-                    <p className="mb-4 font-bold"><strong>Resumo de gastos mensais</strong></p>
-                    <p className="mb-1 p-4">Receita : {dados.Receita}</p>
-                    <p className="mb-1 p-4">Despesas totais : {dados.Despesas}</p>
-                    <p className="mb-1 p-4">Saldo : {dados.Saldo}</p>
+        <div id="spendings-summary" className="bg-backgroundLightGray flex flex-col justify-center items-center text-black min-h-screen">
+            {primeiraRenderizacao.current ? (
+                <div className="flex items-center justify-center h-screen">
+                    <button
+                        onClick={fetchSummary}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-6 px-6 rounded-full w-32 h-32 flex items-center justify-center text-2xl"
+                    >
+                        Resumo de gastos
+                    </button>
                 </div>
-            ):(
-                <div id = "loading-container" className = {`bg-gray-200 border-4 border-black rounded-3xl w-3/4 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px]`}>
-                    <p>Carregando...</p>
-                </div>
+            ) : (
+                <>
+                    {loading ? (
+                        <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
+                            <p className="text-white text-xl">Carregando...</p>
+                        </div>
+                    ) : (
+                        <div id="text-container" className={`bg-gray-200 border-4 border-black rounded-3xl w-3/4 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px]`}>
+                            <p className="mb-4 font-bold"><strong>Resumo de gastos mensais</strong></p>
+                            <p className="mb-1 p-4">Receita: {dados?.receita ?? "N/A"}</p>
+                            <p className="mb-1 p-4">Despesas totais: {dados?.despesas ?? "N/A"}</p>
+                            <p className="mb-1 p-4">Saldo: {dados?.saldo ?? "N/A"}</p>
+                        </div>
+                    )}
+                </>
             )}
         </div>
-    )
+    );
 }
