@@ -52,4 +52,4 @@ router.post("/percent-categories", isAuthenticated, new PercentCategoriesControl
 export { router };
 
 // -- ROTAS SUGGESTION --
-router.post('/suggestion', isAuthenticated, new SuggestionController().handle)
+router.get('/suggestion', isAuthenticated, new SuggestionController().handle)

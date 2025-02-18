@@ -3,9 +3,8 @@ import {GenSuggestionService} from '../../services/suggestion/GenSuggestionsServ
 
 class SuggestionController {
     async handle(request: Request, response: Response) {
-        const {transactions} = request.body;
         const genSuggestionService = new GenSuggestionService();
-        const suggestions = await genSuggestionService.execute(transactions);
+        const suggestions = await genSuggestionService.execute();
 
         return response.json(suggestions);
     }
