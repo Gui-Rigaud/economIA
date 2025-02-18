@@ -8,10 +8,11 @@ interface UserRequest {
     telefone: string;
     data_nasc: string;
     email: string;
+    receita: number;
 }
 
 class CreateUserService{
-    async execute({ name, cpf, senha, telefone, data_nasc, email }:UserRequest){
+    async execute({ name, cpf, senha, telefone, data_nasc, email, receita }:UserRequest){
 
         if (!name || !cpf || !senha || !telefone || !data_nasc || !email){
             throw new Error("Informações incompletas!");
@@ -48,7 +49,8 @@ class CreateUserService{
             senha: passwordHash,
             telefone: telefone,
             data_nasc: data_formatada,
-            email: email
+            email: email,
+            receita: receita
             },
             select:{
                 id: true,
@@ -57,6 +59,7 @@ class CreateUserService{
                 cpf: true,
                 telefone: true,
                 data_nasc: true,
+                receita: true,
             }
 
         })
