@@ -19,6 +19,8 @@ import { PercentCategoriesController } from "./controllers/gen-categories/Percen
 import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
 import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
 
+import { SuggestionController } from "./controllers/suggestion/SuggestionController";
+
 const router = Router();
 
 // -- ROTAS USER --
@@ -48,3 +50,6 @@ router.post("/percent-categories", isAuthenticated, new PercentCategoriesControl
 
 
 export { router };
+
+// -- ROTAS SUGGESTION --
+router.post('/suggestion', isAuthenticated, new SuggestionController().handle)
