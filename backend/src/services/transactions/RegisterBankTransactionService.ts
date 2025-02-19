@@ -26,6 +26,7 @@ class RegisterTransactionService {
         });
 
         let isFirstLine = true;
+        var despesas = 0;
 
         for await (let line of transactionsLine) {
             if (isFirstLine) {
@@ -39,11 +40,21 @@ class RegisterTransactionService {
                 user_id,
                 data_transacao: convertToDate(transactionLineSplit[0]),
                 descricao: transactionLineSplit[1],
-                valor: convertToInt(transactionLineSplit[3]),
-                category_id: 1,
+                valor: Number(convertToInt(transactionLineSplit[3])),
                 forma_pagamento: "Cartão de Crédito",
             });
+
+            despesas += Number(convertToInt(transactionLineSplit[3]));
         }
+
+        await prismaClient.user.update({
+            where:{
+                id: user_id,
+            },
+            data:{
+                despesa: Number(despesas),
+            }
+        })
 
         const savedTransactions = [];
         for await (let transaction of transactions) {
@@ -53,6 +64,8 @@ class RegisterTransactionService {
 
         return savedTransactions;
     }
+
+    
 
     private async saveTransaction(transaction: Transaction) {
         const { user_id, data_transacao, descricao, valor, category_id, forma_pagamento } = transaction;
