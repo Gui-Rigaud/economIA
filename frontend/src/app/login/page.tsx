@@ -22,7 +22,7 @@ const roboto700 = Roboto({
     weight: "700"
 })
 
-export default function loginScreen() {
+function Login() {
 
 
     const [email, setEmail] = useState("");
@@ -111,3 +111,5 @@ export default function loginScreen() {
         </>
     )
 }
+
+export default Login;

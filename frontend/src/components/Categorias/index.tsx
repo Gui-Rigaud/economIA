@@ -1,14 +1,12 @@
 "use client"
 
 import styles from './categorias.module.scss'
-import ApexCharts from 'apexcharts'
 import Donut from '../Graph';
 import { setupAPIClient } from '@/services/api';
 import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
-import { canSSRAuth } from '@/utils/canSSRAuth';
 
 // const categorias = [
 //   {

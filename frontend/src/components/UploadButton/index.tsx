@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const accetableCSVFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv';
 
-export default function UploadButton() {
+function UploadButton() {
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -91,3 +91,5 @@ export default function UploadButton() {
     </div>
   )
 }
+
+export default UploadButton;
