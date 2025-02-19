@@ -18,6 +18,7 @@ import { PercentCategoriesController } from "./controllers/gen-categories/Percen
 
 import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
 import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
+import { BudgetUserController } from "./controllers/user/BudgetUserController";
 
 const router = Router();
 
@@ -30,6 +31,8 @@ router.post('/login', new AuthUserController().handle)
 router.post("/register/user/profile", isAuthenticated, new RegisterBankInformationController().handle)
 
 router.get('/me', isAuthenticated, new DetailUserController().handle);
+
+router.get('/budget', isAuthenticated, new BudgetUserController().handle);
 
 // --ROTAS TRANSACTION--
 
