@@ -33,7 +33,7 @@ router.get('/me', isAuthenticated, new DetailUserController().handle);
 
 // --ROTAS TRANSACTION--
 
-router.post('/register/transaction', multerConfig.single('file'), isAuthenticated, new RegisterBankTransactionController().handle)
+router.post('/register/transaction', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
 router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
