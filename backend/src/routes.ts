@@ -18,6 +18,7 @@ import { PercentCategoriesController } from "./controllers/gen-categories/Percen
 
 import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
 import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
+import { BudgetUserController } from "./controllers/user/BudgetUserController";
 
 import { SuggestionController } from "./controllers/suggestion/SuggestionController";
 
@@ -33,9 +34,11 @@ router.post("/register/user/profile", isAuthenticated, new RegisterBankInformati
 
 router.get('/me', isAuthenticated, new DetailUserController().handle);
 
+router.get('/budget', isAuthenticated, new BudgetUserController().handle);
+
 // --ROTAS TRANSACTION--
 
-router.post('/register/transaction', multerConfig.single('file'), isAuthenticated, new RegisterBankTransactionController().handle)
+router.post('/register/transaction', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
 router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 

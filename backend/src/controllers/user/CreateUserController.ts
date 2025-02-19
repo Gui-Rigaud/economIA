@@ -3,7 +3,7 @@ import { CreateUserService } from "../../services/user/CreateUserService";
 
 class CreateUserController{
     async handle(req: Request, res: Response){
-        const { name, cpf, senha, telefone, data_nasc, email } = req.body;
+        const { name, cpf, senha, telefone, data_nasc, email, receita } = req.body;
 
         const createUserService = new CreateUserService();
 
@@ -13,7 +13,8 @@ class CreateUserController{
             senha,
             telefone,
             data_nasc,
-            email
+            email,
+            receita
         })
 
         return res.json(user);
