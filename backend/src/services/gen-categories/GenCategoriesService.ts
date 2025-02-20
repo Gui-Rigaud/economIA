@@ -6,7 +6,7 @@ import { CategorizeFinTransactionService } from "../transactions/CategorizeFinTr
 
 const fs = require('fs').promises;
 
-const prompt = "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito. Além disso, faça a lista de objetos do arquivo JSON com somente o id da transação e a categoria em cada objeto.";
+const prompt = "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito, levando em conta somente o atributo descrição. Além disso, faça a lista de objetos do arquivo JSON com somente o id da transação e a categoria em cada objeto.";
 
 class GenCategoriesService {
 
