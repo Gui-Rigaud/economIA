@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const acceptableFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv, application/pdf, .xlsx, text/plain, application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.text, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, text/csv';
 // Suporta arquivos do tipo: CSV, XLSX, PDF, TXT, ODS, ODT, DOC, DOCX, RTF
 
-export default function UploadButton() {
+function UploadButton() {
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
@@ -93,3 +93,5 @@ export default function UploadButton() {
     </div>
   )
 }
+
+export default UploadButton;
