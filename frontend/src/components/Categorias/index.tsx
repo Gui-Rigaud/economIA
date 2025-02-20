@@ -163,7 +163,7 @@ export function Categorias() {
               </section>
 
 
-              <div className={styles.chartContainer}>
+              <div id = "graph" className={styles.chartContainer}>
                 <Donut
                   categories={categorias.map((data) => data.categoria)}
                   data={categorias.map((data) => data.porcentagem)} />

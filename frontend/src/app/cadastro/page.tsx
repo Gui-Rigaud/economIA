@@ -35,12 +35,13 @@ export default function cadastroScreen() {
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
     const [data_nasc, setData_nasc] = useState('');
+    const [receita, setReceita] = useState('');
 
 
     async function handleSignup(event: FormEvent) {
         event.preventDefault();
 
-        if (name === '' || email === '' || senha === '' || cpf === '' || telefone === '' || data_nasc === '') {
+        if (name === '' || email === '' || senha === '' || cpf === '' || telefone === '' || data_nasc === '' || receita === '') {
             toast.error("Preencha todos os campos!", { theme: "dark" });
             return;
         }
@@ -51,7 +52,8 @@ export default function cadastroScreen() {
             senha,
             cpf,
             telefone,
-            data_nasc
+            data_nasc,
+            receita
         }
         try {
             const response = await signUp(data);
@@ -102,6 +104,11 @@ export default function cadastroScreen() {
                                 <div id="birthdate-container">
                                     <label htmlFor="birthdate" className="block text-sm/6 font-medium text-gray-900">Data de nascimento</label>
                                     <input id="birthdate" placeholder="Data de nascimento" value={data_nasc} onChange={(e) => setData_nasc(e.target.value)} type="date" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `} />
+                                </div>
+
+                                <div id="receita-container">
+                                    <label htmlFor="receita" className="block text-sm/6 font-medium text-gray-900">Receita</label>
+                                    <input id="receita" placeholder="10000000" value={receita} onChange={(e) => setReceita(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `} />
                                 </div>
                             </div>
 

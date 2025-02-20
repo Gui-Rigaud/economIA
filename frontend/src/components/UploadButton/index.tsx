@@ -8,7 +8,8 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-const accetableCSVFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv';
+const acceptableFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv, application/pdf, .xlsx, text/plain, application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.text, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, text/csv';
+// Suporta arquivos do tipo: CSV, XLSX, PDF, TXT, ODS, ODT, DOC, DOCX, RTF
 
 export default function UploadButton() {
 
@@ -21,7 +22,7 @@ export default function UploadButton() {
   const [file, setFile] = useState<File>();
   const [labelText, setLabelText] = useState<string>('');
   const router = useRouter();
-  const [loading, setLoading] =useState(false);
+  const [loading, setLoading] = useState(false);
 
   function onFileChangeHandler(event: ChangeEvent<HTMLInputElement>) {
 
@@ -58,8 +59,9 @@ export default function UploadButton() {
     }
     data.append('file', file);
 
-    if (file.type !== 'text/csv') {
-      setLabelText('Por favor, selecione um arquivo CSV.');
+    if (!acceptableFileTypes.includes(file.type)) {
+      console.log(file.type);
+      setLabelText('Por favor, selecione um arquivo válido.');
       setLoading(false);
       return;
     }
@@ -81,10 +83,10 @@ export default function UploadButton() {
   return (
     <div className={styles.Container}>
       {labelText ? <p className={`${styles.Label} mb-8 my-4 text-center`}>{labelText}</p>: null}
-      <label htmlFor="csvFileSelector" className={styles.InputLabel}>
-        Selecione o arquivo (*csv, xls, etc.)
+      <label htmlFor="fileSelector" className={styles.InputLabel}>
+        Selecione o arquivo (*csv, xlsx, pdf, etc.)
       </label>
-      <input type="file" id="csvFileSelector" accept={accetableCSVFileTypes} onChange={onFileChangeHandler} className={styles.Input} />
+      <input type="file" id="fileSelector" accept={acceptableFileTypes} onChange={onFileChangeHandler} className={styles.Input} />
       <button onClick={onFileUploadHandler} className="bg-blue-500 text-white py-2 px-4 rounded mt-4 mx-auto block">
         Enviar Arquivo
       </button>

@@ -14,7 +14,7 @@ interface UserRequest {
 class CreateUserService{
     async execute({ name, cpf, senha, telefone, data_nasc, email, receita }:UserRequest){
 
-        if (!name || !cpf || !senha || !telefone || !data_nasc || !email){
+        if (!name || !cpf || !senha || !telefone || !data_nasc || !email || !receita){
             throw new Error("Informações incompletas!");
         }
 
