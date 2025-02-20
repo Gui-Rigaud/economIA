@@ -56,7 +56,7 @@ export function Suggestions() {
                 <div className="flex items-center justify-center h-screen">
                     <button
                         onClick={fetchSuggestion}
-                        className="bg-econGreen hover:bg-black text-white font-bold py-6 px-6 rounded-full w-[80px] h-35 flex items-center justify-center text-2xl"
+                        className="bg-econGreen hover:bg-black text-white font-bold py-6 px-6 rounded-full w-30 h-35 flex items-center justify-center text-2xl"
                     >
                         Sugerir gestão de gastos
                     </button>
@@ -68,8 +68,8 @@ export function Suggestions() {
                             <p className="text-white text-xl">Carregando...</p>
                         </div>
                     ) : (
-                        <div id="text-container" className={`bg-gray-200 border-4 border-black rounded-3xl w-1/3 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] width-[10px]`}>
-                            <p className="mb-4 mt-3 font-bold"><strong>Sugestões</strong></p>
+                        <div id="text-container" className={`bg-gray-200 border-4 border-black rounded-3xl w-[900px] mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] width-[10px]`}>
+                            <p key="#" className="mb-4 mt-3 font-bold"><strong>Sugestões</strong></p>
                             {dados.length > 0 ? (
                                 dados.map(({ id, frase }) => (
                                     <p key={id} className="mb-1 p-4">{id}: {frase}</p>
