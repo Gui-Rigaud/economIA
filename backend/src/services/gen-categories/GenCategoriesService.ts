@@ -42,6 +42,8 @@ class GenCategoriesService {
             try {
                 const categorizeService = new CategorizeFinTransactionService();
 
+                console.log(ia_result);
+
                 await categorizeService.execute({ transactions_list: ia_result, user_id: user_id });
             } catch (error) {
                 console.log(error);
