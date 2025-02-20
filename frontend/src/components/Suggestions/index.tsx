@@ -1,7 +1,9 @@
+"use client";
+
 import { setupAPIClient } from "@/services/api";
 import { useState, useContext, useRef } from "react";
 import { toast } from "react-toastify";
-import { AuthContext } from "@/contexts/AuthContext";
+import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
 
 const roboto400 = Roboto({
@@ -11,7 +13,7 @@ const roboto400 = Roboto({
 
 interface Suggestion { 
     id: string;
-    suggestion: string;
+    frase: string;
 }
 
 export function Suggestions() {
@@ -29,12 +31,11 @@ export function Suggestions() {
         setLoading(true);
         
         try {
-            const response = await apiClient.get("/suggestion", { 
-                params: { user_id: user?.id }
-            });
-
+            const response = await apiClient.get("/suggestion");
+            
+            console.log(response.data);
             if (response.data) {
-                setDados(response.data);
+                setDados(response.data.sugestoes);
             } else {
                 toast.error("Não foi possível encontrar os dados necessários para sugestões", { theme: "dark" });
             }
@@ -48,14 +49,16 @@ export function Suggestions() {
     };
 
     return (
+        <>
+        <AuthProvider>
         <div id="suggestions" className="flex flex-col justify-center items-center text-black min-h-screen">
             {primeiraRenderizacao.current ? (
                 <div className="flex items-center justify-center h-screen">
                     <button
                         onClick={fetchSuggestion}
-                        className="bg-econGreen hover:bg-black text-white font-bold py-6 px-6 rounded-full w-35 h-35 flex items-center justify-center text-2xl"
+                        className="bg-econGreen hover:bg-black text-white font-bold py-6 px-6 rounded-full w-[80px] h-35 flex items-center justify-center text-2xl"
                     >
-                        Resumo de gastos
+                        Sugerir gestão de gastos
                     </button>
                 </div>
             ) : (
@@ -68,8 +71,8 @@ export function Suggestions() {
                         <div id="text-container" className={`bg-gray-200 border-4 border-black rounded-3xl w-1/3 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] width-[10px]`}>
                             <p className="mb-4 mt-3 font-bold"><strong>Sugestões</strong></p>
                             {dados.length > 0 ? (
-                                dados.map(({ id, suggestion }) => (
-                                    <p key={id} className="mb-1 p-4">{id}: {suggestion}</p>
+                                dados.map(({ id, frase }) => (
+                                    <p key={id} className="mb-1 p-4">{id}: {frase}</p>
                                 ))
                             ) : (
                                 <p className="mb-1 p-4">Nenhuma sugestão disponível</p>
@@ -79,5 +82,7 @@ export function Suggestions() {
                 </>
             )}
         </div>
+        </AuthProvider>
+        </>
     );
 }

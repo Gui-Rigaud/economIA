@@ -12,10 +12,7 @@ const roboto400 = Roboto({
 
 export default function SideBar() {
 return (
-    <div id = "sidebar" className = {`bg-econBlue w-[300px] h-screen flex flex-col items-center ${roboto400.className}`}>
-        <div className = "flex justify-center items-center h-[100px]">
-            <Image src = {logo} alt = "Logo" width = {160} height = {160} className = "mt-[25px]"/>
-        </div>
+    <div id = "sidebar" className = {`bg-econDarkGreen w-[300px] h-full flex flex-col mt-[20px] items-center ${roboto400.className}`}>
         <div className = "flex flex-col items-center justify-center h-[100px]">
             <Link href = "#graph" className = "text-white text-[20px]">Gráficos</Link>
         </div>
