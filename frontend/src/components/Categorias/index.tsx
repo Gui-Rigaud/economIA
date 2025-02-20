@@ -151,7 +151,7 @@ export function Categorias() {
           ) : null}
 
           {loading ? (
-            <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
+            <div id = "graph" className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
               <div className={styles.spinner}><FaSpinner color='#FFF' size={40} /></div>
               <p>Aguarde um momento! Nossa IA está trabalhando<span className={styles.dots}></span></p>
             </div>
