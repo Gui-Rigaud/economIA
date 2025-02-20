@@ -21,6 +21,7 @@ export type UserProps = {
     cpf: string;
     telefone: string;
     data_nasc: string;
+    receita: string;
 };
 
 type SignInProps = {
@@ -39,6 +40,7 @@ type SignUpProps = {
     cpf: string;
     telefone: string;
     data_nasc: string;
+    receita: string;
 };
 
 export const AuthContext = createContext<AuthContextData | null>(null);
@@ -61,7 +63,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         if (token) {
             api.get('/me')
                 .then(response => {
-                    const { id, name, email, cpf, telefone, data_nasc } = response.data;
+                    const { id, name, email, cpf, telefone, data_nasc, receita } = response.data;
 
                     setUser({
                         id,
@@ -70,6 +72,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                         cpf,
                         telefone,
                         data_nasc,
+                        receita
                     });
                 })
                 .catch(() => {
@@ -85,7 +88,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 senha,
             });
 
-            const { id, name, token, cpf, telefone, data_nasc } = response.data;
+            const { id, name, token, cpf, telefone, data_nasc , receita} = response.data;
 
             setCookie(undefined, '@nextauth.token', token, {
                 maxAge: 60 * 60 * 24 * 30, // 1 mês
@@ -99,6 +102,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 cpf,
                 telefone,
                 data_nasc,
+                receita
             });
 
             api.defaults.headers['Authorization'] = `Bearer ${token}`;
@@ -110,7 +114,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    async function signUp({ name, email, senha, cpf, telefone, data_nasc }: SignUpProps) {
+    async function signUp({ name, email, senha, cpf, telefone, data_nasc, receita }: SignUpProps) {
         try {
             await api.post('/register/user', {
                 name,
@@ -119,6 +123,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 cpf,
                 telefone,
                 data_nasc,
+                receita
             });
 
             toast.success("Conta criada com sucesso!", { theme: "dark" });
