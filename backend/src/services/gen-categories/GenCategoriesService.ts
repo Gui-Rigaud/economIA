@@ -16,11 +16,11 @@ class GenCategoriesService {
 
         try {
             const filePath = `${__dirname}/fatura_cartao.txt`;
-            await fs.writeFile(filePath, '')
-            await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2));
+            await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2)); // Create a new file
             const copiador = new FileCopier(filePath);
             await copiador.execute('fatura_cartao.txt');
             const ia_result = await generate(prompt, 'fatura_cartao.txt');
+            await fs.unlink(filePath); // Delete the file after writing
 
             const createCategory = new CreateCategoryService();
 

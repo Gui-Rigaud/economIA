@@ -13,10 +13,10 @@ class PercentCategoriesService {
 
         try {
             const filePath = `${__dirname}/list_transactions.txt`;
-            await fs.writeFile(filePath, '');
             await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2));
             const copiador = new FileCopier(filePath);
             await copiador.execute('list_transactions.txt');
+            await fs.unlink(filePath); // Delete the file after writing
             return generate(prompt2, 'list_transactions.txt');
         } catch (error) {
             console.log(error);
