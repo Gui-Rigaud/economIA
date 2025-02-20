@@ -1,6 +1,7 @@
 'use client';
 
 import { Categorias } from "@/components/Categorias"
+import { Summary } from "@/components/Summary";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export default function Dashboard() {
@@ -9,6 +10,7 @@ export default function Dashboard() {
     <>
       <AuthProvider>
         <Categorias />
+        <Summary />
       </AuthProvider>
     </>
   )
