@@ -8,7 +8,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-const acceptableFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv, application/pdf, .xlsx, text/plain, application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.text, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf';
+const acceptableFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv, application/pdf, .xlsx, text/plain, application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.text, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, text/csv';
 // Suporta arquivos do tipo: CSV, XLSX, PDF, TXT, ODS, ODT, DOC, DOCX, RTF
 
 export default function UploadButton() {
@@ -60,6 +60,7 @@ export default function UploadButton() {
     data.append('file', file);
 
     if (!acceptableFileTypes.includes(file.type)) {
+      console.log(file.type);
       setLabelText('Por favor, selecione um arquivo válido.');
       setLoading(false);
       return;
