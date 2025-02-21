@@ -1,5 +1,6 @@
 'use client';
 
+import { UserGuide } from "@/components/UserGuide";
 import { Categorias } from "@/components/Categorias";
 import { Summary } from "@/components/Summary";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -12,6 +13,7 @@ export default function Dashboard() {
       <div className="flex h-screen">
         <SideBar />
         <div className="flex-grow">
+          <UserGuide />
           <Categorias />
           <Summary />
           <Suggestions />
