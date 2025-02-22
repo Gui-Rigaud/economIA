@@ -97,9 +97,9 @@ function Login() {
 
                                 </div>
 
-                                <div className={`${roboto700.className} mt-[96px] flex flex-col items-center`}>
-                                    <Link href="/cadastro" className="underline text-black">Ainda não tem uma conta? Cadastre-se clicando aqui!</Link>
-                                    <button type="submit" className="w-[320px] h-[48px] bg-econGreen rounded-lg drop-shadow-xl text-black">Login</button>
+                                <div className={`${roboto700.className} mt-[75px] flex flex-col items-center`}>
+                                    <Link href="/cadastro" className="underline text-black hover:text-green-700 mb-5">Ainda não tem uma conta? Cadastre-se clicando aqui!</Link>
+                                    <button type="submit" className="w-[320px] h-[48px] bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white">Login</button>
                                 </div>
 
 

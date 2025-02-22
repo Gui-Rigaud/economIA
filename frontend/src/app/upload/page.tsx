@@ -18,7 +18,7 @@ export default function Upload() {
   return (
     <div id = "screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center text-black">
       <div id = "main-container" className = "bg-backgroundLightGray rounded-lg h-[700px] w-[1000px]">
-        <div id = "logo-container" className = "flex justify-center items-center">
+        <div id = "logo-container" className = "flex justify-center items-center mt-3">
           <Image src = {logoblack} alt = "logo" width={200} height={200}/>
         </div>
 

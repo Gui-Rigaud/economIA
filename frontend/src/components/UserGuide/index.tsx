@@ -40,7 +40,7 @@ export function UserGuide () {
                         
                         <div id = "sidebar-text-container" className = {`bg-gray-300 border-4 border-black rounded-3xl mx-auto ml-3 mr-3 flex flex-col justify-center items-center ${roboto400.className} text-[24px] width-[10px] w-full p-4`}>
                             <p className = "mb-4 mt-3 font-bold"><strong className = "hover:text-econGreen">Sidebar</strong></p>
-                            <p className = "mb-1 p-3 text-justify">No lado esquerdo de sua tela há alguns nomes escritos em branco. Essa é a <strong className = "hover:text-green-600">Sidebar</strong></p>
+                            <p className = "mb-1 p-3 text-justify">No lado esquerdo de sua tela há alguns nomes escritos em branco. Essa é a <strong className = "hover:text-green-700">Sidebar</strong></p>
                             <p className = "mb-1 p-3 text-justify">A sidebar é responsável por facilitar o acesso aos outros campos presentes em nossa página.</p>
                             <p className = "mb-1 p-3 text-justify">Basta um clique no nome do campo desejado e ela te leva até lá, onde você poderá realizar a operação do respectivo campo</p>
                         </div>
@@ -50,7 +50,7 @@ export function UserGuide () {
                             <p className = "mb-4 mt-3 font-bold"><Link href = "#graph"><strong className = "hover:text-econGreen">Gráficos</strong></Link></p>
                             <p className = "mb-1 p-3 text-justify">Em sua sidebar, é possível ver o nome de alguns campos presentes em nossa página. Entre elas está o campo <Link href = "#graph"><strong className = "hover:text-econGreen">Gráficos</strong></Link></p>
                             <p className = "mb-1 p-3 text-justify">Nesse campo, é possível gerar um gráfico baseado nos gastos que você teve durante o mês</p>
-                            <p className = "mb-1 p-3 text-justify">Ele organiza suas despesas em diferentes categorias e as apresenta em formato de <strong className = "text-green-600">Donut</strong></p>
+                            <p className = "mb-1 p-3 text-justify">Ele organiza suas despesas em diferentes categorias e as apresenta em formato de <strong className = "text-green-700">Donut</strong></p>
                         </div>
                         <p className = "p-3"></p>
 
@@ -59,7 +59,7 @@ export function UserGuide () {
                             <p className = "mb-1 p-3 text-justify">Além do campo de <Link href = "#graph"><strong className = "hover:text-econGreen">Gráficos</strong></Link>, 
                                                         também é possivél ver o campo de <Link href = "#spendings-summary"><strong className = "hover:text-econGreen">Resumo dos gastos mensais</strong></Link></p>
                             <p className = "mb-1 p-3 text-justify">Nesse campo, é possível gerar um resumo em formato de texto das despesas que você teve nesse mês</p>
-                            <p className = "mb-1 p-3 text-justify">Ele organiza suas despesas em <strong className = "text-green-600">Receita</strong>, <strong className = "text-green-600">Despesas totais</strong> e <strong className = "text-green-600">Saldo</strong>, gerando assim um gráfico </p>
+                            <p className = "mb-1 p-3 text-justify">Ele organiza suas despesas em <strong className = "text-green-700">Receita</strong>, <strong className = "text-green-700">Despesas totais</strong> e <strong className = "text-green-700">Saldo</strong>, gerando assim um gráfico </p>
                         </div>
                         <p className = "p-3"></p>
 
