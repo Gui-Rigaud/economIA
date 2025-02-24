@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { Roboto } from "next/font/google";
 import Image from 'next/image';
 import logoBlackf from "../assets/logoblack.png";
-import Router from "next/router";
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
 import { FormEvent, useState } from 'react'
@@ -28,6 +28,7 @@ export default function cadastroScreen() {
         throw new Error("AuthContext is null");
     }
     const { signUp } = authContext;
+    const router = useRouter();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -58,6 +59,7 @@ export default function cadastroScreen() {
         try {
             const response = await signUp(data);
             console.log(response);
+            router.push('/login');
         } catch (error) {
             console.log(error);
         }
