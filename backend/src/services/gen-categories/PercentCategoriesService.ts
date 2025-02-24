@@ -3,7 +3,7 @@ import { generate } from "../../utilities/vertexai";
 
 const fs = require('fs').promises;
 
-const prompt2 = "Devolva um JSON com somente a frequência em porcentagem de cada categoria e o nome da categoria."
+const prompt2 = "Devolva um JSON com somente a frequência em porcentagem de cada categoria e o nome da categoria. No JSON, a categoria tem que ter o nome 'categoria' e a frequência tem que ter o nome 'porcentagem', ambas sem as aspas.";
 
 class PercentCategoriesService {
 
