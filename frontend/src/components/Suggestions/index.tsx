@@ -56,7 +56,7 @@ export function Suggestions() {
                 <div className="flex items-center justify-center h-screen">
                     <button
                         onClick={fetchSuggestion}
-                        className="bg-econGreen hover:bg-black text-white font-bold py-6 px-6 rounded-full w-30 h-35 flex items-center justify-center text-2xl"
+                        className="bg-econGreen hover:bg-green-700 text-white font-bold py-6 px-6 rounded-full w-30 h-35 flex items-center justify-center text-2xl"
                     >
                         Sugerir gestão de gastos
                     </button>

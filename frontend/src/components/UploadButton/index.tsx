@@ -1,18 +1,15 @@
-'use client'
+'use client';
 
-import React, { ChangeEvent, useContext, useState } from "react"
+import React, { ChangeEvent, useContext, useState } from "react";
 import Papa from 'papaparse';
-import styles from './button.module.scss'
 import { setupAPIClient } from "@/services/api";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const acceptableFileTypes = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .csv, application/pdf, .xlsx, text/plain, application/vnd.oasis.opendocument.spreadsheet, application/vnd.oasis.opendocument.text, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/rtf, text/csv';
-// Suporta arquivos do tipo: CSV, XLSX, PDF, TXT, ODS, ODT, DOC, DOCX, RTF
 
 function UploadButton() {
-
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error("AuthContext is null");
@@ -25,7 +22,6 @@ function UploadButton() {
   const [loading, setLoading] = useState(false);
 
   function onFileChangeHandler(event: ChangeEvent<HTMLInputElement>) {
-
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
       Papa.parse(event.target.files[0], {
@@ -81,17 +77,17 @@ function UploadButton() {
   }
 
   return (
-    <div className={styles.Container}>
-      {labelText ? <p className={`${styles.Label} mb-8 my-4 text-center`}>{labelText}</p>: null}
-      <label htmlFor="fileSelector" className={styles.InputLabel}>
+    <div className="h-[60px] w-[30%] border-[3px] border-[#48a078] m-[10px] transition-all duration-300 rounded-lg hover:bg-[#49a078]">
+      {labelText && <p className="mb-8 my-4 text-center">{labelText}</p>}
+      <label htmlFor="fileSelector" className="flex w-full h-full justify-center items-center text-white bg-[#48a078] hover:cursor-pointer hover:bg-green-700">
         Selecione o arquivo (*csv, xlsx, pdf, etc.)
       </label>
-      <input type="file" id="fileSelector" accept={acceptableFileTypes} onChange={onFileChangeHandler} className={styles.Input} />
-      <button onClick={onFileUploadHandler} className="bg-blue-500 text-white py-2 px-4 rounded mt-4 mx-auto block">
+      <input type="file" id="fileSelector" accept={acceptableFileTypes} onChange={onFileChangeHandler} className="opacity-0 z-[-1] absolute" />
+      <button onClick={onFileUploadHandler} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 mx-auto block">
         Enviar Arquivo
       </button>
     </div>
-  )
+  );
 }
 
 export default UploadButton;
