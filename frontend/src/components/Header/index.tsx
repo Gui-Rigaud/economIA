@@ -41,7 +41,7 @@ export function Header() {
 
           <nav className="ml-10 flex space-x-8 relative w-full">
             {[
-              { href: "#graph", label: "Gráficos", tooltip: <>Esse campo pega os dados bancários que você enviou e organiza eles em <Link href="#grapsh" className='hover:text-econGreen'><strong className='hover'>categorias</strong></Link>, devolvendo um <strong>gráfico de donut</strong> que mostra como seus gastos estão dividios nessas categorias</>},
+              { href: "#graph", label: "Gráficos", tooltip: <>Esse campo pega os dados bancários que você enviou e organiza eles em <Link href="#grapsh" className='hover:text-econGreen'><strong className='hover'>categorias</strong></Link>, devolvendo um <strong>gráfico de donut</strong> que mostra como seus gastos estão divididos nessas categorias</>},
               { href: "#spendings-summary", label: "Resumo", tooltip: <>O campo abaixo analisa os dados de <strong>Receita</strong>, <strong>Despesas totais</strong> e <strong>Saldo</strong>, devolvendo assim um <Link href="#spendings-summary" className='hover:text-green-700'><strong>Resumo dos gastos</strong></Link></>},
               { href: "#suggestions", label: "Sugestões", tooltip: <>Esse campo analisa as <strong>categorias</strong> criadas, os dados do <strong>resumo</strong> e, a partir disso, desenvolve, através de <strong>IA</strong>, uma aba de <Link href='#suggestions' className='hover:text-green-700'><strong>Sugestão dos gastos</strong></Link>. Essa sugestão dos gastos busca trazer formas de gastos <strong>mais conscientes</strong> que podem ser adotados pelo usuário</> }
             ].map((item, index, arr) => (
