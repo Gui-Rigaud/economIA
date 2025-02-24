@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <AuthProvider>
       <div className="flex h-screen">
-        <div className="flex-grow mt-[-320px]">
+        <div className="flex-grow">
           <Categorias />
           <Summary />
           <Suggestions />
