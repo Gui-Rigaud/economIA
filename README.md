@@ -119,6 +119,12 @@ yarn dev
 ### 8. Acessar o economIA
 Abra seu navegador e acesse o frontend do economIA no endereço [http://localhost:3000](http://localhost:3000).
 
+### 9. Rodar testes automatizados
+Interrompa a execução do frontend e inicie os testes executando na mesma pasta:
+```bash
+npm test
+```
+
 ---
 
 ## Imagens do funcionamento do economIA:
