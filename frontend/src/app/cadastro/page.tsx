@@ -4,7 +4,6 @@ import React, { useContext } from "react";
 import { Roboto } from "next/font/google";
 import Image from 'next/image';
 import logoBlackf from "../assets/logoblack.png";
-import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
 import { FormEvent, useState } from 'react'
@@ -36,7 +35,6 @@ export default function cadastroScreen() {
     const [telefone, setTelefone] = useState('');
     const [data_nasc, setData_nasc] = useState('');
     const [receita, setReceita] = useState('');
-    const router = useRouter();
 
 
     async function handleSignup(event: FormEvent) {
@@ -59,7 +57,6 @@ export default function cadastroScreen() {
         try {
             const response = await signUp(data);
             console.log(response);
-            router.push('login');
         } catch (error) {
             console.log(error);
         }
