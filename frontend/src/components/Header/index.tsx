@@ -4,14 +4,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '@/app/assets/logo.png';
 import { LogOutIcon } from 'lucide-react';
-import { useContext, useState } from 'react';
+import { use, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { destroyCookie, setCookie, parseCookies } from 'nookies';
 
 export function Header() {
   const authContext = useContext(AuthContext);
   const router = useRouter();
   const [tooltip, setTooltip] = useState<number | null>(null);
+  const { '@nextauth.token': token } = parseCookies();
 
   if (!authContext) {
     throw new Error('AuthContext is null');
@@ -21,8 +23,14 @@ export function Header() {
 
   const handleSignOut = async () => {
     await signOut();
-    router.push('/login');
+    
   };
+
+  useEffect(() => {
+    if (token === undefined) {
+      router.push('/login');
+    }
+  }, [token, router])
 
   return (
     <header className="h-20 mt-8">

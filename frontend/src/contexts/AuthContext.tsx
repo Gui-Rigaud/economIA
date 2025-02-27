@@ -111,7 +111,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
             toast.success('Logado com sucesso!', { theme: "dark" });
-            router.push('/upload')
+            router.push('upload')
         } catch (err) {
             toast.error("Erro ao acessar!", { theme: "dark" });
             console.error("Erro ao acessar:", err);
