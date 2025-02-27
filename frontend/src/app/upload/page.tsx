@@ -1,8 +1,14 @@
+"use client";
 
 import UploadButton from "@/components/UploadButton";
 import logoblack from "../assets/logoblack.png";
 import { Roboto } from "next/font/google";
 import Image from 'next/image';
+import { parseCookies } from 'nookies';
+import { useEffect } from 'react';
+import {useRouter} from 'next/navigation';
+import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
+import { useContext } from 'react';
 
 const roboto400 = Roboto({
   subsets: ["latin"],
@@ -14,8 +20,32 @@ const roboto700 = Roboto({
   weight: "700"
 })
 
+
+
+
+
 export default function Upload() {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    throw new Error('AuthContext is null');
+  }
+  
+  const { '@nextauth.token': token } = parseCookies();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(token)
+    console.log(token)
+    console.log(token)
+    if (token === undefined) {
+      router.push('/login');
+    }
+  }, [token, router])
+
   return (
+    <AuthProvider>
     <div id = "screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center text-black">
       <div id = "main-container" className = "bg-backgroundLightGray rounded-lg h-[700px] w-[1000px]">
         <div id = "logo-container" className = "flex justify-center items-center mt-7">
@@ -31,5 +61,6 @@ export default function Upload() {
         </div>
       </div>
     </div>
+    </AuthProvider>
   )
 }
