@@ -77,10 +77,16 @@ npm install
 ```  
 
 ### 3. Instalar e configurar o Google Cloud CLI
-- Siga as instruções para instalar o Google Cloud CLI: [Instalação do Google Cloud CLI](https://cloud.google.com/sdk/docs/install?hl=pt-br).  
-- Após instalar, autentique-se usando sua conta do **CIn**:
+Siga as instruções para instalar o Google Cloud CLI: [Instalação do Google Cloud CLI](https://cloud.google.com/sdk/docs/install?hl=pt-br).  
+Após instalar, é necessário realizar a autenticação utilizando o arquivo de autenticação enviado por e-mail
+Baixe o arquivo, coloque-o dentro da pasta **backend** e execute o seguinte comando antes de iniciar o servidor backend:
+- Caso esteja no Linux:
   ```bash
-  gcloud auth login
+  $env:GOOGLE_APPLICATION_CREDENTIALS=nome_arquivo
+  ```
+- Caso esteja no Windows:
+  ```bash
+  set GOOGLE_APPLICATION_CREDENTIALS=nome_arquivo
   ```
 
 ### 4. Configurar variáveis de ambiente
@@ -112,6 +118,12 @@ yarn dev
 
 ### 8. Acessar o economIA
 Abra seu navegador e acesse o frontend do economIA no endereço [http://localhost:3000](http://localhost:3000).
+
+### 9. Rodar testes automatizados
+Interrompa a execução do frontend e inicie os testes executando na mesma pasta:
+```bash
+npm test
+```
 
 ---
 

@@ -4,7 +4,8 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { api } from '../services/apiClient';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
 import { toast } from 'react-toastify';
-import Router, { useRouter } from "next/router";
+import {useRouter} from 'next/navigation';
+
 
 type AuthContextData = {
     user: UserProps | undefined;
@@ -57,6 +58,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<UserProps>();
     const isAuthenticated = !!user;
 
+    const router = useRouter();
+
     useEffect(() => {
         const { '@nextauth.token': token } = parseCookies();
 
@@ -108,6 +111,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
             toast.success('Logado com sucesso!', { theme: "dark" });
+            router.push('upload')
         } catch (err) {
             toast.error("Erro ao acessar!", { theme: "dark" });
             console.error("Erro ao acessar:", err);
@@ -127,6 +131,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             });
 
             toast.success("Conta criada com sucesso!", { theme: "dark" });
+            router.push('login');
+
         } catch (err) {
             toast.error("Erro ao cadastrar!", { theme: "dark" });
             console.error("Erro ao cadastrar:", err);

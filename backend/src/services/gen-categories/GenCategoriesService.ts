@@ -20,6 +20,7 @@ class GenCategoriesService {
             const copiador = new FileCopier(filePath);
             await copiador.execute('fatura_cartao.txt');
             const ia_result = await generate(prompt, 'fatura_cartao.txt');
+            await fs.unlink(filePath); // Delete the file
 
             const createCategory = new CreateCategoryService();
 
@@ -40,8 +41,6 @@ class GenCategoriesService {
 
             try {
                 const categorizeService = new CategorizeFinTransactionService();
-
-                console.log(ia_result);
 
                 await categorizeService.execute({ transactions_list: ia_result, user_id: user_id });
             } catch (error) {
