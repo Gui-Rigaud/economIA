@@ -39,7 +39,7 @@ describe('Categorias', () => {
       </AuthProvider>
     )
 
-    const goButton = screen.getByRole('button', { name: /go!/i })
+    const goButton = screen.getByRole('button', { name: /Gerar Categorias/i })
     expect(goButton).toBeInTheDocument()
   })
 
@@ -51,7 +51,7 @@ describe('Categorias', () => {
       </AuthProvider>
     )
 
-    const goButton = screen.getByRole('button', { name: /go!/i })
+    const goButton = screen.getByRole('button', { name: /Gerar Categorias/i })
     fireEvent.click(goButton)
 
     await waitFor(() => {

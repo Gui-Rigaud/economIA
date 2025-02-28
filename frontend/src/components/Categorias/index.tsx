@@ -1,6 +1,6 @@
 "use client";
 
-import Donut from '../Graph';
+import Donut from '../Graph'; // Certifique-se de que o caminho está correto
 import { setupAPIClient } from '@/services/api';
 import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
 import { useContext, useRef, useState } from 'react';
@@ -14,9 +14,15 @@ interface Categoria {
 
 export function Categorias() {
   const paletaCores = [
-    "#216869", "#48a078", "#9cc5a1", "#FFE4", "#6BE8A4", "#132414",
-    "#1B998B", "#2D3047", "#FFFD82", "#FF9B71", "#E84855", "#F9DC5C",
-    "#3185FC", "#EFBCD5", "#9A031E", "#5F0F40", "#0F4C5C", "#E36414"
+    "#FF0000", // Vermelho forte
+    "#0000FF", // Azul forte
+    "#00FF00", // Verde forte
+    "#FFA500", // Laranja forte
+    "#FFFF00", // Amarelo forte
+    "#800080", // Roxo forte
+    "#FF007F", // Rosa forte
+    "#00008B", // Azul escuro forte
+    "#008080", // Azul-esverdeado forte (substitui o verde-musgo)
   ];
 
   const authContext = useContext(AuthContext);
@@ -94,10 +100,11 @@ export function Categorias() {
     }
   };
 
-  const gerarCoresComPaleta = (quantidade: any) => {
+  const gerarCoresComPaleta = (quantidade: number) => {
     const cores = [...paletaCores]; // Copia a paleta para não modificar a original
     const resultado = [];
-
+  
+    // Se a quantidade de categorias for maior que o número de cores, repetimos a paleta
     while (resultado.length < quantidade) {
       if (cores.length === 0) {
         cores.push(...paletaCores); // Reabastece as cores quando acabar
@@ -106,7 +113,7 @@ export function Categorias() {
       const corIndex = Math.floor(Math.random() * cores.length);
       resultado.push(cores.splice(corIndex, 1)[0]);
     }
-
+  
     return resultado;
   };
 
@@ -142,7 +149,9 @@ export function Categorias() {
               <div id="graph" className="flex justify-center items-center h-[300px] w-full mb-9">
                 <Donut
                   categories={categorias.map((data) => data.categoria)}
-                  data={categorias.map((data) => data.porcentagem)} />
+                  data={categorias.map((data) => data.porcentagem)}
+                  colors={gerarCoresComPaleta(categorias.length)} // Passa as cores aqui
+                />
               </div>
 
               <section className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
