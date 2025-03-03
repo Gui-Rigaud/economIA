@@ -120,7 +120,7 @@ describe('Cadastro', () => {
       </AuthProvider>
     )
 
-    const registerButton = screen.getByRole('button', { name: /cadastrar/i })
+    const registerButton = screen.getByRole('button', { name: /Cadastrar/i })
     fireEvent.click(registerButton)
 
     const errorMessage = screen.getByText(/Preencha todos os campos!/i)

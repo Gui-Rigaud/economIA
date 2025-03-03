@@ -14,16 +14,16 @@ interface Categoria {
 
 export function Categorias() {
   const paletaCores = [
-    "#FF0000", // Vermelho forte
-    "#0000FF", // Azul forte
-    "#00FF00", // Verde forte
-    "#FFA500", // Laranja forte
-    "#FFFF00", // Amarelo forte
-    "#800080", // Roxo forte
-    "#FF007F", // Rosa forte
-    "#00008B", // Azul escuro forte
-    "#008080", // Azul-esverdeado forte (substitui o verde-musgo)
-  ];
+    "#B00000", // Vermelho escuro
+    "#0000B0", // Azul escuro
+    "#008000", // Verde escuro
+    "#CC7000", // Laranja escuro
+    "#C0A000", // Amarelo escuro
+    "#600060", // Roxo escuro
+    "#B00050", // Rosa escuro
+    "#000060", // Azul bem escuro
+    "#005050", // Azul-esverdeado escuro
+];
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
