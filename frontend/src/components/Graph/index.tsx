@@ -6,6 +6,7 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 interface DonutProps {
   categories: string[];
   data: number[];
+  colors: string[]; // Adicione esta linha
 }
 
 interface DonutState {
@@ -29,6 +30,7 @@ interface DonutState {
         };
       };
     };
+    colors: string[]; // Adicione esta linha
   };
   series: number[];
 }
@@ -60,18 +62,23 @@ class DonutChart extends Component<DonutProps, DonutState> {
             }
           }
         },
-
+        colors: props.colors // Adicione esta linha
       },
       series: props.data
     };
   }
 
   componentDidUpdate(prevProps: DonutProps) {
-    if (prevProps.categories !== this.props.categories || prevProps.data !== this.props.data) {
+    if (
+      prevProps.categories !== this.props.categories ||
+      prevProps.data !== this.props.data ||
+      prevProps.colors !== this.props.colors // Adicione esta verificação
+    ) {
       this.setState({
         options: {
           ...this.state.options,
-          labels: this.props.categories
+          labels: this.props.categories,
+          colors: this.props.colors // Atualize as cores
         },
         series: this.props.data
       });

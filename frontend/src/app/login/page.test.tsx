@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import Login from './page'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useRouter } from 'next/router'
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -55,6 +56,16 @@ describe('Login', () => {
 
     const loginButton = screen.getByRole('button', { name: /login/i })
     expect(loginButton).toBeInTheDocument()
+  })
+
+  it('renders the button that redirects to cadastro', () => {
+    render (
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
+    )
+    const cadastroLink = screen.getByText('Ainda não tem uma conta? Cadastre-se clicando aqui!')
+    expect(cadastroLink).toBeInTheDocument()
   })
 
   it('shows error message when fields are empty', async () => {

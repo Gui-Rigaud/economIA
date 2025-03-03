@@ -101,6 +101,17 @@ describe('Cadastro', () => {
     expect(registerButton).toBeInTheDocument()
   })
 
+  it('renders the login link', () => {
+    render(
+      <AuthProvider>
+        <Cadastro />
+      </AuthProvider>
+    )
+
+    const loginLink = screen.getByText('Já tem um cadastro? Faça o login clicando aqui!')
+    expect(loginLink).toBeInTheDocument()
+  })
+
   it('shows error message when fields are empty', () => {
     render(
       <AuthProvider>
@@ -109,10 +120,10 @@ describe('Cadastro', () => {
       </AuthProvider>
     )
 
-    const registerButton = screen.getByRole('button', { name: /cadastrar/i })
+    const registerButton = screen.getByRole('button', { name: /Cadastrar/i })
     fireEvent.click(registerButton)
 
     const errorMessage = screen.getByText(/Preencha todos os campos!/i)
     expect(errorMessage).toBeInTheDocument()
-  })
+  })  
 })

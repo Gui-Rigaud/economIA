@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { Categorias } from './index'
+import { Summary } from './index';
 import { AuthProvider } from '@/contexts/AuthContext'
 import ApexCharts from "apexcharts";
 import ReactApexChart from "react-apexcharts";
@@ -31,32 +31,31 @@ global.ResizeObserver = class {
   disconnect() {}
 }
 
-describe('Categorias', () => {
-  it('renders the Go button initially', () => {
+describe('Summary', () => {
+  it('renders the Summary button initially', () => {
     render(
       <AuthProvider>
-        <Categorias />
+        <Summary />
       </AuthProvider>
     )
 
-    const goButton = screen.getByRole('button', { name: /Gerar Categorias/i })
-    expect(goButton).toBeInTheDocument()
+    const summaryButton = screen.getByRole('button', { name: /Resumo de gastos/i })
+    expect(summaryButton).toBeInTheDocument()
   })
 
-  it('fetches categories when Go button is clicked', async () => {
+  it('fetches bank data when Summary button is clicked', async () => {
     render(
       <AuthProvider>
         <ToastContainer />
-        <Categorias />
+        <Summary />
       </AuthProvider>
     )
 
-    const goButton = screen.getByRole('button', { name: /Gerar Categorias/i })
-    fireEvent.click(goButton)
-
+    const summaryButton = screen.getByRole('button', { name: /Resumo de gastos/i })
+    fireEvent.click(summaryButton)
+    
     await waitFor(() => {
-      const loadingMessage = screen.getByText(/aguarde um momento! nossa ia está trabalhando/i)
-      expect(loadingMessage).toBeInTheDocument()
+        expect(screen.getByText('Resumo de gastos mensais')).toBeInTheDocument();
     })
   })
 })
