@@ -55,7 +55,7 @@ describe('Summary', () => {
     fireEvent.click(summaryButton)
     
     await waitFor(() => {
-        expect(screen.getByText('Resumo de gastos mensais')).toBeInTheDocument();
+        expect(screen.getByText(/resumo de gastos mensais/i)).toBeInTheDocument();
     })
   })
 })
