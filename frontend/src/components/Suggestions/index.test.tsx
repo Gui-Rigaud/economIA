@@ -55,7 +55,7 @@ describe('Suggestions', () => {
     fireEvent.click(suggestionsButton)
 
     await waitFor(() => {
-        expect(screen.getByText('Sugestões')).toBeInTheDocument()
+        expect(screen.getByText(/aguarde um momento! nossa ia está trabalhando/i)).toBeInTheDocument()
     })
   })
 })
