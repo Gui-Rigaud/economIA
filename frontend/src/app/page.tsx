@@ -32,8 +32,8 @@ export default function Home()
             </div>
 
             <div id = "buttons-container" className = "flex flex-col justify-center items-center mt-[64px]">
-                <Link href = "/login" className = "w-[320px] h-[48px] bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white mb-4 flex justify-center items-center">Login</Link>
-                <Link href = "/cadastro" className = "w-[320px] h-[48px] bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white mb-4 flex justify-center items-center">Cadastrar</Link>
+                <Link href = "/login" className = "w-[320px] h-[48px] bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white mb-4 flex justify-center items-center duration-300">Login</Link>
+                <Link href = "/cadastro" className = "w-[320px] h-[48px] bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white mb-4 flex justify-center items-center duration-300">Cadastrar</Link>
             </div>
 
         </div>

@@ -83,7 +83,7 @@ function UploadButton() {
         Selecione o arquivo (*csv, xlsx, pdf, etc.)
       </label>
       <input type="file" id="fileSelector" accept={acceptableFileTypes} onChange={onFileChangeHandler} className="opacity-0 z-[-1] absolute" />
-      <button onClick={onFileUploadHandler} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 mx-auto block">
+      <button onClick={onFileUploadHandler} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 mx-auto block duration-150">
         Enviar Arquivo
       </button>
     </div>
