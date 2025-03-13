@@ -6,6 +6,7 @@ import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
 import { useContext, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
+import Spinner from '@/components/Spinner/Spinner';
 
 interface Categoria {
   categoria: string;
@@ -134,7 +135,7 @@ export function Categorias() {
 
           {loading ? (
             <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-              <div className="animate-spin"><FaSpinner color='#FFF' size={40} /></div>
+              <Spinner/>
               <p>Aguarde um momento! Nossa IA está trabalhando<span className="dots"></span></p>
             </div>
           ) : (
