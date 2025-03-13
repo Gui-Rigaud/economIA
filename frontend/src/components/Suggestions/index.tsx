@@ -6,7 +6,11 @@ import { toast } from "react-toastify";
 import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
 import { FaSpinner } from 'react-icons/fa';
+<<<<<<< HEAD
 import Spinner from "@/components/Spinner/Spinner";
+=======
+import Spinner from '@/components/Spinner/Spinner';
+>>>>>>> 3808c10 (Melhorando responsividade)
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -79,7 +83,7 @@ export function Suggestions() {
 
                 {loading ? (
                     <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-                        <Spinner/>
+                        <Spinner />
                         <p className="text-white text-xl">Aguarde um momento! Nossa IA está trabalhando<span className="dots"></span></p>
                     </div>
                 ) : (
