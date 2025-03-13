@@ -1,11 +1,12 @@
 "use client";
 
 import { setupAPIClient } from "@/services/api";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
 import { FaSpinner } from 'react-icons/fa';
+import Spinner from "@/components/Spinner/Spinner";
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -28,6 +29,17 @@ export function Suggestions() {
     const [dados, setDados] = useState<Suggestion[]>([]);
     const [showPhrase, setShowPhrase] = useState(false);
     const primeiraRenderizacao = useRef(true);
+    const textContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!primeiraRenderizacao.current && textContainerRef.current) {
+            const textElements = textContainerRef.current.querySelectorAll("p");
+            textElements.forEach((element, index) => {
+                element.classList.add("animate-fadeInUp");
+                element.style.animationDelay = `${index * 0.2}s`;
+            });
+        }
+    }, [dados]);
 
     const fetchSuggestion = async () => {
         setLoading(true);
@@ -67,24 +79,45 @@ export function Suggestions() {
 
                 {loading ? (
                     <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-                        <div className="animate-spin"><FaSpinner color='#FFF' size={40} /></div>
+                        <Spinner/>
                         <p className="text-white text-xl">Aguarde um momento! Nossa IA está trabalhando<span className="dots"></span></p>
                     </div>
                 ) : (
                     <>
-                    { showPhrase && (<div id="text-container" className={`bg-gray-200 border-4 border-black rounded-3xl w-[900px] mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] width-[10px]`}>
-                        <p key="#" className="mb-4 mt-3 font-bold"><strong>Sugestões</strong></p>
-                        {dados?.length > 0 ? (
-                            dados.map(({ id, frase }) => (
-                                <p key={id} className="mb-1 p-4">{id}: {frase}</p>
-                            ))
-                        ) : (
-                            <p className="mb-1 p-4">Nenhuma sugestão disponível</p>
-                        )}
-                    </div>)}
+                    { showPhrase && (
+                        <div
+                            id="text-container"
+                            ref={textContainerRef}
+                            className={`bg-econGreen border-4 border-black rounded-3xl w-[900px] mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] text-white`}
+                        >
+                            <p key="#" className="mb-4 mt-3 font-bold opacity-0"><strong>Sugestões</strong></p>
+                            {dados?.length > 0 ? (
+                                dados.map(({ id, frase }) => (
+                                    <p key={id} className="mb-1 p-4 opacity-0">{id}: {frase}</p>
+                                ))
+                            ) : (
+                                <p className="mb-1 p-4 opacity-0">Nenhuma sugestão disponível</p>
+                            )}
+                        </div>
+                    )}
                     </>
                 )}
             </div>
+            <style jsx>{`
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                .animate-fadeInUp {
+                    animation: fadeInUp 1s ease-out forwards;
+                }
+            `}</style>
         </AuthProvider>
     );
 }
