@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 import { FaSpinner } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
-import Spinner from "@/components/Spinner/Spinner";
 
 const roboto400 = Roboto({
     subsets: ["latin"],
@@ -73,7 +72,7 @@ function Login() {
             <AuthProvider>
                 {loading ? (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                        <Spinner/>
+                        <div className="loader"><FaSpinner color='#FFF' size={40} /></div>
                     </div>
                 ) :
                     <div id="screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
