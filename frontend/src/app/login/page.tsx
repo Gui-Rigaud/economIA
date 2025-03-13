@@ -8,7 +8,6 @@ import logoblack from "../assets/logoblack.png"
 import Link from "next/link";
 import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
 import { toast } from 'react-toastify';
-import { FaSpinner } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import Spinner from "@/components/Spinner/Spinner";
@@ -69,11 +68,32 @@ function Login() {
     }
 
     return (
+<<<<<<< HEAD
         <>
             <AuthProvider>
                 {loading ? (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                         <Spinner/>
+=======
+        <AuthProvider>
+            {loading && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <Spinner />
+                </div>
+            )}
+            
+            <div className="bg-econDarkGreen min-h-screen w-screen flex items-center p-4">
+                <div className={`bg-backgroundLightGray rounded-xl w-full max-w-[500px] mx-auto p-6 ${roboto400.className}`}>
+                    {/* Logo */}
+                    <div className="flex justify-center mb-8">
+                        <Image 
+                            src={logoblack} 
+                            alt="logo" 
+                            width={300} 
+                            height={300}
+                            className="w-full max-w-[250px]"
+                        />
+>>>>>>> 3808c10 (Melhorando responsividade)
                     </div>
                 ) :
                     <div id="screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
