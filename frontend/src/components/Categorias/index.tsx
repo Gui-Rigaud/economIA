@@ -155,7 +155,7 @@ export function Categorias() {
                 />
               </div>
 
-              <section className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
+              <section className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
                 {categorias.map((categoria) => (
                   <div key={categoria.categoria} className="p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-transform duration-200 hover:-translate-y-1">
                     <h3 className="text-center text-lg text-gray-800 truncate w-full">{categoria.categoria}</h3>
