@@ -25,7 +25,7 @@ export default function Home()
                     <Image src = {logoblack} alt = "logo" width={200} height={200}/>
             </div>
 
-            <div id = "text-container" className = {`flex flex-col justify-center items-center ${roboto400.className} text-[24px]`}>
+            <div id = "text-container" className = {`flex flex-col j items-center ${roboto400.className} text-[24px]`}>
                 <p className="mb-4">Bem-vindo ao economIA!</p>
                 <p className="mb-4">economIA é a sua mais nova plataforma de gestão financeira baseada em I.A</p>
                 <p className="mb-4">Faça login caso já tenha uma conta ou cadastre-se caso seja novo!</p>
