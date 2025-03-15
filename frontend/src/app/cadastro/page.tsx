@@ -78,37 +78,37 @@ export default function cadastroScreen() {
                             <div id="forms-inputs" className="grid grid-cols-2 mx-[32px] gap-x-[64px] gap-y-[20px]">
                                 <div id="name-container" className="">
                                     <label htmlFor="name" className="block text-sm/6 font-medium text-black">Nome</label>
-                                    <input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome Sobrenome" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome Sobrenome" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
 
                                 <div id="email-container" className="">
                                     <label htmlFor="email" className="block text-sm/6 font-medium text-black">E-mail</label>
-                                    <input id="email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="exemplo@gmail.com" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="exemplo@gmail.com" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
 
                                 <div id="password-container">
                                     <label htmlFor="password" className="block text-sm/6 font-medium text-black">Senha</label>
-                                    <input id="password" onChange={(e) => setSenha(e.target.value)} value={senha} placeholder="Senha" type="password" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="password" onChange={(e) => setSenha(e.target.value)} value={senha} placeholder="Senha" type="password" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
 
                                 <div id="cpf-container">
                                     <label htmlFor="cpf" className="block text-sm/6 font-medium text-black">CPF</label>
-                                    <input id="cpf" placeholder="12345678912" value={cpf} onChange={(e) => setCpf(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="cpf" placeholder="12345678912" value={cpf} onChange={(e) => setCpf(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
 
                                 <div id="cellphone-container">
                                     <label htmlFor="cellphone" className="block text-sm/6 font-medium text-black">Número de telefone</label>
-                                    <input id="cellphone" placeholder="81999999999" value={telefone} onChange={(e) => setTelefone(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="cellphone" placeholder="81999999999" value={telefone} onChange={(e) => setTelefone(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
 
                                 <div id="birthdate-container">
                                     <label htmlFor="birthdate" className="block text-sm/6 font-medium text-black">Data de nascimento</label>
-                                    <input id="birthdate" placeholder="Data de nascimento" value={data_nasc} onChange={(e) => setData_nasc(e.target.value)} type="date" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="birthdate" placeholder="Data de nascimento" value={data_nasc} onChange={(e) => setData_nasc(e.target.value)} type="date" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
 
                                 <div id="receita-container">
                                     <label htmlFor="receita" className="block text-sm/6 font-medium text-black">Receita</label>
-                                    <input id="receita" placeholder="10000000" value={receita} onChange={(e) => setReceita(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
+                                    <input id="receita" placeholder="10000000" value={receita} onChange={(e) => setReceita(e.target.value)} className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`} />
                                 </div>
                             </div>
 
