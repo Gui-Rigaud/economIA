@@ -21,6 +21,8 @@ import { CategorizeFinTransactionController } from "./controllers/transactions/C
 import { BudgetUserController } from "./controllers/user/BudgetUserController";
 
 import { SuggestionController } from "./controllers/suggestion/SuggestionController";
+import { GenCategoriesControllerPDF } from "./controllers/gen-categories/GenCategoriesControllerPDF";
+import { RegisterBankTransactionPDFController } from "./controllers/transactions/RegisterBankTransactionPDFController";
 
 const router = Router();
 
@@ -43,6 +45,8 @@ router.post('/register/transaction', isAuthenticated, multerConfig.single('file'
 router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
 router.post('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
+router.post('/register/pdf', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionPDFController().handle) //Adição, tirar comentario
+router.post('/gen-pdf', isAuthenticated, new GenCategoriesControllerPDF().handle)
 // -- ROTAS CATEGORIES -- 
 
 router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
