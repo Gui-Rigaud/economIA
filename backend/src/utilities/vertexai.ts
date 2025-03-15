@@ -20,8 +20,8 @@ export async function generate(prompt: string, destinationUri: string) {
 
   const textInstruction = "Classificar transações de uma fatura de cartão de crédito em categorias predefinidas com base no tipo de estabelecimento, descrição da compra, ou outras informações relevantes.";
 
-  const fileUri = "gs://fatura_cartao_1/json/" + destinationUri; // Use a URI correta do seu bucket
-  const mimeType = "text/plain";
+  const fileUri = "gs://fatura_cartao_1/pdf/" + destinationUri; // Use a URI correta do seu bucket
+  const mimeType = "application/pdf";
 
   const document1 = {
     fileUri: fileUri,
