@@ -5,7 +5,6 @@ import { useState, useContext, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
-import { FaSpinner } from 'react-icons/fa';
 import Spinner from "@/components/Spinner/Spinner";
 
 const roboto400 = Roboto({

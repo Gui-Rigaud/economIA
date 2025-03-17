@@ -3,9 +3,8 @@
 import Donut from '../Graph'; // Certifique-se de que o caminho está correto
 import { setupAPIClient } from '@/services/api';
 import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FaSpinner } from 'react-icons/fa';
 import Spinner from '@/components/Spinner/Spinner';
 
 interface Categoria {
@@ -101,6 +100,12 @@ export function Categorias() {
     }
   };
 
+  useEffect(() => {
+    if (primeiraRenderizacao.current) {
+      fetchCategories();
+    }
+  })
+
   const gerarCoresComPaleta = (quantidade: number) => {
     const cores = [...paletaCores]; // Copia a paleta para não modificar a original
     const resultado = [];
@@ -122,17 +127,6 @@ export function Categorias() {
     <>
       <AuthProvider>
         <main className="p-8 font-sans">
-          {primeiraRenderizacao.current ? (
-            <div className="flex items-center justify-center h-screen">
-                <button
-                onClick={fetchCategories}
-                className="bg-econGreen hover:bg-green-700 text-white font-bold py-6 px-6 rounded-full w-35 h-35 flex items-center justify-center text-2xl"
-                >
-                Gerar Categorias
-                </button>
-            </div>
-          ) : null}
-
           {loading ? (
             <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
               <Spinner/>

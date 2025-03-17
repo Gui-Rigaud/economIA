@@ -23,7 +23,6 @@ export function Summary() {
     }
     const { user } = authContext;
     const apiClient = setupAPIClient();
-    const [loading, setLoading] = useState(false);
     const [dados, setDados] = useState<Summary>();
     const [showSummary, setShowSummary] = useState(false);
     const primeiraRenderizacao = useRef(true);
@@ -39,62 +38,55 @@ export function Summary() {
         }
     }, [dados]);
 
-    const fetchSummary = async () => {
-        setLoading(true);
-
-        try {
-            const response = await apiClient.post("/budget", {
-                user_id: user?.id
-            });
-
-            if (response.data) {
-                setDados(response.data);
-            } else {
-                toast.error("Não foi possível encontrar os dados necessários para o resumo de gastos", { theme: "dark" });
+    const fetchSummary = async () => {    
+        setTimeout(async () => {
+            if (!user?.id) {
+                toast.error("Usuário não encontrado. Tente novamente.", { theme: "dark" });
+                return;
             }
-        } catch (error) {
-            console.error("Erro ao buscar resumo:", error);
-            toast.error("Erro ao buscar resumo de gastos", { theme: "dark" });
-        } finally {
-            setLoading(false);
-            setShowSummary(true);
-            primeiraRenderizacao.current = false;
-        }
+    
+            try {
+                const response = await apiClient.post("/budget", {
+                    user_id: user.id
+                });
+    
+                if (response.data) {
+                    setDados(response.data);
+                } else {
+                    toast.error("Não foi possível encontrar os dados necessários para o resumo de gastos", { theme: "dark" });
+                }
+            } catch (error) {
+                console.error("Erro ao buscar resumo:", error);
+                toast.error("Erro ao buscar resumo de gastos", { theme: "dark" });
+            } finally {
+                setShowSummary(true);
+                primeiraRenderizacao.current = false;
+            }
+        }, 1000); // Aguarda 1 segundo antes de executar a requisição
     };
+    
+
+    useEffect(() => {
+        if (primeiraRenderizacao.current && user?.id) {
+            fetchSummary();
+        }
+    }, [user?.id]); // Agora, a função só executa quando `user.id` estiver disponível    
 
     return (
         <>
             <AuthProvider>
                 <div id="spendings-summary" className="flex flex-col justify-center items-center text-black min-h-screen">
-                    {primeiraRenderizacao.current ? (
-                        <div className="flex items-center justify-center h-screen">
-                            <button
-                                onClick={fetchSummary}
-                                className={`bg-econGreen hover:bg-green-700 text-white font-bold py-6 px-6 rounded-full w-35 h-35 flex items-center justify-center text-2xl transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-0' : 'scale-100'}`}
-                            >
-                                Resumo de gastos
-                            </button>
-                        </div>
-                    ) : (
-                        <>
-                            {loading ? (
-                                <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-                                    <p className="text-white text-xl">Carregando...</p>
-                                </div>
-                            ) : (
-                                <div
-                                    id="text-container"
-                                    ref={textContainerRef}
-                                    className={`bg-econGreen border-4 border-black rounded-3xl w-1/3 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] text-white transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-100' : 'scale-0'}`}
-                                >
-                                    <p className="mb-4 mt-3 font-bold opacity-0"><strong>Resumo de gastos mensais</strong></p>
-                                    <p className="mb-1 p-4 opacity-0">Receita: {dados?.receita ?? "N/A"}</p>
-                                    <p className="mb-1 p-4 opacity-0">Despesas totais: {dados?.despesa ?? "N/A"}</p>
-                                    <p className="mb-1 p-4 opacity-0">Saldo: {dados?.saldo ?? "N/A"}</p>
-                                </div>
-                            )}
-                        </>
-                    )}
+                    <div
+                        id="text-container"
+                        ref={textContainerRef}
+                        className={`bg-econGreen border-4 border-black rounded-3xl w-1/3 mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] text-white transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-100' : 'scale-0'}`}
+                    >
+                        <p className="mb-4 mt-3 font-bold opacity-0"><strong>Resumo de gastos mensais</strong></p>
+                        <p className="mb-1 p-4 opacity-0">Receita: {dados?.receita ?? "N/A"}</p>
+                        <p className="mb-1 p-4 opacity-0">Despesas totais: {dados?.despesa ?? "N/A"}</p>
+                        <p className="mb-1 p-4 opacity-0">Saldo: {dados?.saldo ?? "N/A"}</p>
+                    </div>
+
                 </div>
             </AuthProvider>
             <style jsx>{`
