@@ -7,7 +7,7 @@ class GenCategoriesControllerPDF {
         const { user_id } = request.body;
 
         try {
-            const categories = await genCategoriesService.execute(user_id); // 🔹 Remove file.buffer
+            const categories = await genCategoriesService.execute();
             return response.json(categories);
         } catch (error) {
             return response.status(500).json({ error: "Internal Server Error" });
