@@ -8,7 +8,7 @@ import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 
 import { RegisterBankInformationController } from "./controllers/user/RegisterBankInformationController";
-import { RegisterBankTransactionController } from "./controllers/transactions/RegisterBankTransactionController";
+import { RegisterTransactionController } from "./controllers/transactions/RegisterTransactionController";
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { GenCategoriesController } from "./controllers/gen-categories/GenCategoriesController";
@@ -40,12 +40,12 @@ router.post('/budget', isAuthenticated, new BudgetUserController().handle);
 
 // --ROTAS TRANSACTION--
 
-router.post('/register/transaction', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionController().handle)
+/*remover dps */ //router.post('/register/transaction', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
-router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
+/* analisar de precisamos*/ router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
 router.post('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
-router.post('/register/pdf', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionPDFController().handle) //Adição, tirar comentario
+/* alterar a rota*/ router.post('/register/pdf', isAuthenticated, multerConfig.single('file'), new RegisterTransactionController().handle) //Adição, tirar comentario
 router.post('/gen-pdf', isAuthenticated, new GenCategoriesControllerPDF().handle)
 // -- ROTAS CATEGORIES -- 
 
