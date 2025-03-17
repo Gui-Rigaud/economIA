@@ -1,60 +1,42 @@
-import { CategorizeFinTransactionController } from "../../controllers/transactions/CategorizeFinTransactionController";
-import { FileCopier } from "../../utilities/copyFile";
 import { generate } from "../../utilities/vertexai";
-import { CreateCategoryService } from "../categories/CreateCategoryService";
-import { CategorizeFinTransactionService } from "../transactions/CategorizeFinTransactionService";
 
-const fs = require('fs').promises;
+const fs = require("fs").promises;
+const path = require("path");
+const { Storage: GoogleCloudStorage } = require("@google-cloud/storage");
 
-const prompt = "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito, levando em conta somente o atributo descrição. Além disso, faça a lista de objetos do arquivo JSON com somente o id da transação e a categoria em cada objeto.";
+const prompt = "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito, levando em conta somente o atributo descrição ou estabelecimento. Além disso, faça a lista de objetos do arquivo JSON com somente o id da transação, que será uma sequência de inteiros crescente começando em 1, e a categoria em cada objeto.";
 
 class GenCategoriesService {
-
-    async execute(transactions: any, user_id: string) {
-
-        const transactionsList = transactions;
+    async execute() {
+        const filePath = path.join(__dirname, "fatura.pdf");
+        const storage = new GoogleCloudStorage();
+        const bucketName = "fatura_cartao_1";
+        const destinationPath = "pdf/fatura.pdf";
 
         try {
-            const filePath = `${__dirname}/fatura_cartao.txt`;
-            await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2)); // Create a new file
-            const copiador = new FileCopier(filePath);
-            await copiador.execute('fatura_cartao.txt');
-            const ia_result = await generate(prompt, 'fatura_cartao.txt');
-            await fs.unlink(filePath); // Delete the file
-
-            const createCategory = new CreateCategoryService();
-
-            let categories_gen = [];
-
-            ia_result.map(({ id, categoria }) => {
-                if (!(categories_gen.includes(categoria))) {
-                    categories_gen.push(categoria);
-                }
-            });
-
             try {
-                await createCategory.execute({ categories_name: categories_gen });
-            } catch (error) {
-                console.log(error);
-                throw new Error("Error while creating categories");
+                await fs.access(filePath);
+            } catch (err) {
+                throw new Error("Arquivo fatura.pdf não encontrado.");
             }
 
-            try {
-                const categorizeService = new CategorizeFinTransactionService();
+            // Faz upload do PDF para o Google Cloud Storage
+            const bucket = storage.bucket(bucketName);
+            await bucket.upload(filePath, { destination: destinationPath });
 
-                await categorizeService.execute({ transactions_list: ia_result, user_id: user_id });
-            } catch (error) {
-                console.log(error);
-                throw new Error("Error while categorizing transactions");
-            }
+            // Aguarda a propagação do GCS antes de chamar a IA
+            await new Promise(resolve => setTimeout(resolve, 3000)); 
+
+            const ia_result = await generate(prompt, "fatura.pdf");
+            await fs.unlink(filePath);
+            console.log("Arquivo deletado");
 
             return ia_result;
         } catch (error) {
             console.log(error);
-            throw new Error("Error while generating categories");
+            throw new Error("Erro ao gerar categorias");
         }
     }
-
 }
 
-export { GenCategoriesService }
+export { GenCategoriesService };
