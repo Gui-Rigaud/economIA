@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RegisterTransactionPDFService } from "../../services/transactions/RegisterBankTransactionPDFService";
+import { RegisterTransactionPDFService } from "../../services/transactions/RegisterTransactionService";
 
 class RegisterBankTransactionPDFController {
     async handle(req: Request, res: Response) {

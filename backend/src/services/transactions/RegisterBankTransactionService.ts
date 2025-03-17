@@ -1,4 +1,4 @@
-import { Readable } from "stream";
+/*import { Readable } from "stream";
 import readline from "readline";
 import prismaClient from "../../prisma";
 import { convertToInt } from "../../utilities/conversorInt";
@@ -14,7 +14,7 @@ interface Transaction {
 }
 
 class RegisterTransactionService {
-    async processFile(fileBuffer: Buffer, user_id: string) {
+    async processFile(fileBuffer: Buffer, originalFileName: string) {
         const transactions = [];
 
         const readableFile = new Readable();
@@ -83,4 +83,4 @@ class RegisterTransactionService {
     }
 }
 
-export { RegisterTransactionService };
+export { RegisterTransactionService };*/
