@@ -11,7 +11,6 @@ import { RegisterBankInformationController } from "./controllers/user/RegisterBa
 import { RegisterTransactionController } from "./controllers/transactions/RegisterTransactionController";
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
-import { GenCategoriesController } from "./controllers/gen-categories/GenCategoriesController";
 import { ListTransactionsController } from "./controllers/transactions/ListTransactionsController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
 import { PercentCategoriesController } from "./controllers/gen-categories/PercentCategoriesController";
@@ -21,8 +20,7 @@ import { CategorizeFinTransactionController } from "./controllers/transactions/C
 import { BudgetUserController } from "./controllers/user/BudgetUserController";
 
 import { SuggestionController } from "./controllers/suggestion/SuggestionController";
-import { GenCategoriesControllerPDF } from "./controllers/gen-categories/GenCategoriesControllerPDF";
-import { RegisterBankTransactionPDFController } from "./controllers/transactions/RegisterBankTransactionPDFController";
+import { GenCategoriesController } from "./controllers/gen-categories/GenCategoriesController";
 
 const router = Router();
 
@@ -40,13 +38,12 @@ router.post('/budget', isAuthenticated, new BudgetUserController().handle);
 
 // --ROTAS TRANSACTION--
 
-/*remover dps */ //router.post('/register/transaction', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
 /* analisar de precisamos*/ router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
-router.post('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
-/* alterar a rota*/ router.post('/register/pdf', isAuthenticated, multerConfig.single('file'), new RegisterTransactionController().handle) //Adição, tirar comentario
-router.post('/gen-pdf', isAuthenticated, new GenCategoriesControllerPDF().handle)
+router.post('/register/file', isAuthenticated, multerConfig.single('file'), new RegisterTransactionController().handle)
+
+router.post('/generate-categories', isAuthenticated, new GenCategoriesController().handle)
 // -- ROTAS CATEGORIES -- 
 
 router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
