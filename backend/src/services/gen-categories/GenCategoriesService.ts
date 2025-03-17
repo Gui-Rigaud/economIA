@@ -4,7 +4,7 @@ const fs = require("fs").promises;
 const path = require("path");
 const { Storage: GoogleCloudStorage } = require("@google-cloud/storage");
 
-const prompt = "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito, levando em conta somente o atributo descrição ou estabelecimento. Além disso, faça a lista de objetos do arquivo JSON com somente o id da transação, que será uma sequência de inteiros crescente começando em 1, e a categoria em cada objeto.";
+const prompt = "Classifique cada transação financeira desta fatura de Cartão de Crédito em categorias amplas e bem definidas, agrupando categorias semelhantes sob um mesmo rótulo. Utilize supernichos para unificar categorias relacionadas. Por exemplo, 'Restaurante' e 'Alimentação' devem ser classificadas apenas como 'Alimentação', e 'Esportes' e 'Lazer' podem ser unificadas se fizer sentidoRetorne um JSON onde cada objeto contenha apenas dois atributos: 'id' (numeração sequencial crescente a partir de 1) e 'categoria' (o nome do supernicho identificado para a transação)."
 
 class GenCategoriesService {
     async execute() {
