@@ -74,7 +74,6 @@ function AISuggestionChat({
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
-
   return (
    <div className="flex flex-col items-center justify-center h-screen"> 
     <div className={`bg-white  rounded-2xl shadow-lg aspect-square w-[50%] h-[70%] flex flex-col ${className}`}>
@@ -127,7 +126,7 @@ function AISuggestionChat({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-econGreen"
+          className="flex-1 border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-econGreen text-gray-800"
           disabled={isLoading}
         />
         <button 
