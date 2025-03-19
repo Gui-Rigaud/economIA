@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+/*import prismaClient from "../../prisma";
 
 interface Transaction {
     id: string;
@@ -27,4 +27,4 @@ class ListTransactionsService {
     }
 }
 
-export {ListTransactionsService};
+export {ListTransactionsService};*/
