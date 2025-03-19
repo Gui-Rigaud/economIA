@@ -34,7 +34,7 @@ router.post("/register/user/profile", isAuthenticated, new RegisterBankInformati
 
 router.get('/me', isAuthenticated, new DetailUserController().handle);
 
-router.post('/budget', isAuthenticated, new BudgetUserController().handle);
+router.get('/budget', isAuthenticated, new BudgetUserController().handle);
 
 // --ROTAS TRANSACTION--
 
