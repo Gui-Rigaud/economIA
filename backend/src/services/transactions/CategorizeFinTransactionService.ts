@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+/*import prismaClient from "../../prisma";
 
 interface CategoryRequest{
     user_id: string;
@@ -45,4 +45,4 @@ class CategorizeFinTransactionService{
     }
 }
 
-export { CategorizeFinTransactionService }
+export { CategorizeFinTransactionService }*/

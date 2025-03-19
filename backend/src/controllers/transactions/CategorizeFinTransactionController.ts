@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
-import { CategorizeFinTransactionService } from "../../services/transactions/CategorizeFinTransactionService";
+//import { CategorizeFinTransactionService } from "../../services/transactions/CategorizeFinTransactionService";
 
 class CategorizeFinTransactionController{
     async handle(req: Request, res: Response){
 
-        const { transactions_list } = req.body;
+        /*const { transactions_list } = req.body;
 
         const categorizeFinTransactionService = new CategorizeFinTransactionService;
 
-        const category = await categorizeFinTransactionService.execute(transactions_list);
+        const category = await categorizeFinTransactionService.execute(transactions_list);*/
 
-        return res.json(category);
+        return res.json({"oi": "tchau"});
     }
 }
 
