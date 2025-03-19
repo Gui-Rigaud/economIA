@@ -1,10 +1,48 @@
 import fs from "fs";
 import path from "path";
 import PDFDocument from "pdfkit";
+import prismaClient from "../../prisma";
 
 class RegisterTransactionService {
-    async saveFile(fileBuffer: Buffer, originalname: string) {
+    async saveFile(user_id: string, fileBuffer: Buffer, originalname: string) {
         try {
+            const sameFile = await prismaClient.user.findUnique({
+                where: {
+                    id: user_id,
+                },
+                select: {
+                    file: true,
+                }
+            });
+
+            console.log(originalname);
+            console.log(sameFile)
+
+            const fileName = sameFile?.file || "Arquivo não encontrado";
+
+            console.log(fileName)
+
+            if (fileName != originalname || fileName == "Arquivo não encontrado"){
+                await prismaClient.user.update({
+                    where: {
+                        id: user_id,
+                    },
+                    data: {
+                        file: originalname,
+                        fileBool: true,
+                    }
+                })
+            } else if (fileName == originalname) {
+                await prismaClient.user.update({
+                    where: {
+                        id: user_id,
+                    },
+                    data: {
+                        fileBool: false,
+                    }
+                })
+            }
+
             let tipo = originalname.slice(-3).toLowerCase();
             const directoryPath = path.join(__dirname, "../gen-categories");
             const filePath = path.join(directoryPath, "fatura.pdf");
