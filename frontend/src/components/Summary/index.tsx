@@ -43,8 +43,10 @@ export function Summary() {
         setLoading(true);
 
         try {
-            const response = await apiClient.post("/budget", {
+            const response = await apiClient.get("/budget", {
+                params:{
                 user_id: user?.id
+                }
             });
 
             if (response.data) {
