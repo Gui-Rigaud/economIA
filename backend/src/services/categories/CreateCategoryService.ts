@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+/*import prismaClient from "../../prisma";
 
 interface CreateCategory {
     category_name: string;
@@ -54,4 +54,4 @@ class CreateCategoryService {
     }
 }
 
-export { CreateCategoryService };
+export { CreateCategoryService };*/
