@@ -24,16 +24,6 @@ function UploadButton() {
   function onFileChangeHandler(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
       setFile(event.target.files[0]);
-      /*Papa.parse(event.target.files[0], {
-        complete: function (results) {
-          console.log('Parsed CSV data:', results.data);
-          setLabelText('Arquivo carregado com sucesso!');
-        },
-        error: function (error) {
-          console.error('Error parsing CSV file:', error);
-          setLabelText('Erro ao carregar o arquivo.');
-        }
-      });*/
     }
   }
 
