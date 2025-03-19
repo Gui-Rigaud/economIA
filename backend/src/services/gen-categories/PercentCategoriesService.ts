@@ -4,7 +4,7 @@ const fs = require('fs').promises;
 const path = require("path");
 const { Storage: GoogleCloudStorage } = require("@google-cloud/storage");
 
-const prompt2 = "Devolva um JSON com somente a frequência em porcentagem de cada categoria e o nome da categoria. No JSON, a categoria tem que ter o nome 'categoria' e a frequência tem que ter o nome 'porcentagem', ambas sem as aspas.";
+const prompt2 = "Devolva um JSON com a frequência em porcentagem de cada categoria financeira, levando em consideração a soma dos valores de cada categoria em relação ao valor total das transações. O JSON deve conter objetos onde a chave 'categoria' representa o nome da categoria e a chave 'porcentagem' representa a porcentagem correspondente do valor total das transações. Certifique-se de que a soma de todas as porcentagens resulte em 100%.";
 
 class PercentCategoriesService {
 
