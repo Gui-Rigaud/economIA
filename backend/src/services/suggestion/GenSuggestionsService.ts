@@ -1,5 +1,4 @@
-import { generate } from '../../utilities/vertexai';
-
+import { generate } from '../../utilities/vertexaiTxt';
 const prompt = "A partir da seguinte lista de transações, devolva sugestões e recomendações de gastos não intrusivas, que busquem auxiliar o usuário a ter um maior controle financeiro. Dê respostas em pequenas frases e armazene-as em um JSON contendo apenas as frases e uma numeração para separá-las.";
 
 class GenSuggestionService {
