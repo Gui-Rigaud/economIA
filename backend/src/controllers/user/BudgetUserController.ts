@@ -3,7 +3,11 @@ import { BudgetUserService } from "../../services/user/BudgetUserService";
 
 class BudgetUserController{
     async handle(req: Request, res: Response){
-        const { user_id } = req.body
+        const user_id = req.query.user_id as string;
+
+        if (!user_id) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
 
         const budgetUserService = new BudgetUserService();
 

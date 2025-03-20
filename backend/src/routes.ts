@@ -8,19 +8,16 @@ import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 
 import { RegisterBankInformationController } from "./controllers/user/RegisterBankInformationController";
-import { RegisterBankTransactionController } from "./controllers/transactions/RegisterBankTransactionController";
+import { RegisterTransactionController } from "./controllers/transactions/RegisterTransactionController";
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
-import { GenCategoriesController } from "./controllers/gen-categories/GenCategoriesController";
-import { ListTransactionsController } from "./controllers/transactions/ListTransactionsController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
 import { PercentCategoriesController } from "./controllers/gen-categories/PercentCategoriesController";
 
-import { CreateCategoryController } from "./controllers/categories/CreateCategoryController";
-import { CategorizeFinTransactionController } from "./controllers/transactions/CategorizeFinTransactionController";
 import { BudgetUserController } from "./controllers/user/BudgetUserController";
 
 import { SuggestionController } from "./controllers/suggestion/SuggestionController";
+import { GenCategoriesController } from "./controllers/gen-categories/GenCategoriesController";
 
 const router = Router();
 
@@ -34,20 +31,17 @@ router.post("/register/user/profile", isAuthenticated, new RegisterBankInformati
 
 router.get('/me', isAuthenticated, new DetailUserController().handle);
 
-router.post('/budget', isAuthenticated, new BudgetUserController().handle);
+router.get('/budget', isAuthenticated, new BudgetUserController().handle);
 
 // --ROTAS TRANSACTION--
 
-router.post('/register/transaction', isAuthenticated, multerConfig.single('file'), new RegisterBankTransactionController().handle)
 
-router.get('/list/transactions', isAuthenticated, new ListTransactionsController().handle)
 
-router.post('/gen-categories', isAuthenticated, new GenCategoriesController().handle);
+router.post('/register/file', isAuthenticated, multerConfig.single('file'), new RegisterTransactionController().handle)
+
+router.post('/generate-categories', isAuthenticated, new GenCategoriesController().handle)
 // -- ROTAS CATEGORIES -- 
 
-router.post("/categories/create", isAuthenticated, new CreateCategoryController().handle)
-
-router.put("/transactions/update", isAuthenticated, new CategorizeFinTransactionController().handle)
 
 router.post("/percent-categories", isAuthenticated, new PercentCategoriesController().handle);
 

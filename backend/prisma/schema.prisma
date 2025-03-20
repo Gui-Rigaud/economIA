@@ -29,7 +29,7 @@ model FinProfile {
   @@map("fin_profile")
 }
 
-model FinTransactions {
+/*model FinTransactions {
   id String @id @default(uuid())
   user_id String 
   data_transacao DateTime
@@ -41,7 +41,7 @@ model FinTransactions {
   category Categories @relation(fields: [category_id], references: [id])
   
   @@map("fin_transactions")
-}
+}*/
 
 model ConfigUser {
   id Int @id @default(autoincrement())
@@ -65,13 +65,15 @@ model User {
   cpf String @db.VarChar(255)
   senha String @db.VarChar(255)
   telefone String @db.VarChar(255)
+  file String? @db.VarChar(255)
+  fileBool Boolean? @default(false)
   receita Decimal @db.Decimal(15, 2) @default("0.00")
   despesa Decimal @db.Decimal(15, 2) @default("0.00")
   saldo Decimal @db.Decimal(15, 2) @default("0.00")
   data_nasc DateTime @db.Date
   created_at DateTime @default(now())
   finProfiles FinProfile[] 
-  finTransactions FinTransactions[]
+  categories Categories[]
   configUsers ConfigUser[]
 }
 
@@ -91,5 +93,7 @@ enum TemaApp {
 model Categories {
   id Int @id @default(autoincrement())
   nome String @db.VarChar(255)
-  finTransactions FinTransactions[]
+  valor Decimal @db.Decimal(15, 2) @default("0.00")
+  user_id String? @db.VarChar(255)
+  user User? @relation(fields: [user_id], references: [id])
 }

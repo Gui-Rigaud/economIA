@@ -1,60 +1,95 @@
-import { CategorizeFinTransactionController } from "../../controllers/transactions/CategorizeFinTransactionController";
-import { FileCopier } from "../../utilities/copyFile";
+import prismaClient from "../../prisma";
 import { generate } from "../../utilities/vertexai";
-import { CreateCategoryService } from "../categories/CreateCategoryService";
-import { CategorizeFinTransactionService } from "../transactions/CategorizeFinTransactionService";
 
-const fs = require('fs').promises;
+const fs = require("fs").promises;
+const path = require("path");
+const { Storage: GoogleCloudStorage } = require("@google-cloud/storage");
 
-const prompt = "Devolva a categoria de cada transação financeira na seguinte fatura de Cartão de Crédito, levando em conta somente o atributo descrição. Além disso, faça a lista de objetos do arquivo JSON com somente o id da transação e a categoria em cada objeto.";
+const prompt = 'Classifique cada transação financeira desta fatura de Cartão de Crédito em categorias amplas e bem definidas, agrupando categorias semelhantes sob um mesmo rótulo. Utilize supernichos para unificar categorias relacionadas. Por exemplo, "Restaurante" e "Alimentação" devem ser classificadas apenas como "Alimentação", e "Esportes" e "Lazer" podem ser unificadas se fizer sentido. Retorne um JSON onde cada objeto contenha apenas três atributos: "id" (numeração sequencial crescente a partir de 1), "nome" (o nome do supernicho identificado para a transação) e "valor" contendo o valor da transação. Além disso adicione no final do JSON um objeto no formato { "despesas": valor }, sendo "valor" o total dos valores positivos da fatura.'
 
 class GenCategoriesService {
+    async execute(user_id: string) {
+        const consulta = await prismaClient.user.findUnique({
+            where: {
+                id: user_id,
+            },
+            select: {
+                fileBool: true,
+            }
+        })
+        const resultadoConsulta = consulta?.fileBool;
 
-    async execute(transactions: any, user_id: string) {
-
-        const transactionsList = transactions;
+        if (resultadoConsulta){
+        const filePath = path.join(__dirname, "fatura.pdf");
+        const storage = new GoogleCloudStorage();
+        const bucketName = "fatura_cartao_1";
+        const destinationPath = "pdf/fatura.pdf";
 
         try {
-            const filePath = `${__dirname}/fatura_cartao.txt`;
-            await fs.writeFile(filePath, JSON.stringify(transactionsList, null, 2)); // Create a new file
-            const copiador = new FileCopier(filePath);
-            await copiador.execute('fatura_cartao.txt');
-            const ia_result = await generate(prompt, 'fatura_cartao.txt');
-            await fs.unlink(filePath); // Delete the file
+            try {
+                await fs.access(filePath);
+            } catch (err) {
+                throw new Error("Arquivo fatura.pdf não encontrado.");
+            }
 
-            const createCategory = new CreateCategoryService();
+            // Faz upload do PDF para o Google Cloud Storage
+            const bucket = storage.bucket(bucketName);
+            await bucket.upload(filePath, { destination: destinationPath });
 
-            let categories_gen = [];
+            // Aguarda a propagação do GCS antes de chamar a IA
+            await new Promise(resolve => setTimeout(resolve, 3000)); 
 
-            ia_result.map(({ id, categoria }) => {
-                if (!(categories_gen.includes(categoria))) {
-                    categories_gen.push(categoria);
+            const ia_result = await generate(prompt, "fatura.pdf");
+            const { despesas } = ia_result.pop()
+            console.log("Despesas: ", despesas)
+            const userData = await prismaClient.user.findUnique({
+                where: { 
+                    id: user_id
+                },
+                select: { 
+                    receita: true,
+                    despesa:true,
+                },
+            });
+            const receita = Number(userData?.receita) || 0;
+            await prismaClient.user.update({
+                where: { 
+                    id: user_id 
+                },
+                data: {
+                    saldo: receita - despesas, 
+                    despesa: despesas,
+                },
+            });
+            await fs.unlink(filePath);
+            console.log("Arquivo deletado");
+            await prismaClient.categories.deleteMany({
+                where: {
+                    user_id: user_id,
                 }
             });
-
-            try {
-                await createCategory.execute({ categories_name: categories_gen });
-            } catch (error) {
-                console.log(error);
-                throw new Error("Error while creating categories");
-            }
-
-            try {
-                const categorizeService = new CategorizeFinTransactionService();
-
-                await categorizeService.execute({ transactions_list: ia_result, user_id: user_id });
-            } catch (error) {
-                console.log(error);
-                throw new Error("Error while categorizing transactions");
-            }
-
+            await prismaClient.categories.createMany({
+                data: ia_result.map(categoria => ({
+                    nome: categoria.nome,
+                    valor: Number(categoria.valor), // Certifica que o valor é numérico
+                    user_id: user_id, // Adiciona o user_id como chave estrangeira
+                })),
+            });
             return ia_result;
         } catch (error) {
             console.log(error);
-            throw new Error("Error while generating categories");
+            throw new Error("Erro ao gerar categorias");
         }
+    } else {
+        const ia_result = await prismaClient.categories.findMany();
+        const ia_result_formatada = ia_result.map(categoria => ({
+            id: categoria.id,
+            nome: categoria.nome,
+            valor: Number(categoria.valor), // Converte para número
+        }));
+        return ia_result_formatada;
     }
-
+}
 }
 
-export { GenCategoriesService }
+export { GenCategoriesService };
