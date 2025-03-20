@@ -29,19 +29,14 @@ class RegisterTransactionService {
                     },
                     data: {
                         file: originalname,
-                        fileBool: true,
                     }
                 })
-            } else if (fileName == originalname) {
-                await prismaClient.user.update({
+                await prismaClient.categories.deleteMany({
                     where: {
-                        id: user_id,
-                    },
-                    data: {
-                        fileBool: false,
+                        user_id: user_id,
                     }
-                })
-            }
+                });
+            } 
 
             let tipo = originalname.slice(-3).toLowerCase();
             const directoryPath = path.join(__dirname, "../gen-categories");
