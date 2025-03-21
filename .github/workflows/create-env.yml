@@ -22,6 +22,8 @@ jobs:
         sudo apt-get install -y gh
 
     - name: Run create_env script
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Add this line
       run: |
         #!/bin/bash
 
