@@ -1,0 +1,49 @@
+name: Create .env file
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Fetch environment variables
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          curl -H "Authorization: token $GH_TOKEN" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/actions/variables?per_page=100
+          # Add logic here to handle the fetched variables and create .env file
+
+      - name: Run create_env script
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Add this line
+        run: |
+          #!/bin/bash
+  
+          create_env () {
+            gh variable list | grep DEVELOPMENT_ENV_FILE | tr ';' '\n' | sed -e "s/DEVELOPMENT_ENV_FILE //; s/[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}Z//g" | grep "\S" > .env
+            echo "$(tput setaf 2)ENV file was created!$(tput sgr0)"
+          }
+  
+          if [ "$CI" == "true" ]; then
+            create_env
+          else
+            if command -v gh &>/dev/null; then
+              create_env
+            else
+              echo "$(tput setaf 1)Github Cli could not be found$(tput sgr0)"
+              echo "Please install: https://cli.github.com/"
+            fi
+          fi

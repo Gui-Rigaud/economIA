@@ -3,3 +3,5 @@
 .env
 prisma/migrations/migration_lock.toml
 prisma/migrations
+integral-genius-444511-f0-a1280d9b35e8.json
+src/services/gen-categories/fatura.pdf

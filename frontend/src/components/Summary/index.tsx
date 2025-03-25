@@ -64,7 +64,6 @@ export function Summary() {
             }
         }, 1000); // Aguarda 1 segundo antes de executar a requisição
     };
-    
 
     useEffect(() => {
         if (primeiraRenderizacao.current && user?.id) {

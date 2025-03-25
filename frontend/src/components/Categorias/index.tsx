@@ -41,27 +41,14 @@ export function Categorias() {
       setLoading(true);
       setShowPhrase(true); // Mostra a frase após o botão ser pressionado
 
-      let listTransactions;
+      let listTransactions = true;
       console.log(user);
-      try {
-        listTransactions = await apiClient.get('/list/transactions', {
-          params: {
-            user_id: user?.id
-          }
-        });
-
-        console.log(listTransactions.data);
         let gen_categories;
         try {
           if (listTransactions) {
-            gen_categories = await apiClient.post('/gen-categories',
-              listTransactions.data
-              , {
-                params: {
-                  user_id: user?.id
-                }
-              });
-
+            gen_categories = await apiClient.post('/generate-categories', {
+                user_id: user?.id
+            });
             let percent_categories;
             try {
               if (gen_categories) {
@@ -91,14 +78,9 @@ export function Categorias() {
           setLoading(false);
           return;
         }
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-        setLoading(false);
-        return;
       }
       primeiraRenderizacao.current = false;
-    }
-  };
+    };
 
   useEffect(() => {
     if (primeiraRenderizacao.current) {
