@@ -90,6 +90,7 @@ function AISuggestionChat({
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen"> 
       <div className={`bg-white rounded-2xl shadow-lg aspect-square w-[50%] h-[70%] flex flex-col ${className}`}>
