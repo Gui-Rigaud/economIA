@@ -96,21 +96,7 @@ class GenCategoriesService {
             return ia_result_formatada;
         } 
 
-        //Gen categories faz o find many para ver se tem algo no banco, se tiver, retorna
-        //O register que faz o trabalho de apagar as coisas do banco caso o arquivo seja diferente
-
-
-
-        /*const consulta = await prismaClient.user.findUnique({
-            where: {
-                id: user_id,
-            },
-            select: {
-                fileBool: true,
-            }
-        })
-        const resultadoConsulta = consulta?.fileBool;*/
-
+ 
 }
 }
 
