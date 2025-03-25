@@ -5,7 +5,6 @@ import { useState, useContext, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
-import { FaSpinner } from 'react-icons/fa';
 import Spinner from "@/components/Spinner/Spinner";
 
 const roboto400 = Roboto({
@@ -18,7 +17,11 @@ interface Suggestion {
     frase: string;
 }
 
-export function Suggestions() {
+interface SuggestionsProps {
+    setShowButtons: (show: boolean) => void;
+}
+
+export function Suggestions({ setShowButtons }: SuggestionsProps) {
     const authContext = useContext(AuthContext);
     if (!authContext) {
         throw new Error("AuthContext is null");
@@ -59,6 +62,7 @@ export function Suggestions() {
         } finally {
             setLoading(false);
             setShowPhrase(true);
+            setShowButtons(true);
             primeiraRenderizacao.current = false;
         }
     };
