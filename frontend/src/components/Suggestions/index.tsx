@@ -88,16 +88,20 @@ export function Suggestions() {
                         <div
                             id="text-container"
                             ref={textContainerRef}
-                            className={`bg-econGreen border-4 border-black rounded-3xl w-[900px] mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] text-white`}
+                            className={`bg-white rounded-2xl shadow-lg w-[50%] h-[70%] flex flex-col ${roboto400.className}`}
                         >
-                            <p key="#" className="mb-4 mt-3 font-bold opacity-0"><strong>Sugestões</strong></p>
-                            {dados?.length > 0 ? (
-                                dados.map(({ id, frase }) => (
-                                    <p key={id} className="mb-1 p-4 opacity-0">{id}: {frase}</p>
-                                ))
-                            ) : (
-                                <p className="mb-1 p-4 opacity-0">Nenhuma sugestão disponível</p>
-                            )}
+                            <div className="bg-econGreen text-white p-4 rounded-t-2xl">
+                                <h2 className="font-bold text-lg">Sugestões</h2>
+                            </div>
+                            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                                {dados?.length > 0 ? (
+                                    dados.map(({ id, frase }) => (
+                                        <p key={id} className="mb-1 p-4 bg-gray-100 rounded-lg">{id}. {frase}</p>
+                                    ))
+                                ) : (
+                                    <p className="mb-1 p-4">Nenhuma sugestão disponível</p>
+                                )}
+                            </div>
                         </div>
                     )}
                     </>
