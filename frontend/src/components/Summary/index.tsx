@@ -46,8 +46,8 @@ export function Summary() {
             }
     
             try {
-                const response = await apiClient.post("/budget", {
-                    user_id: user.id
+                const response = await apiClient.get("/budget", {
+                    params: { user_id: user.id }
                 });
     
                 if (response.data) {
