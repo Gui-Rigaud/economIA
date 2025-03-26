@@ -9,12 +9,12 @@ const prompt = 'Classifique cada transação financeira desta fatura de Cartão 
 
 class GenCategoriesService {
     async execute(user_id: string) {
-        const devolver = await prismaClient.categories.findMany({
+        const transactionsExist = await prismaClient.categories.findMany({
             where:{
                 user_id: user_id,
             }
         });
-        if (!devolver || devolver.length == 0){
+        if (!transactionsExist || transactionsExist.length == 0){
             const filePath = path.join(__dirname, "fatura.pdf");
             const storage = new GoogleCloudStorage();
             const bucketName = "fatura_cartao_1";
@@ -73,7 +73,7 @@ class GenCategoriesService {
                 throw new Error("Erro ao gerar categorias");
             }
         } else {
-            const ia_result_formatada: Array<{ id: number, nome: string, valor: number } | { despesas: number }> = devolver.map(categoria => ({
+            const ia_result_formatada: Array<{ id: number, nome: string, valor: number } | { despesas: number }> = transactionsExist.map(categoria => ({
                 id: categoria.id,
                 nome: categoria.nome,
                 valor: Number(categoria.valor),
