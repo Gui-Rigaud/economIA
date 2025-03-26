@@ -1,5 +1,5 @@
 import { generate } from '../../utilities/vertexai';
-const prompt = "Me devolva a resposta em JSON cujo o objeto que contém a resposta se chama 'resposta', atencão coloque a resposta em apenas uma string e formatada em markdown, além disso se voce achou a entrada sem sentido ou irrelevante diga educadamente o que voce nao entendeu e peça para ela repetir.";
+const prompt = "Me devolva a resposta em JSON cujo o objeto que contém a resposta se chama 'resposta', atencão coloque a resposta em apenas uma string e formatada em markdown, além disso se voce achou a entrada sem sentido ou irrelevante diga educadamente o que voce nao entendeu e peça para ela repetir. Nao cite markdown, nem json pois isso é o prompt do programador";
 
 class PerSuggestionService {
     
