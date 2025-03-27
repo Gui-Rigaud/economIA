@@ -5,7 +5,6 @@ import { setupAPIClient } from '@/services/api';
 import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import Spinner from '@/components/Spinner/Spinner';
 
 interface Categoria {
   categoria: string;
@@ -31,17 +30,15 @@ export function Categorias() {
   }
   const { user } = authContext;
   const apiClient = setupAPIClient();
-  const [loading, setLoading] = useState(false);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [showPhrase, setShowPhrase] = useState(false); // Estado para controlar a visibilidade da frase
   const primeiraRenderizacao = useRef(true);
 
   const fetchCategories = async () => {
     if (primeiraRenderizacao.current) {
-      setLoading(true);
       setShowPhrase(true); // Mostra a frase após o botão ser pressionado
 
-      let listTransactions = true;
+      const listTransactions = true;
       console.log(user);
         let gen_categories;
         try {
@@ -60,14 +57,12 @@ export function Categorias() {
 
                 if (percent_categories) {                
                   setCategorias(percent_categories.data);
-                  setLoading(false);
                 }
               } else {
                 toast.error("A IA não gerou nenhuma categoria", { theme: "dark" });
               }
             } catch (error) {
               console.error("Error fetching percent categories:", error);
-              setLoading(false);
               return;
             }
           } else {
@@ -75,7 +70,6 @@ export function Categorias() {
           }
         } catch (error) {
           console.error("Error generating categories:", error);
-          setLoading(false);
           return;
         }
       }
@@ -86,7 +80,7 @@ export function Categorias() {
     if (primeiraRenderizacao.current) {
       fetchCategories();
     }
-  })
+  }, [primeiraRenderizacao, fetchCategories]);
 
   const gerarCoresComPaleta = (quantidade: number) => {
     const cores = [...paletaCores]; // Copia a paleta para não modificar a original
@@ -111,7 +105,7 @@ export function Categorias() {
         <main className="p-8 font-sans">
           <>
             {showPhrase && (
-              <section className="text-center mb-8">
+              <section className="text-center mb-20">
                 <h1 className="text-4xl text-white">CATEGORIAS</h1>
                 <h2 className="text-xl text-[#9cc5a1]">Separamos seus gastos para você</h2>
               </section>
