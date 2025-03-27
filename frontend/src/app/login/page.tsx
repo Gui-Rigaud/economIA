@@ -8,7 +8,6 @@ import logoblack from "../assets/logoblack.png"
 import Link from "next/link";
 import { AuthContext, AuthProvider } from "../../contexts/AuthContext";
 import { toast } from 'react-toastify';
-import { FaSpinner } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import Spinner from "@/components/Spinner/Spinner";
@@ -46,7 +45,7 @@ function Login() {
             return;
         }
 
-        let data = {
+        const data = {
             email,
             senha
         }
@@ -56,7 +55,7 @@ function Login() {
         try {
             const response = await signIn(data);
             console.log(response);
-        }catch(err:any){
+        }catch(err: unknown){
             if (err instanceof AxiosError && err.response) {
                 toast.error(err.response.data, { theme: "dark" });
             }

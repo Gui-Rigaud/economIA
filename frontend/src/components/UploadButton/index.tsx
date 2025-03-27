@@ -1,7 +1,6 @@
 'use client';
 
 import React, { ChangeEvent, useContext, useState } from "react";
-import Papa from 'papaparse';
 import { setupAPIClient } from "@/services/api";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -19,7 +18,6 @@ function UploadButton() {
   const [file, setFile] = useState<File>();
   const [labelText, setLabelText] = useState<string>('');
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   function onFileChangeHandler(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
@@ -35,12 +33,10 @@ function UploadButton() {
 
     console.log("File: ", file)
     
-    setLoading(true);
     const apiClient = setupAPIClient();
     const data = new FormData();
     if (!user) {
       setLabelText('Usuário não autenticado.');
-      setLoading(false);
       return;
     }
     data.append('user_id', user.id)
@@ -50,7 +46,6 @@ function UploadButton() {
     if (!acceptableFileTypes.includes(file.type)) {
       console.log(file.type);
       setLabelText('Por favor, selecione um arquivo válido.');
-      setLoading(false);
       return;
     }
     console.log(data);
@@ -63,8 +58,6 @@ function UploadButton() {
     } catch (error) {
       console.error('Error uploading file:', error);
       setLabelText('Erro ao enviar o arquivo.');
-    } finally {
-      setLoading(false);
     }
   }
 

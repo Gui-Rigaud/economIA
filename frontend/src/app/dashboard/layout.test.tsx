@@ -2,7 +2,6 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import DashboardLayout from './layout'
 import { AuthProvider } from '@/contexts/AuthContext'
-import { useRouter } from 'next/router'
 
 // Mock do useRouter para evitar erro de roteamento
 jest.mock('next/navigation', () => ({
