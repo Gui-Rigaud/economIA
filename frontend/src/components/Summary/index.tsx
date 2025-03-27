@@ -38,9 +38,6 @@ export function Summary() {
         }
     }, [dados]);
 
-    function delay(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
 
     const fetchSummary = useCallback(async () => {    
         setTimeout(async () => {
@@ -50,7 +47,6 @@ export function Summary() {
             }
     
             try {
-                await delay(15000);
                 const response = await apiClient.get("/budget", {
                     params: { user_id: user.id }
                 });
