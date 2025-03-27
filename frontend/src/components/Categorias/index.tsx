@@ -3,9 +3,8 @@
 import Donut from '../Graph'; // Certifique-se de que o caminho está correto
 import { setupAPIClient } from '@/services/api';
 import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FaSpinner } from 'react-icons/fa';
 import Spinner from '@/components/Spinner/Spinner';
 
 interface Categoria {
@@ -83,6 +82,12 @@ export function Categorias() {
       primeiraRenderizacao.current = false;
     };
 
+  useEffect(() => {
+    if (primeiraRenderizacao.current) {
+      fetchCategories();
+    }
+  })
+
   const gerarCoresComPaleta = (quantidade: number) => {
     const cores = [...paletaCores]; // Copia a paleta para não modificar a original
     const resultado = [];
@@ -104,49 +109,31 @@ export function Categorias() {
     <>
       <AuthProvider>
         <main className="p-8 font-sans">
-          {primeiraRenderizacao.current ? (
-            <div className="flex items-center justify-center h-screen">
-                <button
-                onClick={fetchCategories}
-                className="bg-econGreen hover:bg-green-700 text-white font-bold py-6 px-6 rounded-full w-35 h-35 flex items-center justify-center text-2xl"
-                >
-                Gerar Categorias
-                </button>
-            </div>
-          ) : null}
-
-          {loading ? (
-            <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-              <Spinner/>
-              <p>Aguarde um momento! Nossa IA está trabalhando<span className="dots"></span></p>
-            </div>
-          ) : (
-            <>
-              {showPhrase && (
-                <section className="text-center mb-8">
-                  <h1 className="text-4xl text-white">CATEGORIAS</h1>
-                  <h2 className="text-xl text-[#9cc5a1]">Separamos seus gastos para você</h2>
-                </section>
-              )}
-
-              <div id="graph" className="flex justify-center items-center h-[300px] w-full mb-9">
-                <Donut
-                  categories={categorias.map((data) => data.categoria)}
-                  data={categorias.map((data) => data.porcentagem)}
-                  colors={gerarCoresComPaleta(categorias.length)} // Passa as cores aqui
-                />
-              </div>
-
-              <section className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
-                {categorias.map((categoria) => (
-                  <div key={categoria.categoria} className="p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-transform duration-200 hover:-translate-y-1">
-                    <h3 className="text-center text-lg text-gray-800 truncate w-full">{categoria.categoria}</h3>
-                    <p className="text-center text-gray-600">{categoria.porcentagem}%</p>
-                  </div>
-                ))}
+          <>
+            {showPhrase && (
+              <section className="text-center mb-8">
+                <h1 className="text-4xl text-white">CATEGORIAS</h1>
+                <h2 className="text-xl text-[#9cc5a1]">Separamos seus gastos para você</h2>
               </section>
-            </>
-          )}
+            )}
+
+            <div id="graph" className="flex justify-center items-center h-[300px] w-full mb-9">
+              <Donut
+                categories={categorias.map((data) => data.categoria)}
+                data={categorias.map((data) => data.porcentagem)}
+                colors={gerarCoresComPaleta(categorias.length)} // Passa as cores aqui
+              />
+            </div>
+
+            <section className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
+              {categorias.map((categoria) => (
+                <div key={categoria.categoria} className="p-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm transition-transform duration-200 hover:-translate-y-1">
+                  <h3 className="text-center text-lg text-gray-800 truncate w-full">{categoria.categoria}</h3>
+                  <p className="text-center text-gray-600">{categoria.porcentagem}%</p>
+                </div>
+              ))}
+            </section>
+          </>
         </main>
       </AuthProvider>
     </>

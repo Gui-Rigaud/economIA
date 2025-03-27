@@ -1,11 +1,10 @@
 "use client";
 
 import { setupAPIClient } from "@/services/api";
-import { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { Roboto } from "next/font/google";
-import { FaSpinner } from 'react-icons/fa';
 import Spinner from "@/components/Spinner/Spinner";
 
 const roboto400 = Roboto({
@@ -18,7 +17,12 @@ interface Suggestion {
     frase: string;
 }
 
-export function Suggestions() {
+interface SuggestionsProps {
+    setShowButtons: (show: boolean) => void;
+    primeiraRenderizacao: React.RefObject<boolean>;
+}
+
+export function Suggestions({ setShowButtons }: SuggestionsProps) {
     const authContext = useContext(AuthContext);
     if (!authContext) {
         throw new Error("AuthContext is null");
@@ -59,49 +63,51 @@ export function Suggestions() {
         } finally {
             setLoading(false);
             setShowPhrase(true);
+            setShowButtons(true);
             primeiraRenderizacao.current = false;
         }
     };
 
+    useEffect(() => {
+        if (primeiraRenderizacao.current) {
+          fetchSuggestion();
+        }
+      })    
+
     return (
         <AuthProvider>
             <div id="suggestions" className="flex flex-col justify-center items-center text-black min-h-screen">
-                {primeiraRenderizacao.current ? (
-                    <div className="flex items-center justify-center h-screen">
-                        <button
-                            onClick={fetchSuggestion}
-                            className="bg-econGreen hover:bg-green-700 text-white font-bold py-6 px-6 rounded-full w-30 h-35 flex items-center justify-center text-2xl"
-                        >
-                            Sugerir gestão de gastos
-                        </button>
-                    </div>
-                ) : null}
-
                 {loading ? (
-                    <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
-                        <Spinner/>
-                        <p className="text-white text-xl">Aguarde um momento! Nossa IA está trabalhando<span className="dots"></span></p>
-                    </div>
-                ) : (
+                        <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
+                            <Spinner/>
+                            <p className="text-white text-xl">Aguarde um momento! Nossa IA está trabalhando<span className="dots"></span></p>
+                        </div>
+                    ) : (
                     <>
                     { showPhrase && (
                         <div
                             id="text-container"
                             ref={textContainerRef}
-                            className={`bg-econGreen border-4 border-black rounded-3xl w-[900px] mx-auto flex flex-col justify-center items-center ${roboto400.className} text-[24px] text-white`}
+                            className={`bg-white rounded-2xl shadow-lg w-[50%] h-[70%] flex flex-col ${roboto400.className}`}
                         >
-                            <p key="#" className="mb-4 mt-3 font-bold opacity-0"><strong>Sugestões</strong></p>
+                            <div className="bg-econGreen text-white p-4 rounded-t-2xl">
+                                <h2 className="font-bold text-lg">Sugestões</h2>
+                            </div>
+                            <div className="flex-1 overflow-y-auto p-4 space-y-4">
                             {dados?.length > 0 ? (
                                 dados.map(({ id, frase }) => (
-                                    <p key={id} className="mb-1 p-4 opacity-0">{id}: {frase}</p>
+                                    <p key={id} className="mb-1 p-4 bg-gray-100 rounded-lg">
+                                        <strong>{id}.</strong> {frase}
+                                    </p>
                                 ))
                             ) : (
-                                <p className="mb-1 p-4 opacity-0">Nenhuma sugestão disponível</p>
+                                <p className="mb-1 p-4">Nenhuma sugestão disponível</p>
                             )}
+                            </div>
                         </div>
-                    )}
+                        )}
                     </>
-                )}
+                )} 
             </div>
             <style jsx>{`
                 @keyframes fadeInUp {
