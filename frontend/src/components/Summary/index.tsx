@@ -38,6 +38,10 @@ export function Summary() {
         }
     }, [dados]);
 
+    function delay(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
     const fetchSummary = useCallback(async () => {    
         setTimeout(async () => {
             if (!user?.id) {
@@ -46,15 +50,16 @@ export function Summary() {
             }
     
             try {
+                await delay(15000);
                 const response = await apiClient.get("/budget", {
                     params: { user_id: user.id }
                 });
     
                 if (response.data) {
                     const data_formatted = {
-                        receita: response.data.receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                        despesa: response.data.despesa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                        saldo: response.data.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                        receita: response.data.receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
+                        despesa: response.data.despesa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
+                        saldo: response.data.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ',')
                     };
                     console.log(data_formatted);
                     setDados({
