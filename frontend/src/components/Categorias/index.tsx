@@ -102,7 +102,7 @@ export function Categorias() {
               </section>
             )}
 
-            <div id="graph" className="flex justify-center items-center h-[300px] w-full mb-9">
+            <div id="graph" className="flex justify-center items-center h-[300px] w-full mb-[150px]">
               <Donut
                 categories={categorias.map((data) => data.categoria)}
                 data={categorias.map((data) => data.porcentagem)}
