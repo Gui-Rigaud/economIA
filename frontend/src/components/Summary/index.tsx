@@ -113,7 +113,13 @@ export function Summary() {
                             className={`w-[1300px] mx-auto grid grid-cols-3 grid-rows-3 gap- ${roboto400.className} text-[24px] text-white transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-100' : 'scale-0'}`}
                         >
                             <p className="col-start-1 col-span-3 row-start-1 row-span-1 mb-1 font-bold opacity-0 text-[76px]"><strong>Esse é o resumo dos seus gastos:</strong></p>
-                            <p className="w-full mb-1 col-start-1 col-span-2 row-start-2 row-span-2 p-4 opacity-0 text-[170px]">
+                            <p
+                                className="w-full mb-1 col-start-1 col-span-2 row-start-2 row-span-2 p-4 opacity-0 text-[120px] overflow-hidden text-ellipsis whitespace-nowrap"
+                                style={{
+                                    transform: dados?.saldo && dados.saldo.toString().length > 10 ? "scale(0.8)" : "scale(1)",
+                                    transformOrigin: "left",
+                                }}
+                            >
                                 <span className="text-[24px] block">Saldo disponível</span>
                                 R${formatNumberString(dados?.saldo.toString()) ?? "N/A"}
                             </p>
