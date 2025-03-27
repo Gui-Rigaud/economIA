@@ -38,6 +38,7 @@ export function Summary() {
         }
     }, [dados]);
 
+
     const fetchSummary = useCallback(async () => {    
         setTimeout(async () => {
             if (!user?.id) {
@@ -52,9 +53,9 @@ export function Summary() {
     
                 if (response.data) {
                     const data_formatted = {
-                        receita: response.data.receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                        despesa: response.data.despesa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-                        saldo: response.data.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                        receita: response.data.receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
+                        despesa: response.data.despesa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
+                        saldo: response.data.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ',')
                     };
                     console.log(data_formatted);
                     setDados({

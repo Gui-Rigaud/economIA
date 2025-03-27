@@ -7,25 +7,7 @@ const { Storage: GoogleCloudStorage } = require("@google-cloud/storage");
 const prompt2 = "A partir da lista de transações financeiras fornecida, agrupe todas as transações que pertencem à mesma categoria e some seus valores. Depois, calcule a porcentagem de cada categoria em relação ao valor total das transações. Retorne um JSON onde cada objeto contenha dois atributos: 'categoria' (nome da categoria) e 'porcentagem' (a porcentagem do valor total das transações correspondente à categoria). Certifique-se de que a soma de todas as porcentagens seja exatamente 100%."
 
 class PercentCategoriesService {
-    
-    /*async execute(transactions: any) {
-        
-    try {
-        const storage = new GoogleCloudStorage();
-        const bucketName = "fatura_cartao_1";
-        const destinationPath = "json/list_transactions.txt";
-        const bucket = storage.bucket(bucketName);
-        await bucket.upload(filePath, { destination: destinationPath });
-        await fs.unlink(filePath);
-        return generate(prompt2, 'list_transactions.txt');
-        } catch (error) {
-            console.log(error); 
-            throw new Error("Erro ao processar as categorias");
-            }
-            }*/
-
-    //Ajeitar aqui e tirar pagamento do gen categories
-           
+               
     async calcularPorcentagens(transacoes: { nome: string; valor: number }[], despesas: number) {
         const filePath = path.join(__dirname, "list_transactions.txt");
         await fs.writeFile(filePath, JSON.stringify(transacoes, null, 2));
