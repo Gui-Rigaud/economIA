@@ -35,52 +35,43 @@ export function Categorias() {
   const primeiraRenderizacao = useRef(true);
 
   const fetchCategories = async () => {
+    if (!user?.id) {
+      console.warn("User ID ainda não está disponível. Aguardando...");
+      return;
+    }
+  
     if (primeiraRenderizacao.current) {
       setShowPhrase(true); // Mostra a frase após o botão ser pressionado
-
-      const listTransactions = true;
-      console.log(user);
-        let gen_categories;
-        try {
-          if (listTransactions) {
-            gen_categories = await apiClient.post('/generate-categories', {
-                user_id: user?.id
-            });
-            let percent_categories;
-            try {
-              if (gen_categories) {
-                percent_categories = await apiClient.post('/percent-categories', gen_categories.data, {
-                  params: {
-                    user_id: user?.id
-                  }
-                });
-
-                if (percent_categories) {                
-                  setCategorias(percent_categories.data);
-                }
-              } else {
-                toast.error("A IA não gerou nenhuma categoria", { theme: "dark" });
-              }
-            } catch (error) {
-              console.error("Error fetching percent categories:", error);
-              return;
-            }
+  
+      try {
+        const gen_categories = await apiClient.post('/generate-categories', {
+          user_id: user.id
+        });
+  
+        if (gen_categories) {
+          const percent_categories = await apiClient.post('/percent-categories', gen_categories.data, {
+            params: { user_id: user.id }
+          });
+  
+          if (percent_categories) {
+            setCategorias(percent_categories.data);
           } else {
-            toast.error("Não há nenhuma transação!", { theme: "dark" });
+            toast.error("A IA não gerou nenhuma categoria", { theme: "dark" });
           }
-        } catch (error) {
-          console.error("Error generating categories:", error);
-          return;
         }
+      } catch (error) {
+        console.error("Erro ao gerar ou buscar categorias:", error);
+      } finally {
+        primeiraRenderizacao.current = false;
       }
-      primeiraRenderizacao.current = false;
-    };
+    }
+  };
 
   useEffect(() => {
-    if (primeiraRenderizacao.current) {
+    if (primeiraRenderizacao.current && user?.id) {
       fetchCategories();
     }
-  }, [primeiraRenderizacao, fetchCategories]);
+  }, [user?.id]); // Executa somente quando o user.id estiver disponível
 
   const gerarCoresComPaleta = (quantidade: number) => {
     const cores = [...paletaCores]; // Copia a paleta para não modificar a original
