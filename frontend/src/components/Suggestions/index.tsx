@@ -27,6 +27,7 @@ export function Suggestions({ setShowButtons }: SuggestionsProps) {
     if (!authContext) {
         throw new Error("AuthContext is null");
     }
+    const { user } = authContext;
     const apiClient = setupAPIClient();
     const [loading, setLoading] = useState(false);
     const [dados, setDados] = useState<Suggestion[]>([]);
@@ -48,7 +49,9 @@ export function Suggestions({ setShowButtons }: SuggestionsProps) {
         setLoading(true);
         
         try {
-            const response = await apiClient.get("/suggestion");
+            const response = await apiClient.get("/suggestion", {
+                params: { user_id: user?.id }
+            });
             
             console.log(response.data);
             if (response.data) {
