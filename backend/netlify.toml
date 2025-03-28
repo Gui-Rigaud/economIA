@@ -2,7 +2,7 @@
   external_node_modules = ["express"]
   node_bundler = "esbuild"
 [build]
-  command = "npm install && npm run build"
+  command = "npm install && npx prisma generate && npm run build"
 [[redirects]]
   force = true
   from = "/api/*"
