@@ -11,7 +11,7 @@ export function setupAPIClient(ctx?: Context) {
     const cookies = parseCookies(ctx);
 
     const api = axios.create({
-        baseURL: 'https://peaceful-gelato-404265.netlify.app/api',
+        baseURL: 'https://economiapp-api.netlify.app/api',
         headers: {
             Authorization: `Bearer ${cookies['@nextauth.token']}`
         }
