@@ -92,24 +92,9 @@ class RegisterTransactionService {
           }))
         });
 
-        ia_result.push(despesasBlocado);
-        return ia_result;
+        return {message: "Novas transações processadas com sucesso."};
       } else {
-        const ia_result_formatada: any[] = transactionsExist.map(categoria => ({
-          id: categoria.id,
-          nome: categoria.nome,
-          valor: Number(categoria.valor)
-        }));
-
-        const despesasBusca = await prismaClient.user.findUnique({
-          where: { id: user_id },
-          select: { despesa: true }
-        });
-
-        const despesas = Number(despesasBusca?.despesa) || 0;
-        ia_result_formatada.push({ despesas });
-
-        return ia_result_formatada;
+        return {message: "Transações já processadas."};
       }
     } catch (error) {
       console.error("Erro ao processar transações:", error);
