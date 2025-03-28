@@ -18,9 +18,9 @@ class PerSuggestionService {
             const fileType = fileName.slice(-3).toLowerCase();
 
             if(fileType === "pdf") {
-                return await generate(prompt, "fatura.pdf");
+                return await generate(input + prompt, "fatura.pdf");
             }else if(fileType === "csv") {
-                return await generateTxt(prompt, "fatura_cartao.txt");
+                return await generateTxt(input + prompt, "fatura_cartao.txt");
             }
         } catch (error) {
             console.log(error);
