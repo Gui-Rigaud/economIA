@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev src/api.ts",
     "build": "tsc",
-    "start": "node api.ts"
+    "start": "ts-node-dev src/api.ts"
   },
   "dependencies": {
     "@netlify/functions": "^3.0.4",
