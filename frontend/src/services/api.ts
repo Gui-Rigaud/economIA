@@ -11,7 +11,7 @@ export function setupAPIClient(ctx?: Context) {
     const cookies = parseCookies(ctx);
 
     const api = axios.create({
-        baseURL: 'https://economiapp-api.netlify.app/api',
+        baseURL: 'https://economia-tkf0.onrender.com/api',
         headers: {
             Authorization: `Bearer ${cookies['@nextauth.token']}`
         }
