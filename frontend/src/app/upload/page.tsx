@@ -27,9 +27,6 @@ export default function Upload() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(token)
-    console.log(token)
-    console.log(token)
     if (token === undefined) {
       router.push('/login');
     }

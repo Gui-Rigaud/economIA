@@ -30,8 +30,6 @@ function UploadButton() {
       setLabelText('Nenhum arquivo selecionado.');
       return;
     }
-
-    console.log("File: ", file)
     
     const apiClient = setupAPIClient();
     const data = new FormData();
@@ -41,18 +39,16 @@ function UploadButton() {
     }
     data.append('user_id', user.id)
     data.append('file', file);
-    console.log("FormData: ", data)
 
     if (!acceptableFileTypes.includes(file.type)) {
-      console.log(file.type);
+      (file.type);
       setLabelText('Por favor, selecione um arquivo válido.');
       return;
     }
-    console.log(data);
+    (data);
 
     try {
       const response = await apiClient.post('register/file', data);
-      console.log('File upload response:', response.data);
       toast.success('Arquivo enviado com sucesso!', { theme: 'dark' });
       router.push('/dashboard');
     } catch (error) {

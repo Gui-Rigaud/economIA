@@ -57,7 +57,6 @@ export function Summary() {
                         despesa: response.data.despesa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
                         saldo: response.data.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ',')
                     };
-                    console.log(data_formatted);
                     setDados({
                         receita: data_formatted.receita,
                         despesa: data_formatted.despesa,
