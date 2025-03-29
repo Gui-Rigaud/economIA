@@ -41,14 +41,12 @@ function UploadButton() {
     data.append('file', file);
 
     if (!acceptableFileTypes.includes(file.type)) {
-      (file.type);
       setLabelText('Por favor, selecione um arquivo válido.');
       return;
     }
-    (data);
 
     try {
-      const response = await apiClient.post('register/file', data);
+      await apiClient.post('register/file', data);
       toast.success('Arquivo enviado com sucesso!', { theme: 'dark' });
       router.push('/dashboard');
     } catch (error) {
