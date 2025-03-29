@@ -22,10 +22,14 @@ const initDB = async () => {
   }
 };
 
-// Handler serverless
-export const handler = serverless(app, {
-  request: async (request, event, context) => {
-    await initDB(); // Garante que o DB está pronto
-    return request;
-  }
-});
+// Verifica se está rodando no ambiente serverless ou local
+if (process.env.NODE_ENV === 'production' && process.env.RENDER) {
+  // Ambiente Render (não serverless)
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, async () => {
+    await initDB(); // Inicializa o banco de dados
+    console.log(`Server is running on port ${PORT}`);
+  });
+} else {
+  console.log("Error")
+}
