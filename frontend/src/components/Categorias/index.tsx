@@ -71,7 +71,7 @@ export function Categorias() {
     if (primeiraRenderizacao.current && user?.id) {
       fetchCategories();
     }
-  }, [user?.id]); // Executa somente quando o user.id estiver disponível
+  }, [user?.id, fetchCategories]); // Executa somente quando o user.id estiver disponível
 
   const gerarCoresComPaleta = (quantidade: number) => {
     const cores = [...paletaCores]; // Copia a paleta para não modificar a original
