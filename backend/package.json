@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ntl dev",
+    "dev": "ts-node-dev src/api.ts",
     "build": "tsc",
-    "start": "node api.js"
+    "start": "node api.ts"
   },
   "dependencies": {
     "@netlify/functions": "^3.0.4",
