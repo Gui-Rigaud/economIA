@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import Dashboard from './page'
 import { AuthProvider } from '../../contexts/AuthContext'
 import React from 'react'
@@ -84,7 +84,7 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('react-markdown', () => () => <div data-testid="markdown-content">Conteúdo Markdown</div>);
+jest.mock('react-markdown', () => <div data-testid="markdown-content">Conteúdo Markdown</div>);
 jest.mock('react-apexcharts', () => jest.fn(() => <div data-testid="apex-chart">Gráfico</div>));
 jest.mock('apexcharts', () => ({ exec: jest.fn(() => Promise.resolve("uri")) }));
 
@@ -109,7 +109,7 @@ jest.mock('../../components/Suggestions', () => {
       }, 500);
       
       return () => clearTimeout(500);
-    }, []);
+    }, [primeiraRenderizacao, setShowButtons]);
     
     return <div data-testid="suggestions-mock">Sugestões</div>;
   };

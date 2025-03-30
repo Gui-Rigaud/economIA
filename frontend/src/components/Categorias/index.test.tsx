@@ -6,11 +6,6 @@ import { act } from 'react'
 import Dashboard from '@/app/dashboard/page'
 import React from 'react';
 
-interface SuggestionsProps {
-  setShowButtons: (show: boolean) => void;
-  primeiraRenderizacao: React.RefObject<boolean>;
-}
-
 // Mock ResizeObserver
 global.ResizeObserver = class {
   observe() {}
@@ -45,15 +40,9 @@ jest.mock('../Summary', () => ({
 
 // Mock do componente Suggestions
 jest.mock('../Suggestions', () => ({
-  Suggestions: ({ setShowButtons, primeiraRenderizacao }: SuggestionsProps) => (
+  Suggestions: () => (
     <div data-testid="suggestions-mock">Mock Suggestions Component</div>
   )
-}))
-
-// Mock do componente AISuggestionChat
-jest.mock('../PerSuggestion', () => ({
-  __esModule: true,
-  default: () => <div data-testid="ai-suggestion-mock">Mock AI Suggestion Component</div>
 }))
 
 // Mock do AuthContext

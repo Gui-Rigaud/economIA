@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { Summary } from './index';
 import { AuthProvider } from '@/contexts/AuthContext'
-import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 jest.mock('../../services/api', () => ({

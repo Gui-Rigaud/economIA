@@ -87,7 +87,7 @@ jest.mock('./index', () => ({
       }, 500);
       
       return () => clearTimeout(timer);
-    }, []);
+    }, [primeiraRenderizacao, setShowButtons]);
     
     return (
       <div data-testid="suggestions-container">

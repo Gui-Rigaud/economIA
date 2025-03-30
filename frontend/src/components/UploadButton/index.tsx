@@ -5,7 +5,6 @@ import { setupAPIClient } from "@/services/api";
 import { AuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { FC } from "react";
 
 const acceptableFileTypes = ".csv, application/pdf, text/csv";
 
