@@ -16,6 +16,26 @@ interface Summary {
     saldo: number;
 }
 
+function formatNumberString(numberString: string | undefined) {
+    if (!numberString) {
+        return undefined;
+    }
+    let novaString: string = "";
+    novaString += numberString[numberString.length - 3];
+    novaString += numberString[numberString.length -2];
+    novaString += numberString[numberString.length - 1];
+    let contador:number = 0;
+    for (let i = numberString.length-4; i != -1; i--) {
+        novaString = numberString[i] + novaString;
+        contador++;
+        if (contador == 3 ) {
+            novaString = "." + novaString;
+            contador = 0;
+        }
+    }
+    return novaString;
+}
+
 export function Summary() {
     const authContext = useContext(AuthContext);
     if (!authContext) {
@@ -92,12 +112,18 @@ export function Summary() {
                             className={`w-[1300px] mx-auto grid grid-cols-3 grid-rows-3 gap- ${roboto400.className} text-[24px] text-white transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-100' : 'scale-0'}`}
                         >
                             <p className="col-start-1 col-span-3 row-start-1 row-span-1 mb-1 font-bold opacity-0 text-[76px]"><strong>Esse é o resumo dos seus gastos:</strong></p>
-                            <p className="w-full mb-1 col-start-1 col-span-2 row-start-2 row-span-2 p-4 opacity-0 text-[170px]">
+                            <p
+                                className="w-full mb-1 col-start-1 col-span-2 row-start-2 row-span-2 p-4 opacity-0 text-[120px] overflow-hidden text-ellipsis whitespace-nowrap"
+                                style={{
+                                    transform: dados?.saldo && dados.saldo.toString().length > 10 ? "scale(0.8)" : "scale(1)",
+                                    transformOrigin: "left",
+                                }}
+                            >
                                 <span className="text-[24px] block">Saldo disponível</span>
-                                R${dados?.saldo ?? "N/A"}
+                                R${formatNumberString(dados?.saldo.toString()) ?? "N/A"}
                             </p>
-                            <p className="w-full mb-1 col-start-3 col-span-1 row-start-2 row-span-1 p-4 opacity-0 text-[40px] text-white">Despesas totais: <span className="text-red-600">R${dados?.despesa ?? "N/A"}</span></p>
-                            <p className="w-full mb-1 col-start-3 col-span-1 row-start-3 row-span-1 p-4 opacity-0 text-[40px] text-white">Seu Orçamento: <span className="text-green-600">R${dados?.receita ?? "N/A"}</span></p>
+                            <p className="w-full mb-1 col-start-3 col-span-1 row-start-2 row-span-1 p-4 opacity-0 text-[40px] text-white">Despesas totais: <span className="text-red-600">R${formatNumberString(dados?.despesa.toString()) ?? "N/A"}</span></p>
+                            <p className="w-full mb-1 col-start-3 col-span-1 row-start-3 row-span-1 p-4 opacity-0 text-[40px] text-white">Seu Orçamento: <span className="text-green-600">R${formatNumberString(dados?.receita.toString()) ?? "N/A"}</span></p>
                         </div>
                     </>
                 </div>
