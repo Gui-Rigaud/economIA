@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import { Categorias } from "@/components/Categorias";
 import { Summary } from "@/components/Summary";
-import { AuthProvider } from "@/contexts/AuthContext";
 import { Suggestions } from "@/components/Suggestions";
 import AISuggestionChat from "@/components/PerSuggestion";
 import { Roboto } from "next/font/google";
@@ -25,11 +24,11 @@ export default function Dashboard() {
   };
 
   return (
-    <AuthProvider>
       <div className="flex h-screen">
         <div className="flex-grow">
-          <Summary />
-          <Categorias />
+            <Summary />
+            <Categorias />
+          
           {showButtons && (
             <div className="flex justify-center space-x-4 pt-6">
               <label className="flex items-center cursor-pointer">
@@ -59,6 +58,5 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </AuthProvider>
   );
 }
