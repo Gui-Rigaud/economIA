@@ -14,7 +14,7 @@ const roboto400 = Roboto({
 export default function Home()
 {
   return (
-    <div id = "screen" className="bg-backgroundLightGray h-screen w-screen flex justify-center items-center text-black">
+    <div id = "screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center text-black">
         <div id = "main-container" className = "bg-backgroundLightGray rounded-lg h-[700px] w-[1000px] shadow-[0px_10px_30px_rgba(0,0,0,0.3)]">
             <div id = "logo-container" className = "flex justify-center items-center mt-10">
                     <Image src = {logoblack} alt = "logo" width={200} height={200}/>

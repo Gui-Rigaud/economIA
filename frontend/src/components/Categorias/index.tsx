@@ -96,7 +96,7 @@ export function Categorias() {
           <>
             {showPhrase && (
               <section className="text-center mb-20">
-                <h1 className="text-4xl text-white">CATEGORIAS</h1>
+                <h1 id = "Categorias" className="text-4xl text-white">CATEGORIAS</h1>
                 <h2 className="text-xl text-[#9cc5a1]">Separamos seus gastos para você</h2>
               </section>
             )}

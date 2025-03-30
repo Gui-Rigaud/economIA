@@ -75,7 +75,7 @@ function Login() {
                         <Spinner/>
                     </div>
                 ) :
-                    <div id="screen" className="bg-backgroundLightGray h-screen w-screen flex justify-center items-center">
+                    <div id="screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
                         <div id="forms-container" className={`bg-backgroundLightGray shadow-[0px_10px_30px_rgba(0,0,0,0.3)] rounded-lg h-[700px] w-[500px] ${roboto400.className}`}>
                             <div id="logo-container" className="flex justify-center items-center">
                                 <Image src={logoblack} alt="logo" width={400} height={400} />

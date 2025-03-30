@@ -64,7 +64,7 @@ export default function CadastroScreen() { // Nome do componente corrigido para 
 
     return (
         <AuthProvider>
-            <div id="screen" className="bg-backgroundLightGray h-screen w-screen flex justify-center items-center">
+            <div id="screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
                 <form onSubmit={handleSignup}>
                     <div id="forms-container" className={`bg-backgroundLightGray shadow-[0px_10px_30px_rgba(0,0,0,0.3)] rounded-lg h-[700px] w-[1000px] ${roboto400.className}`}>
                         <div id="logo-container" className="flex justify-center items-center">
