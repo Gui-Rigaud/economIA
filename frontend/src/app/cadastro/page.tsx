@@ -19,7 +19,7 @@ const roboto700 = Roboto({
     weight: "700"
 });
 
-export default function CadastroScreen() { // Nome do componente corrigido para começar com letra maiúscula
+export default function CadastroScreen() {
     const authContext = useContext(AuthContext);
     if (!authContext) {
         throw new Error("AuthContext is null");
@@ -43,7 +43,7 @@ export default function CadastroScreen() { // Nome do componente corrigido para 
             return;
         }
 
-        const data = { // Alterado para `const` porque o valor não será reatribuído
+        const data = {
             name,
             email,
             senha,
@@ -64,98 +64,111 @@ export default function CadastroScreen() { // Nome do componente corrigido para 
 
     return (
         <AuthProvider>
-            <div id="screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center">
-                <form onSubmit={handleSignup}>
-                    <div id="forms-container" className={`bg-backgroundLightGray shadow-[0px_10px_30px_rgba(0,0,0,0.3)] rounded-lg h-[700px] w-[1000px] ${roboto400.className}`}>
-                        <div id="logo-container" className="flex justify-center items-center">
-                            <Image src={logoBlackf} alt="logo" width={200} height={200} />
+            <div className="bg-econDarkGreen min-h-screen w-full flex justify-center items-center p-4 md:p-8">
+                <form onSubmit={handleSignup} className="w-full max-w-4xl">
+                    <div className={`bg-backgroundLightGray shadow-[0px_10px_30px_rgba(0,0,0,0.3)] rounded-lg w-full max-w-[1000px] min-h-[700px] mx-auto p-6 md:p-8 ${roboto400.className}`}>
+                        <div className="flex justify-center items-center mb-6 md:mb-8">
+                            <Image 
+                                src={logoBlackf} 
+                                alt="logo" 
+                                width={200} 
+                                height={200}
+                                className="w-auto h-auto max-w-[120px] sm:max-w-[150px] md:max-w-[200px]"
+                                priority
+                            />
                         </div>
 
-                        <div id="forms-inputs" className="grid grid-cols-2 mx-[32px] gap-x-[64px] gap-y-[20px]">
-                            <div id="name-container">
-                                <label htmlFor="name" className="block text-sm/6 font-medium text-black">Nome</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-8 lg:gap-x-16 md:gap-y-5">
+                            <div className="w-full">
+                                <label htmlFor="name" className="block text-sm font-medium text-black mb-1">Nome</label>
                                 <input
                                     id="name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     placeholder="Nome Sobrenome"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
 
-                            <div id="email-container">
-                                <label htmlFor="email" className="block text-sm/6 font-medium text-black">E-mail</label>
+                            <div className="w-full">
+                                <label htmlFor="email" className="block text-sm font-medium text-black mb-1">E-mail</label>
                                 <input
                                     id="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     type="email"
                                     placeholder="exemplo@gmail.com"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
 
-                            <div id="password-container">
-                                <label htmlFor="password" className="block text-sm/6 font-medium text-black">Senha</label>
+                            <div className="w-full">
+                                <label htmlFor="password" className="block text-sm font-medium text-black mb-1">Senha</label>
                                 <input
                                     id="password"
                                     value={senha}
                                     onChange={(e) => setSenha(e.target.value)}
                                     type="password"
                                     placeholder="Senha"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
 
-                            <div id="cpf-container">
-                                <label htmlFor="cpf" className="block text-sm/6 font-medium text-black">CPF</label>
+                            <div className="w-full">
+                                <label htmlFor="cpf" className="block text-sm font-medium text-black mb-1">CPF</label>
                                 <input
                                     id="cpf"
                                     value={cpf}
                                     onChange={(e) => setCpf(e.target.value)}
-                                    placeholder="12345678912"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    placeholder="123.456.789-12"
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
 
-                            <div id="cellphone-container">
-                                <label htmlFor="cellphone" className="block text-sm/6 font-medium text-black">Número de telefone</label>
+                            <div className="w-full">
+                                <label htmlFor="cellphone" className="block text-sm font-medium text-black mb-1">Telefone</label>
                                 <input
                                     id="cellphone"
                                     value={telefone}
                                     onChange={(e) => setTelefone(e.target.value)}
-                                    placeholder="81999999999"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    placeholder="(81) 99999-9999"
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
 
-                            <div id="birthdate-container">
-                                <label htmlFor="birthdate" className="block text-sm/6 font-medium text-black">Data de nascimento</label>
+                            <div className="w-full">
+                                <label htmlFor="birthdate" className="block text-sm font-medium text-black mb-1">Data de nascimento</label>
                                 <input
                                     id="birthdate"
                                     value={data_nasc}
                                     onChange={(e) => setData_nasc(e.target.value)}
                                     type="date"
-                                    placeholder="Data de nascimento"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
 
-                            <div id="receita-container">
-                                <label htmlFor="receita" className="block text-sm/6 font-medium text-black">Receita</label>
+                            <div className="w-full">
+                                <label htmlFor="receita" className="block text-sm font-medium text-black mb-1">Receita</label>
                                 <input
                                     id="receita"
                                     value={receita}
                                     onChange={(e) => setReceita(e.target.value)}
-                                    placeholder="10000000"
-                                    className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6`}
+                                    placeholder="10.000,00"
+                                    className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
                         </div>
 
-                        <div className={`${roboto700.className} mt-[30px] flex flex-col items-center`}>
-                            <Link href="/login" className="underline text-black hover:text-green-700 mb-2">Já tem um cadastro? Faça o login clicando aqui!</Link>
-                            <button type="submit" className="w-[320px] h-[48px] bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white">Cadastrar</button>
+                        <div className={`${roboto700.className} mt-8 flex flex-col items-center`}>
+                            <Link href="/login" className="underline text-black hover:text-green-700 mb-4 text-center text-sm md:text-base">
+                                Já tem um cadastro? Faça o login clicando aqui!
+                            </Link>
+                            <button 
+                                type="submit" 
+                                className="w-full max-w-xs h-12 bg-econGreen hover:bg-green-700 rounded-lg drop-shadow-xl text-white transition-colors duration-200"
+                            >
+                                Cadastrar
+                            </button>
                         </div>
                     </div>
                 </form>

@@ -11,9 +11,9 @@ const roboto400 = Roboto({
 })
 
 interface Summary {
-    receita: number;
-    despesa: number;
-    saldo: number;
+    receita: string;
+    despesa: string;
+    saldo: string;
 }
 
 function formatNumberString(numberString: string | undefined) {
@@ -109,7 +109,7 @@ export function Summary() {
                         <div
                             id="text-container"
                             ref={textContainerRef}
-                            className={`w-[1300px] mx-auto grid grid-cols-3 grid-rows-3 gap- ${roboto400.className} text-[24px] text-white transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-100' : 'scale-0'}`}
+                            className={`w-[80%] mx-auto grid grid-cols-3 grid-rows-5 gap- ${roboto400.className} text-[24px] text-white transition-all duration-500 ease-in-out transform ${showSummary ? 'scale-100' : 'scale-0'}`}
                         >
                             <p className="col-start-1 col-span-3 row-start-1 row-span-1 mb-1 font-bold opacity-0 text-[76px]"><strong>Esse é o resumo dos seus gastos:</strong></p>
                             <p
@@ -120,10 +120,10 @@ export function Summary() {
                                 }}
                             >
                                 <span className="text-[24px] block">Saldo disponível</span>
-                                R${formatNumberString(dados?.saldo.toString()) ?? "N/A"}
+                                <span className="text-[170px] sm:text-[120px] text-[90px]">R$ {dados?.saldo || "N/A"}</span>
                             </p>
-                            <p className="w-full mb-1 col-start-3 col-span-1 row-start-2 row-span-1 p-4 opacity-0 text-[40px] text-white">Despesas totais: <span className="text-red-600">R${formatNumberString(dados?.despesa.toString()) ?? "N/A"}</span></p>
-                            <p className="w-full mb-1 col-start-3 col-span-1 row-start-3 row-span-1 p-4 opacity-0 text-[40px] text-white">Seu Orçamento: <span className="text-green-600">R${formatNumberString(dados?.receita.toString()) ?? "N/A"}</span></p>
+                            <p className="w-full mb-1 col-start-1 col-span-1 row-start-4 row-span-1 p-4 opacity-0 text-[40px] text-white">Despesas totais: <span className="text-red-600">R${dados?.despesa ?? "N/A"}</span></p>
+                            <p className="w-full mb-1 col-start-1 col-span-1 row-start-5 row-span-1 p-4 opacity-0 text-[40px] text-white">Seu Orçamento: <span className="text-green-600">R${dados?.receita ?? "N/A"}</span></p>
                         </div>
                     </>
                 </div>
