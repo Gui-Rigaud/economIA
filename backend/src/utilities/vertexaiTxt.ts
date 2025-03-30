@@ -1,7 +1,7 @@
 import { extractJsonFromString } from "./extractJsonFromString";
 const { VertexAI } = require('@google-cloud/vertexai');
 
-export async function generate(prompt: string, destinationUri: string) {
+export async function generateTxt(prompt: string, destinationUri: string) {
   const apiKey = process.env.API_KEY;
 
   if (!apiKey) {

@@ -11,11 +11,6 @@ const roboto400 = Roboto({
     weight: "400"
 })
 
-const roboto700 = Roboto({
-    subsets: ["latin"],
-    weight: "700"
-})
-
 export default function Home()
 {
   return (

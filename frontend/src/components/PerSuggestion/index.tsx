@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Send } from 'lucide-react';
 import { setupAPIClient } from "@/services/api";
+import { AuthContext, AuthProvider } from "@/contexts/AuthContext";
 import { toast } from "react-toastify";
 import ReactMarkdown from 'react-markdown';
 
@@ -26,6 +27,11 @@ function AISuggestionChat({
   placeholder = "Digite sua pergunta...",
   className = "",
 }: ChatProps) {
+  const authContext = useContext(AuthContext);
+      if (!authContext) {
+          throw new Error("AuthContext is null");
+  }
+  const { user } = authContext;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +65,10 @@ function AISuggestionChat({
     setIsLoading(true);
 
     try {
-      const response = await apiClient.post('/per-suggestion', { input: newMessage.text });
+      const response = await apiClient.post('/per-suggestion', {
+        input: newMessage.text,
+        user_id: user?.id
+      });
 
       const aiMessage: Message = {
         id: Date.now().toString(),
@@ -92,6 +101,7 @@ function AISuggestionChat({
   }, [messages]);
 
   return (
+    <AuthProvider>
     <div className="flex flex-col items-center justify-center h-screen"> 
       <div className={`bg-white rounded-2xl shadow-lg aspect-square w-[50%] h-[70%] flex flex-col ${className}`}>
         <div className="bg-econGreen text-white p-4 rounded-t-2xl">
@@ -157,6 +167,7 @@ function AISuggestionChat({
         </form>
       </div>
     </div>
+    </AuthProvider>
   );
 }
 

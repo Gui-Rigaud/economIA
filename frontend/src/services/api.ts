@@ -8,10 +8,10 @@ import { signOut } from '../contexts/AuthContext'
 import { Context } from 'vm';
 
 export function setupAPIClient(ctx?: Context) {
-    let cookies = parseCookies(ctx);
+    const cookies = parseCookies(ctx);
 
     const api = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: 'https://economia-tkf0.onrender.com/api',
         headers: {
             Authorization: `Bearer ${cookies['@nextauth.token']}`
         }

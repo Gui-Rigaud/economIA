@@ -2,8 +2,6 @@ import '@testing-library/jest-dom'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Categorias } from './index'
 import { AuthProvider } from '@/contexts/AuthContext'
-import ApexCharts from "apexcharts";
-import ReactApexChart from "react-apexcharts";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -22,7 +20,7 @@ jest.mock('next/navigation', () => ({
 }))
 
 jest.mock('react-apexcharts', () => jest.fn(() => { return null }));
-jest.mock('apexcharts', () => ({ exec: jest.fn(() => { return new Promise((resolve, reject) => { resolve("uri") }) }) }));
+jest.mock('apexcharts', () => ({ exec: jest.fn(() => { return new Promise((resolve) => { resolve("uri") }) }) }));
 
 // Mock ResizeObserver
 global.ResizeObserver = class {

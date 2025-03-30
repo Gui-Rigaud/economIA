@@ -13,7 +13,6 @@ async function initializecategories() {
                     nome: "Outros",
                 },
             });
-            //console.log("Categoria 'Outros' criada automaticamente.");
         }
     } catch (error) {
         console.error("Erro ao inicializar a categoria padrão:", error);

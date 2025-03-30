@@ -3,10 +3,16 @@ import {GenSuggestionService} from '../../services/suggestion/GenSuggestionsServ
 
 class SuggestionController {
     async handle(request: Request, response: Response) {
-        const genSuggestionService = new GenSuggestionService();
-        const suggestions = await genSuggestionService.execute();
+        const {user_id} = request.query;
 
-        return response.json(suggestions);
+        try{
+            const genSuggestionService = new GenSuggestionService();
+            const suggestions = await genSuggestionService.execute(user_id as string);
+            
+            return response.json(suggestions);
+        }catch(error){
+            return response.status(500).json({error: error.message});
+        }
     }
 }
 

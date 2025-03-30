@@ -18,38 +18,30 @@ function UploadButton() {
   const [file, setFile] = useState<File>();
   const [labelText, setLabelText] = useState<string>('');
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   function onFileChangeHandler(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
-      const selectedFile = event.target.files[0];
-      setFile(selectedFile);
-      setLabelText(`Arquivo recebido com sucesso - ${selectedFile.name}`);
+      setFile(event.target.files[0]);
     }
   }
 
   async function onFileUploadHandler() {
     if (!file) {
-      toast.error('Nenhum arquivo selecionado.');
+      setLabelText('Nenhum arquivo selecionado.');
       return;
     }
-
-    setLoading(true);
+    
     const apiClient = setupAPIClient();
     const data = new FormData();
-    
     if (!user) {
-      toast.error('Usuário não autenticado.');
-      setLoading(false);
+      setLabelText('Usuário não autenticado.');
       return;
     }
-    
-    data.append('user_id', user.id);
+    data.append('user_id', user.id)
     data.append('file', file);
 
     if (!acceptableFileTypes.includes(file.type)) {
-      toast.error('Por favor, selecione um arquivo válido (CSV ou PDF).');
-      setLoading(false);
+      setLabelText('Por favor, selecione um arquivo válido.');
       return;
     }
 
@@ -59,44 +51,19 @@ function UploadButton() {
       router.push('/dashboard');
     } catch (error) {
       console.error('Error uploading file:', error);
-      toast.error('Erro ao enviar o arquivo.');
-    } finally {
-      setLoading(false);
+      setLabelText('Erro ao enviar o arquivo.');
     }
   }
 
   return (
-    <div className="flex flex-col items-center space-y-4 w-full max-w-md mx-auto">
-      {/* Moldura verde apenas para a mensagem */}
-      {labelText && (
-        <div className="border-[3px] border-[#48a078] rounded-lg p-3 w-full text-center">
-          {labelText}
-        </div>
-      )}
-      
-      {/* Botão de seleção - Aumentado */}
-      <label 
-        htmlFor="fileSelector" 
-        className="flex justify-center items-center text-white bg-[#48a078] hover:bg-green-700 rounded-lg px-6 py-3 cursor-pointer w-full text-lg transition-colors"
-      >
-        Selecione o arquivo (csv ou pdf)
+    <div className="h-[60px] w-[30%] border-[3px] border-[#48a078] m-[10px] transition-all duration-300 rounded-lg hover:bg-[#49a078]">
+      {labelText && <p className="mb-8 my-4 text-center">{labelText}</p>}
+      <label htmlFor="fileSelector" className="flex w-full h-full justify-center items-center text-white bg-[#48a078] hover:cursor-pointer hover:bg-green-700">
+        Selecione o arquivo (*csv ou pdf)
       </label>
-      
-      <input 
-        type="file" 
-        id="fileSelector" 
-        accept={acceptableFileTypes} 
-        onChange={onFileChangeHandler} 
-        className="hidden" 
-      />
-      
-      {/* Botão de envio - Aumentado */}
-      <button 
-        onClick={onFileUploadHandler} 
-        className="bg-blue-500 hover:bg-blue-700 text-white py-3 px-6 rounded-lg w-full text-lg transition-colors disabled:opacity-70"
-        disabled={loading}
-      >
-        {loading ? 'Enviando...' : 'Enviar Arquivo'}
+      <input type="file" id="fileSelector" accept={acceptableFileTypes} onChange={onFileChangeHandler} className="opacity-0 z-[-1] absolute" />
+      <button onClick={onFileUploadHandler} className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-4 mx-auto block">
+        Enviar Arquivo
       </button>
     </div>
   );

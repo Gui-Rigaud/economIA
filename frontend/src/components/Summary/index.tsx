@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { setupAPIClient } from "@/services/api";
 import { useState, useContext } from "react";
 import { toast } from "react-toastify";
@@ -23,7 +23,6 @@ export function Summary() {
     }
     const { user } = authContext;
     const apiClient = setupAPIClient();
-    const [loading, setLoading] = useState(false);
     const [dados, setDados] = useState<Summary>();
     const [showSummary, setShowSummary] = useState(false);
     const primeiraRenderizacao = useRef(true);
@@ -39,7 +38,8 @@ export function Summary() {
         }
     }, [dados]);
 
-    const fetchSummary = async () => {    
+
+    const fetchSummary = useCallback(async () => {    
         setTimeout(async () => {
             if (!user?.id) {
                 toast.error("Usuário não encontrado. Tente novamente.", { theme: "dark" });
@@ -52,7 +52,16 @@ export function Summary() {
                 });
     
                 if (response.data) {
-                    setDados(response.data);
+                    const data_formatted = {
+                        receita: response.data.receita.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
+                        despesa: response.data.despesa.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ','),
+                        saldo: response.data.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace('.', ',')
+                    };
+                    setDados({
+                        receita: data_formatted.receita,
+                        despesa: data_formatted.despesa,
+                        saldo: data_formatted.saldo
+                    });
                 } else {
                     toast.error("Não foi possível encontrar os dados necessários para o resumo de gastos", { theme: "dark" });
                 }
@@ -64,13 +73,13 @@ export function Summary() {
                 primeiraRenderizacao.current = false;
             }
         }, 1000); // Aguarda 1 segundo antes de executar a requisição
-    };
+    }, [user?.id, apiClient]);
 
     useEffect(() => {
         if (primeiraRenderizacao.current && user?.id) {
             fetchSummary();
         }
-    }, [user?.id]); 
+    }, [user?.id, fetchSummary]); 
 
     return (
         <>

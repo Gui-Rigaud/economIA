@@ -1,10 +1,9 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Login from './page'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useRouter } from 'next/router'
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({

@@ -1,11 +1,8 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import UploadButton from './index'
 import { AuthProvider } from '@/contexts/AuthContext'
 import styles from './styles.module.scss'
-import { setupAPIClient } from '@/services/api'
-import { useRouter } from 'next/navigation'
-import { ToastContainer } from 'react-toastify'
 
 jest.mock('../../services/api', () => ({
   setupAPIClient: () => ({
