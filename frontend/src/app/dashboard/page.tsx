@@ -48,7 +48,7 @@ export default function Dashboard() {
               </label>
             </div>
           )}
-          <div className="relative">
+          <div id = "suggestionsdiv" className="relative">
             <div className={`absolute inset-0 ${selectedComponent === 'suggestions' ? 'block' : 'hidden'}`}>
               <Suggestions setShowButtons={setShowButtons} primeiraRenderizacao={primeiraRenderizacao} />
             </div>
