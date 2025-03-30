@@ -79,7 +79,7 @@ function UploadButton() {
         htmlFor="fileSelector" 
         className="flex justify-center items-center text-white bg-[#48a078] hover:bg-green-700 rounded-lg px-6 py-3 cursor-pointer w-full text-lg transition-colors"
       >
-        Selecione o arquivo (*csv ou pdf)
+        Selecione o arquivo (csv ou pdf)
       </label>
       
       <input 
