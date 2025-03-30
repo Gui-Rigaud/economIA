@@ -1,6 +1,6 @@
 "use client";
 
-import Donut from '../Graph'; // Certifique-se de que o caminho está correto
+import Donut from '../Graph';
 import { setupAPIClient } from '@/services/api';
 import { AuthContext, AuthProvider } from '@/contexts/AuthContext';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -13,47 +13,45 @@ interface Categoria {
 
 export function Categorias() {
   const paletaCores = [
-    "#B00000", // Vermelho escuro
-    "#0000B0", // Azul escuro
-    "#008000", // Verde escuro
-    "#CC7000", // Laranja escuro
-    "#C0A000", // Amarelo escuro
-    "#600060", // Roxo escuro
-    "#B00050", // Rosa escuro
-    "#000060", // Azul bem escuro
-    "#005050", // Azul-esverdeado escuro
-];
+    "#B00000", "#0000B0", "#008000", "#CC7000", "#C0A000",
+    "#600060", "#B00050", "#000060", "#005050"
+  ];
 
   const authContext = useContext(AuthContext);
   if (!authContext) {
     throw new Error("AuthContext is null");
   }
+
   const { user } = authContext;
   const apiClient = setupAPIClient();
   const [categorias, setCategorias] = useState<Categoria[]>([]);
-  const [showPhrase, setShowPhrase] = useState(false); // Estado para controlar a visibilidade da frase
+  const [showPhrase, setShowPhrase] = useState(false);
   const primeiraRenderizacao = useRef(true);
 
   const fetchCategories = async () => {
     if (!user?.id) {
-      console.warn("User ID ainda não está disponível. Aguardando...");
+      console.warn("User ID ainda não está disponível.");
       return;
     }
-  
+
     if (primeiraRenderizacao.current) {
-      setShowPhrase(true); // Mostra a frase após o botão ser pressionado
-  
+      setShowPhrase(true);
+
       try {
         const gen_categories = await apiClient.post('/generate-categories', {
           user_id: user.id
         });
-  
-        if (gen_categories) {
-          const percent_categories = await apiClient.post('/percent-categories', gen_categories.data, {
-            params: { user_id: user.id }
-          });
-  
-          if (percent_categories) {
+
+        if (gen_categories?.data && user.id) {
+          const percent_categories = await apiClient.post(
+            '/percent-categories',
+            gen_categories.data,
+            {
+              params: { user_id: user.id }
+            }
+          );
+
+          if (percent_categories?.data) {
             setCategorias(percent_categories.data);
           } else {
             toast.error("A IA não gerou nenhuma categoria", { theme: "dark" });
@@ -61,6 +59,7 @@ export function Categorias() {
         }
       } catch (error) {
         console.error("Erro ao gerar ou buscar categorias:", error);
+        toast.error("Erro ao gerar categorias", { theme: "dark" });
       } finally {
         primeiraRenderizacao.current = false;
       }
@@ -71,22 +70,18 @@ export function Categorias() {
     if (primeiraRenderizacao.current && user?.id) {
       fetchCategories();
     }
-  }, [user?.id]); // Executa somente quando o user.id estiver disponível
+  }, [user?.id]); // Remove fetchCategories do array de dependências para evitar chamadas duplicadas
 
   const gerarCoresComPaleta = (quantidade: number) => {
-    const cores = [...paletaCores]; // Copia a paleta para não modificar a original
+    const cores = [...paletaCores];
     const resultado = [];
-  
-    // Se a quantidade de categorias for maior que o número de cores, repetimos a paleta
+
     while (resultado.length < quantidade) {
-      if (cores.length === 0) {
-        cores.push(...paletaCores); // Reabastece as cores quando acabar
-      }
-      // Remove uma cor aleatória da lista e adiciona ao resultado
+      if (cores.length === 0) cores.push(...paletaCores);
       const corIndex = Math.floor(Math.random() * cores.length);
       resultado.push(cores.splice(corIndex, 1)[0]);
     }
-  
+
     return resultado;
   };
 
@@ -106,7 +101,7 @@ export function Categorias() {
               <Donut
                 categories={categorias.map((data) => data.categoria)}
                 data={categorias.map((data) => data.porcentagem)}
-                colors={gerarCoresComPaleta(categorias.length)} // Passa as cores aqui
+                colors={gerarCoresComPaleta(categorias.length)}
               />
             </div>
 

@@ -1,0 +1,16 @@
+# Configuração mínima para Node.js
+services:
+  - type: web
+    name: economiapp-api
+    env: node
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: node src/api.ts
+    healthCheckPath: /health
+    plan: standard-1x 
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RENDER
+        value: true
+      - key: PORT
+        value: 10000

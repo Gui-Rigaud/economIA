@@ -4,7 +4,6 @@ import { GenCategoriesService } from "../../services/gen-categories/GenCategorie
 class GenCategoriesController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { user_id } = request.body;
-        console.log("User ID recebido: ", user_id);
         const genCategoriesService = new GenCategoriesService();
 
 

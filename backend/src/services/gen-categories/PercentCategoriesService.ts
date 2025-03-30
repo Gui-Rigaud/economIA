@@ -1,5 +1,3 @@
-import { generate } from "../../utilities/vertexaiTxt";
-
 const fs = require('fs').promises;
 const path = require("path");
 const { Storage: GoogleCloudStorage } = require("@google-cloud/storage");
