@@ -27,6 +27,7 @@ export function Categorias() {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [showPhrase, setShowPhrase] = useState(false);
   const primeiraRenderizacao = useRef(true);
+  const [cores,setCores] = useState<string[]>([]);
 
   const fetchCategories = async () => {
     if (!user?.id) {
@@ -36,6 +37,7 @@ export function Categorias() {
 
     if (primeiraRenderizacao.current) {
       setShowPhrase(true);
+
 
       try {
         const gen_categories = await apiClient.post('/generate-categories', {
@@ -56,6 +58,8 @@ export function Categorias() {
           } else {
             toast.error("A IA não gerou nenhuma categoria", { theme: "dark" });
           }
+
+          setCores(gerarCoresComPaleta(percent_categories.data.length));
         }
       } catch (error) {
         console.error("Erro ao gerar ou buscar categorias:", error);
@@ -101,7 +105,7 @@ export function Categorias() {
               <Donut
                 categories={categorias.map((data) => data.categoria)}
                 data={categorias.map((data) => data.porcentagem)}
-                colors={gerarCoresComPaleta(categorias.length)}
+                colors={cores}
               />
             </div>
 
