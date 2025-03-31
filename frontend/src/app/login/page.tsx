@@ -81,7 +81,7 @@ function Login() {
                                 <Image src={logoblack} alt="logo" width={400} height={400} />
                             </div>
                             <form onSubmit={handleLogin}>
-                                <div id="forms-inputs" className="grid grid-cols-1 gap-y-6 mt-[0px] w-[436px]">
+                                <div id="forms-inputs" className="grid grid-cols-1 gap-y-6 mt-[0px] w-[90%]">
                                     <div className="ml-[32px]">
                                         <input id="email" type="email" onChange={(e) => setEmail(e.target.value)} value={email} placeholder="E-mail" className={`${roboto400.className} h-[56px] block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-600 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 `} />
                                     </div>
