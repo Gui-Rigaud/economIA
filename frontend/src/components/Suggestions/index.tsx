@@ -79,7 +79,7 @@ export function Suggestions({ setShowButtons }: SuggestionsProps) {
   }, [user?.id]); // Executa quando o user.id estiver disponível
 
   return (
-    <div id="suggestions" className="flex flex-col justify-center items-center text-black min-h-screen">
+    <div id="suggestions" className="flex flex-col justify-center items-center text-black h-screen">
       {loading ? (
         <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50">
           <Spinner />

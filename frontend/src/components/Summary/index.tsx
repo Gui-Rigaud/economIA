@@ -17,7 +17,6 @@ interface Summary {
 }
 
 function formatNumberString(numberString: string | undefined) {
-    console.log("numberString", numberString);
     if (!numberString) {
         return undefined;
     }
