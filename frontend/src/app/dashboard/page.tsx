@@ -26,7 +26,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-sreen">
       <div className="flex-grow">
         <Summary />
         <Categorias />
