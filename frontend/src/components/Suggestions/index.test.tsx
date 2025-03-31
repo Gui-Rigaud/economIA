@@ -74,10 +74,10 @@ jest.mock('../../contexts/AuthContext', () => {
 jest.mock('./index', () => ({
   Suggestions: ({ setShowButtons }: SuggestionsProps) => {
     const [loading, setLoading] = React.useState(false);
-    const [dados, setDados] = React.useState([
+    const dados = [
       { id: '1', frase: 'Sugerir gestão de gastos' },
       { id: '2', frase: 'Análise personalizada' }
-    ]);
+    ];
     const [showPhrase, setShowPhrase] = React.useState(false);
     const primeiraRenderizacao = React.useRef(true);
 
