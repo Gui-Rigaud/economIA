@@ -15,15 +15,15 @@ export default function Home()
 {
   return (
     <div id = "screen" className="bg-econDarkGreen h-screen w-screen flex justify-center items-center text-black">
-        <div id = "main-container" className = "bg-backgroundLightGray rounded-lg h-[700px] w-[1000px] shadow-[0px_10px_30px_rgba(0,0,0,0.3)]">
+        <div id = "main-container" className = "bg-backgroundLightGray rounded-lg h-[700px] w-[88%] lg:w-[1000px] md:w-[800px] shadow-[0px_10px_30px_rgba(0,0,0,0.3)]">
             <div id = "logo-container" className = "flex justify-center items-center mt-10">
                     <Image src = {logoblack} alt = "logo" width={200} height={200}/>
             </div>
 
-            <div id = "text-container" className = {`flex flex-col justify-center items-center ${roboto400.className} text-[24px]`}>
+            <div id="text-container" className={`flex flex-col justify-center items-center ${roboto400.className} text-[24px] text-center`}>
                 <p className="mb-4">Bem-vindo ao economIA!</p>
-                <p className="mb-4">economIA é a sua mais nova plataforma de gestão financeira baseada em I.A</p>
-                <p className="mb-4">Faça login caso já tenha uma conta ou cadastre-se caso seja novo!</p>
+                <p className="mb-4 mx-10">economIA é a sua mais nova plataforma de gestão financeira baseada em I.A</p>
+                <p className="mb-4 mx-10">Faça login caso já tenha uma conta ou cadastre-se caso seja novo!</p>
             </div>
 
             <div id = "buttons-container" className = "flex flex-col justify-center items-center mt-[64px]">
