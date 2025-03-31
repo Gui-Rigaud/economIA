@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import Dashboard from './page'
 import { AuthProvider } from '../../contexts/AuthContext'
 import React from 'react'
@@ -84,7 +84,12 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('react-markdown', () => <div data-testid="markdown-content">Conteúdo Markdown</div>);
+jest.mock('react-markdown', () => 
+  function ReactMarkdown({ children }: React.PropsWithChildren) { 
+    return <div data-testid="markdown-content">{children || "Conteúdo Markdown"}</div> 
+  }
+);
+
 jest.mock('react-apexcharts', () => jest.fn(() => <div data-testid="apex-chart">Gráfico</div>));
 jest.mock('apexcharts', () => ({ exec: jest.fn(() => Promise.resolve("uri")) }));
 
@@ -158,11 +163,51 @@ describe('Dashboard', () => {
     
     // Após carregar, os botões de navegação devem estar visíveis
     await waitFor(() => {
-      const standardButton = screen.getByRole('button', { name: /Sugestões Padrão/i });
-      const personalizedButton = screen.getByRole('button', { name: /Sugestões Personalizadas/i });
+      const personalizeButton = screen.getByText('Personalizar');
+      expect(personalizeButton).toBeInTheDocument();
+    });
+  });
+  
+  it('switches between standard and personalized views when toggle is clicked', async () => {
+    render(
+      <AuthProvider>
+        <Dashboard />
+      </AuthProvider>
+    );
+    
+    // Avançar o tempo para permitir que os componentes terminem de carregar
+    act(() => {
+      jest.advanceTimersByTime(600);
+    });
+    
+    // Wait for the toggle to be available
+    await waitFor(() => {
+      expect(screen.getByText('Personalizar')).toBeInTheDocument();
+    });
+    
+    // Verify initial state - suggestions visible, per-suggestion hidden
+    const suggestionsContainer = screen.getByTestId('suggestions-mock').parentElement;
+    const perSuggestionContainer = screen.getByTestId('per-suggestion-mock').parentElement;
+    
+    expect(suggestionsContainer).toHaveClass('block');
+    expect(perSuggestionContainer).toHaveClass('hidden');
+    
+    // Find and click the toggle button
+    const toggleButton = screen.getByText('Personalizar').nextElementSibling;
+    if (!toggleButton) {
+      throw new Error('Toggle button not found');
+    }
+    fireEvent.click(toggleButton);
+    
+    // Verify the view has switched
+    await waitFor(() => {
+      expect(suggestionsContainer).toHaveClass('hidden');
+      expect(perSuggestionContainer).toHaveClass('block');
       
-      expect(standardButton).toBeInTheDocument();
-      expect(personalizedButton).toBeInTheDocument();
+      // Verify toggle button styling changed
+      expect(toggleButton).toHaveClass('bg-econGreen');
+      const toggleIndicator = toggleButton.firstChild;
+      expect(toggleIndicator).toHaveClass('translate-x-8');
     });
   });
   

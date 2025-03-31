@@ -17,9 +17,37 @@ global.ResizeObserver = class {
 jest.mock('../../services/api', () => ({
     setupAPIClient: () => ({
         get: jest.fn().mockResolvedValue({ data: [] }),
-        post: jest.fn().mockResolvedValue({ data: [] }),
+        post: jest.fn().mockImplementation((url) => {
+            if (url === '/generate-categories') {
+                return Promise.resolve({ data: ['Alimentação', 'Transporte', 'Lazer'] });
+            } else if (url === '/percent-categories') {
+                return Promise.resolve({
+                    data: [
+                        { categoria: 'Alimentação', porcentagem: 50 },
+                        { categoria: 'Transporte', porcentagem: 30 },
+                        { categoria: 'Lazer', porcentagem: 20 }
+                    ]
+                });
+            } else if (url === '/per-suggestion') {
+                return Promise.resolve({
+                    data: {
+                        suggestion: {
+                            resposta: "Resposta da IA personalizada"
+                        }
+                    }
+                });
+            }
+            return Promise.resolve({ data: [] });
+        }),
     }),
 }))
+
+// Mock de react-markdown
+jest.mock('react-markdown', () => 
+  function ReactMarkdown({ children }: { children?: React.ReactNode }) {
+    return <div data-testid="markdown-mock">{children || "Markdown content"}</div>;
+  }
+);
 
 // Mock de next/navigation
 jest.mock('next/navigation', () => ({
@@ -30,8 +58,8 @@ jest.mock('next/navigation', () => ({
 }))
 
 // Mock dos gráficos
-jest.mock('react-apexcharts', () => jest.fn(() => { return null }));
-jest.mock('apexcharts', () => ({ exec: jest.fn(() => { return new Promise((resolve) => { resolve("uri") }) }) }));
+jest.mock('react-apexcharts', () => jest.fn(() => <div data-testid="chart-mock">Chart</div>));
+jest.mock('apexcharts', () => ({ exec: jest.fn(() => Promise.resolve("uri")) }));
 
 // Mock do componente Summary
 jest.mock('../Summary', () => ({
@@ -40,27 +68,51 @@ jest.mock('../Summary', () => ({
 
 // Mock do componente Suggestions
 jest.mock('../Suggestions', () => ({
-  Suggestions: () => (
-    <div data-testid="suggestions-mock">Mock Suggestions Component</div>
-  )
+  Suggestions: ({ setShowButtons }: { setShowButtons: React.Dispatch<React.SetStateAction<boolean>> }) => {
+    React.useEffect(() => {
+      if (setShowButtons) {
+        setTimeout(() => {
+          setShowButtons(true);
+        }, 100);
+      }
+    }, [setShowButtons]);
+    
+    return <div data-testid="suggestions-mock">Mock Suggestions Component</div>;
+  }
 }))
 
-// Mock do AuthContext
-jest.mock('../../contexts/AuthContext', () => {
-  const originalModule = jest.requireActual('../../contexts/AuthContext');
-  const mockContext = {
-    user: { id: '123' },
-    signIn: jest.fn(),
-    signOut: jest.fn(),
-    isAuthenticated: true
-  };
-  
+// IMPORTANTE: Mock do componente PerSuggestion corrigido
+jest.mock('../PerSuggestion', () => ({
+  __esModule: true,
+  default: () => <div data-testid="per-suggestion-mock">Mock AI Suggestion Chat Component</div>
+}));
+
+// Mock do AuthContext corrigido
+const mockAuthContext = {
+  user: { id: '123' },
+  signIn: jest.fn(),
+  signOut: jest.fn(),
+  isAuthenticated: true,
+  signUp: jest.fn()
+};
+
+jest.mock('../../contexts/AuthContext', () => ({
+  AuthContext: {
+    Provider: ({ children }: { children: React.ReactNode }) => children,
+    Consumer: ({ children }: { children: React.ReactNode }) => children
+  },
+  AuthProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="auth-provider-mock">{children}</div>,
+  useAuth: () => mockAuthContext
+}));
+
+// Mock do useContext do React para fornecer o contexto de autenticação
+jest.mock('react', () => {
+  const ActualReact = jest.requireActual('react');
   return {
-    ...originalModule,
-    AuthProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="auth-provider-mock">{children}</div>,
-    useContext: jest.fn().mockReturnValue(mockContext)
+    ...ActualReact,
+    useContext: () => mockAuthContext
   };
-})
+});
 
 // Mock para o componente Categorias
 jest.mock('./index', () => ({
@@ -71,15 +123,17 @@ jest.mock('./index', () => ({
     React.useEffect(() => {
       const timer = setTimeout(() => {
         setVisible(true);
-      }, 500); // 500ms de delay para simular loading
+      }, 500);
       
       return () => clearTimeout(timer);
     }, []);
     
     return (
       <div>
-        {visible && <div data-testid="categorias-content">Categorias Content</div>}
-        {!visible && <div data-testid="categorias-loading">Carregando categorias...</div>}
+        {visible ? 
+          <div data-testid="categorias-content">Categorias Content</div> : 
+          <div data-testid="categorias-loading">Carregando categorias...</div>
+        }
       </div>
     );
   }
@@ -88,7 +142,7 @@ jest.mock('./index', () => ({
 jest.useFakeTimers();
 
 describe('Categorias', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllTimers();
   });
   
@@ -114,27 +168,29 @@ describe('Categorias', () => {
   });
 
   it('renders Dashboard with mocked components after loading', async () => {
-    render(<Dashboard />);
+    // Renderizar Dashboard explicitamente com o contexto
+    render(
+      <div data-testid="auth-provider-mock">
+        <Dashboard />
+      </div>
+    );
     
     // Avançar o timer para simular o tempo passando
     act(() => {
-      jest.advanceTimersByTime(600);
+      jest.advanceTimersByTime(1000);
     });
     
     // Aguardar os componentes serem renderizados após o tempo de carregamento
     await waitFor(() => {
-      const summaryMock = screen.getByTestId('summary-mock');
-      expect(summaryMock).toBeInTheDocument();
+      expect(screen.getByTestId('summary-mock')).toBeInTheDocument();
     });
     
     await waitFor(() => {
-      const suggestionsMock = screen.getByTestId('suggestions-mock');
-      expect(suggestionsMock).toBeInTheDocument();
+      expect(screen.getByTestId('suggestions-mock')).toBeInTheDocument();
     });
     
     await waitFor(() => {
-      const categoriasContent = screen.getByTestId('categorias-content');
-      expect(categoriasContent).toBeInTheDocument();
+      expect(screen.getByTestId('categorias-content')).toBeInTheDocument();
     });
   });
 })

@@ -64,7 +64,7 @@ describe('Cadastro', () => {
       </AuthProvider>
     )
 
-    const cpfInput = screen.getByPlaceholderText(/12345678912/i)
+    const cpfInput = screen.getByPlaceholderText(/123\.456\.789-12/i)
     expect(cpfInput).toBeInTheDocument()
   })
 
@@ -75,7 +75,7 @@ describe('Cadastro', () => {
       </AuthProvider>
     )
 
-    const phoneInput = screen.getByPlaceholderText(/81999999999/i)
+    const phoneInput = screen.getByPlaceholderText(/\(81\) 99999-9999/i)
     expect(phoneInput).toBeInTheDocument()
   })
 
@@ -86,7 +86,7 @@ describe('Cadastro', () => {
       </AuthProvider>
     )
 
-    const birthdateInput = screen.getByPlaceholderText(/data de nascimento/i)
+    const birthdateInput = screen.getByLabelText(/Data de nascimento/i)
     expect(birthdateInput).toBeInTheDocument()
   })
 
