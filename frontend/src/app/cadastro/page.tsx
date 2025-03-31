@@ -153,7 +153,7 @@ export default function CadastroScreen() {
                                     id="receita"
                                     value={receita}
                                     onChange={(e) => setReceita(e.target.value)}
-                                    placeholder="10000,00"
+                                    placeholder="10000.00"
                                     className={`${roboto400.className} h-12 md:h-14 block w-full rounded-md bg-white px-3 py-2 text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600`}
                                 />
                             </div>
